@@ -21,3 +21,9 @@ class IsSelectedItemProductsEvent extends MokaEvent {
   @override
   List<Object> get props => [index];
 }
+
+
+class GetElectronicsProductEvent extends MokaEvent {
+  @override
+  List<Object?> get props => [];
+}

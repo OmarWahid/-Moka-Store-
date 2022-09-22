@@ -10,344 +10,22 @@ import 'package:readmore/readmore.dart';
 import '../../../../core/utils/color_manager.dart';
 
 class ItemDetailsScreen extends StatelessWidget {
-  // final ItemModel item;
+  final item;
 
-  const ItemDetailsScreen({Key? key}) : super(key: key);
+  const ItemDetailsScreen({Key? key, required this.item}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    // return BlocProvider(
-    //   create: (context) => ItemDetailsScreenCubit()
-    //     ..setPrices(item.discount != 0 ? item.discount : item.price)
-    //     ..setFav(item.id),
-    //   child: BlocConsumer<ItemDetailsScreenCubit, ItemDetailsScreenStates>(
-    //     listener: (context, state) {},
-    //     builder: (context, state) {
-    //       var cubit = ItemDetailsScreenCubit.get(context);
-    //       return Scaffold(
-    //         body: Stack(
-    //           children: [
-    //             Image(
-    //               image: NetworkImage('${item.imagepath}'),
-    //               width: double.infinity,
-    //               height: size.height * 0.48,
-    //               fit: BoxFit.fill,
-    //             ),
-    //             Padding(
-    //               padding: const EdgeInsets.only(top: 20.0),
-    //               child: Material(
-    //                 elevation: 20,
-    //                 color: Colors.transparent,
-    //                 child: Row(
-    //                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //                   children: [
-    //                     IconButton(
-    //                       onPressed: () {
-    //                         Navigator.pop(context);
-    //                       },
-    //                       icon: Icon(Icons.arrow_back_ios_new,
-    //                           size: 20,
-    //                           color: Theme.of(context).scaffoldBackgroundColor),
-    //                     ),
-    //                     IconButton(
-    //                       icon: Icon(
-    //                         Icons.shopping_cart,
-    //                         color: Theme.of(context).scaffoldBackgroundColor,
-    //                         size: 25,
-    //                       ),
-    //                       onPressed: () {},
-    //                     )
-    //                   ],
-    //                 ),
-    //               ),
-    //             ),
-    //             Align(
-    //               alignment: Alignment.bottomCenter,
-    //               child: Container(
-    //                 clipBehavior: Clip.antiAliasWithSaveLayer,
-    //                 decoration: const BoxDecoration(
-    //                     borderRadius: BorderRadius.only(
-    //                         topLeft: Radius.circular(35),
-    //                         topRight: Radius.circular(35)),
-    //                     color: Colors.transparent),
-    //                 height: size.height * 0.6,
-    //                 child: Stack(
-    //                   alignment: Alignment.bottomCenter,
-    //                   children: [
-    //                     Container(
-    //                         clipBehavior: Clip.antiAliasWithSaveLayer,
-    //                         decoration: BoxDecoration(
-    //                           color: Theme.of(context).scaffoldBackgroundColor,
-    //                           borderRadius: const BorderRadius.only(
-    //                               topLeft: Radius.circular(35),
-    //                               topRight: Radius.circular(35)),
-    //                         ),
-    //                         height: size.height * 0.6 - 30,
-    //                         width: double.infinity,
-    //                         child: Padding(
-    //                           padding:
-    //                               const EdgeInsets.symmetric(horizontal: 20.0),
-    //                           child: SingleChildScrollView(
-    //                             child: Column(
-    //                               crossAxisAlignment: CrossAxisAlignment.start,
-    //                               children: [
-    //                                 const SizedBox(
-    //                                   height: 45,
-    //                                 ),
-    //                                 Text('${item.title}',
-    //                                     maxLines: 1,
-    //                                     style: Theme.of(context)
-    //                                         .textTheme
-    //                                         .headline1!
-    //                                         .copyWith(fontSize: 22)),
-    //                                 const SizedBox(
-    //                                   height: 10,
-    //                                 ),
-    //                                 Row(
-    //                                   mainAxisAlignment:
-    //                                       MainAxisAlignment.spaceBetween,
-    //                                   children: [
-    //                                     Column(
-    //                                       crossAxisAlignment:
-    //                                           CrossAxisAlignment.start,
-    //                                       children: [
-    //                                         RatingBar.builder(
-    //                                           itemSize: 30,
-    //                                           initialRating:
-    //                                               double.parse(item.rate),
-    //                                           ignoreGestures: true,
-    //                                           minRating: 1,
-    //                                           direction: Axis.horizontal,
-    //                                           allowHalfRating: true,
-    //                                           itemCount: 5,
-    //                                           itemPadding:
-    //                                               const EdgeInsetsDirectional
-    //                                                   .only(end: 1.0),
-    //                                           itemBuilder: (context, _) =>
-    //                                               const Icon(
-    //                                             Icons.star,
-    //                                             color: AppColor.primary,
-    //                                             size: 10,
-    //                                           ),
-    //                                           onRatingUpdate: (rating) {
-    //                                             print(rating);
-    //                                           },
-    //                                         ),
-    //                                         const SizedBox(
-    //                                           height: 5,
-    //                                         ),
-    //                                         Text('${item.rate} Ratings',
-    //                                             style: Theme.of(context)
-    //                                                 .textTheme
-    //                                                 .bodyText1!
-    //                                                 .copyWith(
-    //                                                     color:
-    //                                                         AppColor.primary))
-    //                                       ],
-    //                                     ),
-    //                                     Column(
-    //                                       crossAxisAlignment:
-    //                                           CrossAxisAlignment.start,
-    //                                       children: [
-    //                                         Row(
-    //                                           children: [
-    //                                             Text('L.E ',
-    //                                                 style: Theme.of(context)
-    //                                                     .textTheme
-    //                                                     .headline2!
-    //                                                     .copyWith(
-    //                                                         fontSize: 31)),
-    //                                             if (item.discount != 0)
-    //                                               Text('${item.discount} ',
-    //                                                   style: Theme.of(context)
-    //                                                       .textTheme
-    //                                                       .headline2!
-    //                                                       .copyWith(
-    //                                                           fontSize: 31)),
-    //                                             Text('${item.price}',
-    //                                                 style: Theme.of(context)
-    //                                                     .textTheme
-    //                                                     .headline2!
-    //                                                     .copyWith(
-    //                                                         fontSize:
-    //                                                             item.discount !=
-    //                                                                     0
-    //                                                                 ? 15
-    //                                                                 : 31,
-    //                                                         decoration: item
-    //                                                                     .discount !=
-    //                                                                 0
-    //                                                             ? TextDecoration
-    //                                                                 .lineThrough
-    //                                                             : TextDecoration
-    //                                                                 .none,
-    //                                                         decorationColor:
-    //                                                             AppColor
-    //                                                                 .primary)),
-    //                                           ],
-    //                                         ),
-    //                                         const SizedBox(
-    //                                           height: 5,
-    //                                         ),
-    //                                         Padding(
-    //                                           padding:
-    //                                               const EdgeInsetsDirectional
-    //                                                   .only(start: 25.0),
-    //                                           child: Text('/ per Portion',
-    //                                               style: Theme.of(context)
-    //                                                   .textTheme
-    //                                                   .bodyText1!),
-    //                                         )
-    //                                       ],
-    //                                     ),
-    //                                   ],
-    //                                 ),
-    //                                 const SizedBox(
-    //                                   height: 20,
-    //                                 ),
-    //                                 Text('Description',
-    //                                     style: Theme.of(context)
-    //                                         .textTheme
-    //                                         .headline2),
-    //                                 const SizedBox(
-    //                                   height: 10,
-    //                                 ),
-    //                                 Text('${item.description}',
-    //                                     maxLines: 3,
-    //                                     style: Theme.of(context)
-    //                                         .textTheme
-    //                                         .bodyText1),
-    //                                 const SizedBox(
-    //                                   height: 20,
-    //                                 ),
-    //                                 Row(
-    //                                     mainAxisAlignment:
-    //                                         MainAxisAlignment.spaceBetween,
-    //                                     children: [
-    //                                       Text('Number of Portions',
-    //                                           style: Theme.of(context)
-    //                                               .textTheme
-    //                                               .headline2),
-    //                                       const SizedBox(
-    //                                         width: 30,
-    //                                       ),
-    //                                       Expanded(
-    //                                         child: SizedBox(
-    //                                           width: double.infinity,
-    //                                           child: Row(
-    //                                             children: [
-    //                                               Expanded(
-    //                                                 child: Material(
-    //                                                   borderRadius:
-    //                                                       BorderRadius.circular(
-    //                                                           20),
-    //                                                   elevation: 10,
-    //                                                   child: defaultButton(
-    //                                                       function: () {
-    //                                                         cubit
-    //                                                             .changeNumberOfPortions(
-    //                                                                 '-');
-    //                                                       },
-    //                                                       text: '-',
-    //                                                       width: 20,
-    //                                                       radius: 20,
-    //                                                       height: 30),
-    //                                                 ),
-    //                                               ),
-    //                                               const SizedBox(
-    //                                                 width: 5,
-    //                                               ),
-    //                                               Expanded(
-    //                                                 child: defaultButton(
-    //                                                     function: () {},
-    //                                                     text:
-    //                                                         '${cubit.numberOfPortions}',
-    //                                                     width: 20,
-    //                                                     backgroundColor: Theme
-    //                                                             .of(context)
-    //                                                         .scaffoldBackgroundColor,
-    //                                                     fontColor: AppColor.primary,
-    //                                                     borderWidth: 1,
-    //                                                     radius: 20,
-    //                                                     height: 30),
-    //                                               ),
-    //                                               const SizedBox(
-    //                                                 width: 5,
-    //                                               ),
-    //                                               Expanded(
-    //                                                 child: Material(
-    //                                                   borderRadius:
-    //                                                       BorderRadius.circular(
-    //                                                           20),
-    //                                                   elevation: 10,
-    //                                                   child: defaultButton(
-    //                                                       function: () {
-    //                                                         cubit
-    //                                                             .changeNumberOfPortions(
-    //                                                                 '+');
-    //                                                       },
-    //                                                       text: '+',
-    //                                                       radius: 20,
-    //                                                       width: 20,
-    //                                                       height: 30),
-    //                                                 ),
-    //                                               ),
-    //                                             ],
-    //                                           ),
-    //                                         ),
-    //                                       )
-    //                                     ]),
-    //                                 const SizedBox(
-    //                                   height: 20,
-    //                                 ),
-    //                                 buildMoreItem(
-    //                                     context: context,
-    //                                     title: 'title',
-    //                                     cubit: cubit),
-    //                                 const SizedBox(
-    //                                   height: 50,
-    //                                 ),
-    //                               ],
-    //                             ),
-    //                           ),
-    //                         )),
-    //                     Padding(
-    //                       padding: const EdgeInsets.only(bottom: 8.0),
-    //                       child: defaultButton(
-    //                           function: () {
-    //                             cubit.addToCart(
-    //                                 id: item.id,
-    //                                 itemCount: cubit.numberOfPortions,
-    //                                 totalPrice: cubit.totalPrice);
-    //                            // showToast(msg: 'Added Successfully');
-    //                           },
-    //                           isUpperCase: false,
-    //                           prefix:Icons.add_shopping_cart,
-    //                           text: 'Add to Cart',
-    //                           height: 40,
-    //                           radius: 30),
-    //                     )
-    //                   ],
-    //                 ),
-    //               ),
-    //             ),
-    //           ],
-    //         ),
-    //       );
-    //     },
-    //   ),
-    // );
+    print("disssssssssssssssssssssssss ${item.discount}");
     return Scaffold(
       body: Stack(
         children: [
           CachedNetworkImage(
-            //   imageUrl: NetworkImage('${item.imagepath}'),
-            imageUrl:
-                'https://t4.ftcdn.net/jpg/03/52/07/97/240_F_352079780_GqPoua81UNGsJjykTVx7wTnkv0Yi73JE.jpg',
+            imageUrl: '${item.image}',
             width: double.infinity,
-            height: size.height * 0.46,
-            fit: BoxFit.cover,
+            height: size.height * 0.421,
+            fit: BoxFit.fill,
             placeholder: (context, url) => Container(
               color: AppColor.primary,
               width: double.infinity,
@@ -427,8 +105,7 @@ class ItemDetailsScreen extends StatelessWidget {
                                 const SizedBox(
                                   height: AppSize.s30,
                                 ),
-                                //   Text('${item.title}',
-                                Text('Electoronics shirt',
+                                Text('${item.title}',
                                     maxLines: AppConstants.cI1,
                                     overflow: TextOverflow.ellipsis,
                                     style: Theme.of(context)
@@ -448,8 +125,8 @@ class ItemDetailsScreen extends StatelessWidget {
                                       children: [
                                         RatingBar.builder(
                                           itemSize: AppSize.s30,
-                                          initialRating: 3.5,
-                                          //   double.parse(item.rate),
+                                          initialRating:
+                                              double.parse(item.rate),
                                           ignoreGestures: true,
                                           minRating: AppConstants.cD1,
                                           direction: Axis.horizontal,
@@ -472,19 +149,19 @@ class ItemDetailsScreen extends StatelessWidget {
                                         const SizedBox(
                                           height: AppSize.s4,
                                         ),
-                                        //    Text('${item.rate} Ratings',
-                                        Text('3.5 Ratings',
+                                        Text('${item.rate} Ratings',
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .bodySmall!
                                                 .copyWith(
-                                                    color: AppColor.primary,
-                                                    fontFamily: ''))
+                                                  color: AppColor.primary,
+                                                  fontFamily: '',
+                                                ))
                                       ],
                                     ),
                                     Column(
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                          CrossAxisAlignment.end,
                                       children: [
                                         Row(
                                           children: [
@@ -496,36 +173,33 @@ class ItemDetailsScreen extends StatelessWidget {
                                                         fontSize:
                                                             AppFontSize.s30,
                                                         fontFamily: '')),
-                                            // if (item.discount != 0)
-                                            //   Text('${item.discount} ',
-                                            //       style: Theme.of(context)
-                                            //           .textTheme
-                                            //           .headlineLarge!
-                                            //           .copyWith(
-                                            //           fontSize: AppFontSize.s30,
-                                            //            fontFamily: '',
-                                            //           )),
-                                            // Text('${item.price}',
-                                            Text('300',
+                                            if (item.discount != "0")
+                                              Text('${item.discount} ',
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .headlineLarge!
+                                                      .copyWith(
+                                                        fontSize:
+                                                            AppFontSize.s30,
+                                                        fontFamily: '',
+                                                      )),
+                                            Text('${item.price}',
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .headlineLarge!
                                                     .copyWith(
-                                                        fontSize:
-                                                            // item.discount !=
-                                                            //     0
-                                                            //     ? 15
-                                                            //     :
-                                                            AppFontSize.s30,
+                                                        fontSize: item
+                                                                    .discount !=
+                                                            "0"
+                                                            ? 15
+                                                            : AppFontSize.s30,
                                                         fontFamily: '',
                                                         decoration:
-                                                            // item
-                                                            //     .discount !=
-                                                            //     0
-                                                            //     ? TextDecoration
-                                                            //     .lineThrough
-                                                            //     :
-                                                            TextDecoration.none,
+                                                            item.discount != "0"
+                                                                ? TextDecoration
+                                                                    .lineThrough
+                                                                : TextDecoration
+                                                                    .none,
                                                         decorationColor:
                                                             AppColor.primary)),
                                           ],
@@ -564,10 +238,8 @@ class ItemDetailsScreen extends StatelessWidget {
                                 const SizedBox(
                                   height: AppSize.s10,
                                 ),
-
                                 ReadMoreText(
-                                  //   Text('${item.description}',
-                                  'Flutter is Google’s mobile UI open source framework to build high-quality native (super fast) interfaces for iOS and Android apps with the unified codebase',
+                                  '${item.description}',
                                   trimLines: 3,
                                   colorClickableText: AppColor.primary,
                                   trimMode: TrimMode.Line,
@@ -660,14 +332,14 @@ class ItemDetailsScreen extends StatelessWidget {
                                                     padding:
                                                         MaterialStatePropertyAll(
                                                             EdgeInsets.all(
-                                                                AppPadding
-                                                                    .p8))),
+                                                      AppPadding.p8,
+                                                    ))),
                                                 child: FittedBox(
                                                   child: Padding(
                                                     padding:
                                                         const EdgeInsets.only(
-                                                            bottom:
-                                                                AppPadding.p1),
+                                                      bottom: AppPadding.p1,
+                                                    ),
                                                     child: Text(
                                                       '8',
                                                       //  '${cubit.numberOfPortions}',
@@ -728,7 +400,7 @@ class ItemDetailsScreen extends StatelessWidget {
                       )),
                   Padding(
                     padding: const EdgeInsetsDirectional.only(
-                        end: AppPadding.p10, top: AppPadding.p8),
+                        end: AppPadding.p10, top: AppPadding.p4),
                     child: Align(
                       alignment: AlignmentDirectional.topEnd,
                       child: Material(

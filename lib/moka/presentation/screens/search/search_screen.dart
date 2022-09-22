@@ -1,9 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:moka_store/core/utils/assets_manager.dart';
 import 'package:moka_store/core/utils/values_manager.dart';
 import '../../../../core/utils/color_manager.dart';
 import '../../../../core/utils/font_manager.dart';
 import '../../../../core/utils/icons_manager.dart';
+import '../../../../core/utils/routes_manager.dart';
 import '../../../../core/utils/strings_manager.dart';
 
 var searchController = TextEditingController();
@@ -41,7 +43,7 @@ class _SearchScreenState extends State<SearchScreen> {
     } else {
       result = widget.listSearch
           .where((element) =>
-              element.text!.toLowerCase().contains(value.toLowerCase()))
+              element.title.toLowerCase().contains(value.toLowerCase()) as bool)
           .toList();
     }
     setState(() {
@@ -60,6 +62,8 @@ class _SearchScreenState extends State<SearchScreen> {
         isLoading = false;
       } else {
         listSearch = result;
+        liftList = [];
+        rightList = [];
         for (int i = 0; i < listSearch.length; i = i + 2) {
           liftList.add(listSearch[i]);
         }
@@ -240,21 +244,6 @@ class _SearchScreenState extends State<SearchScreen> {
                         ],
                       )
                     : buildSearchItem(),
-                // : ListView.separated(
-                //     physics: const NeverScrollableScrollPhysics(),
-                //     shrinkWrap: true,
-                //     padding: const EdgeInsets.only(bottom: AppPadding.p24),
-                //     itemBuilder: (context, index) {
-                //       return buildSearchItem(
-                //           context, listSearch[index], index);
-                //     },
-                //     separatorBuilder: (context, index) {
-                //       return const SizedBox(
-                //         height: AppSize.s24,
-                //       );
-                //     },
-                //     itemCount: listSearch.length,
-                //   ),
               ],
             ),
           ),
@@ -271,65 +260,77 @@ class _SearchScreenState extends State<SearchScreen> {
           child: Column(children: [
             ListView.separated(
               itemBuilder: (context, index) {
-                return Stack(
-                  alignment: AlignmentDirectional.topCenter,
-                  children: [
-                    Column(
-                      children: [
-                        const SizedBox(
-                          height: AppSize.s60,
-                        ),
-                        Container(
-                          height: AppSize.s230,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(AppSize.s10),
-                            color: AppColor.white,
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, Routes.itemDetailsRoute,
+                        arguments: liftList[index]);
+                  },
+                  child: Stack(
+                    alignment: AlignmentDirectional.topCenter,
+                    children: [
+                      Column(
+                        children: [
+                          const SizedBox(
+                            height: AppSize.s60,
                           ),
-                          child: Align(
-                            alignment: Alignment.bottomCenter,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Text(
-                                  liftList[index],
-                                  style:
-                                      Theme.of(context).textTheme.headlineLarge,
-                                  textAlign: TextAlign.center,
-                                ),
-                                const SizedBox(
-                                  height: AppSize.s8,
-                                ),
-                                Text(
-                                  'From £139',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyLarge!
-                                      .copyWith(
-                                        fontSize: AppFontSize.s18,
-                                      ),
-                                ),
-                                const SizedBox(
-                                  height: AppSize.s20,
-                                ),
-                              ],
+                          Container(
+                            height: AppSize.s230,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(AppSize.s10),
+                              color: AppColor.white,
+                            ),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: AppPadding.p12,
+                            ),
+                            child: Align(
+                              alignment: Alignment.bottomCenter,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    liftList[index].title,
+                                    //   liftList[index],
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineLarge!
+                                        .copyWith(fontSize: AppFontSize.s18),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  const SizedBox(
+                                    height: AppSize.s8,
+                                  ),
+                                  Text(
+                                    "${liftList[index].price} ${AppStrings.poundLE}",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyLarge!
+                                        .copyWith(
+                                          fontSize: AppFontSize.s18,
+                                        ),
+                                  ),
+                                  const SizedBox(
+                                    height: AppSize.s20,
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                    CircleAvatar(
-                      radius: AppSize.s70,
-                      backgroundColor: AppColor.redAccent,
-                      child: ClipOval(
-                        child: Image.network(
+                        ],
+                      ),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(AppSize.s8),
+                        child: CachedNetworkImage(
                           height: AppSize.s140,
-                          fit: BoxFit.cover,
-                          'https://img.freepik.com/free-psd/smartphone-screen-mockup-psd-promotional-ad_53876-123315.jpg?w=996&t=st=1663780955~exp=1663781555~hmac=045d0d3ced680754714aa892f0702a3cff8f5324760f4ff85400165954ac5410',
+                          width: AppSize.s140,
+                          fit: BoxFit.fill,
+                          imageUrl: '${liftList[index].image}',
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 );
               },
               separatorBuilder: (context, index) {
@@ -353,65 +354,76 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
             ListView.separated(
               itemBuilder: (context, index) {
-                return Stack(
-                  alignment: AlignmentDirectional.topCenter,
-                  children: [
-                    Column(
-                      children: [
-                        const SizedBox(
-                          height: AppSize.s60,
-                        ),
-                        Container(
-                          height: AppSize.s230,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(AppSize.s10),
-                            color: AppColor.white,
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, Routes.itemDetailsRoute,
+                        arguments: rightList[index]);
+                  },
+                  child: Stack(
+                    alignment: AlignmentDirectional.topCenter,
+                    children: [
+                      Column(
+                        children: [
+                          const SizedBox(
+                            height: AppSize.s60,
                           ),
-                          child: Align(
-                            alignment: Alignment.bottomCenter,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Text(
-                                  rightList[index],
-                                  style:
-                                      Theme.of(context).textTheme.headlineLarge,
-                                  textAlign: TextAlign.center,
-                                ),
-                                const SizedBox(
-                                  height: AppSize.s8,
-                                ),
-                                Text(
-                                  'From £139',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyLarge!
-                                      .copyWith(
-                                        fontSize: AppFontSize.s18,
-                                      ),
-                                ),
-                                const SizedBox(
-                                  height: AppSize.s20,
-                                ),
-                              ],
+                          Container(
+                            height: AppSize.s230,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(AppSize.s10),
+                              color: AppColor.white,
+                            ),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: AppPadding.p12,
+                            ),
+                            child: Align(
+                              alignment: Alignment.bottomCenter,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    rightList[index].title,
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineLarge!
+                                        .copyWith(fontSize: AppFontSize.s18),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  const SizedBox(
+                                    height: AppSize.s8,
+                                  ),
+                                  Text(
+                                    "${rightList[index].price} ${AppStrings.poundLE}",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyLarge!
+                                        .copyWith(
+                                          fontSize: AppFontSize.s18,
+                                        ),
+                                  ),
+                                  const SizedBox(
+                                    height: AppSize.s20,
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                    CircleAvatar(
-                      radius: AppSize.s70,
-                      backgroundColor: AppColor.redAccent,
-                      child: ClipOval(
-                        child: Image.network(
+                        ],
+                      ),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(AppSize.s8),
+                        child: CachedNetworkImage(
                           height: AppSize.s140,
-                          fit: BoxFit.cover,
-                          'https://img.freepik.com/free-psd/realistic-smart-watch-mockup_165789-534.jpg?t=st=1663781210~exp=1663781810~hmac=57825ec091ab5c844c8d248ec36377d2850df16fbd3b80258ac2f0544e40c62b',
+                          width: AppSize.s140,
+                          fit: BoxFit.fill,
+                          imageUrl: '${rightList[index].image}',
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 );
               },
               separatorBuilder: (context, index) {

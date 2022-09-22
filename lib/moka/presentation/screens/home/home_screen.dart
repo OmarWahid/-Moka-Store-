@@ -54,15 +54,16 @@ class HomeScreen extends StatelessWidget {
                             color: AppColor.grey,
                           )),
                       child: Row(
-                        children:  [
+                        children: [
                           const Icon(IconBroken.Search, color: AppColor.grey),
                           const SizedBox(
                             width: AppSize.s12,
                           ),
                           Text(AppStrings.search,
-                              style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                                color: AppColor.grey
-                              )),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleMedium!
+                                  .copyWith(color: AppColor.grey)),
                         ],
                       ),
                     ),
@@ -71,22 +72,27 @@ class HomeScreen extends StatelessWidget {
                 const SizedBox(
                   width: AppSize.s12,
                 ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(context, Routes.searchRoute);
+                BlocBuilder<MokaBloc, MokaState>(
+                  builder: (context, state) {
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, Routes.searchRoute,
+                            arguments: state.electronicsProduct);
+                      },
+                      child: Container(
+                        height: AppSize.s50,
+                        width: AppSize.s50,
+                        decoration: BoxDecoration(
+                          color: AppColor.primary,
+                          borderRadius: BorderRadius.circular(AppSize.s8),
+                        ),
+                        child: const Icon(
+                          IconBroken.Filter,
+                          color: AppColor.white,
+                        ),
+                      ),
+                    );
                   },
-                  child: Container(
-                    height: AppSize.s50,
-                    width: AppSize.s50,
-                    decoration: BoxDecoration(
-                      color: AppColor.primary,
-                      borderRadius: BorderRadius.circular(AppSize.s8),
-                    ),
-                    child: const Icon(
-                      IconBroken.Filter,
-                      color: AppColor.white,
-                    ),
-                  ),
                 ),
               ],
             ),
@@ -170,7 +176,8 @@ class HomeScreen extends StatelessWidget {
               height: AppSize.s14,
             ),
             BlocBuilder<MokaBloc, MokaState>(
-              buildWhen: (previous, current) => previous.currentIndexItem!=current.currentIndexItem,
+              buildWhen: (previous, current) =>
+                  previous.currentIndexItem != current.currentIndexItem,
               builder: (context, state) {
                 var bloc = MokaBloc.get(context);
                 log('Home Bloccccccccc');
@@ -183,7 +190,6 @@ class HomeScreen extends StatelessWidget {
                       return GestureDetector(
                         onTap: () {
                           bloc.add(IsSelectedItemProductsEvent(index));
-
                         },
                         child: AnimatedContainer(
                           width: AppSize.s140,
@@ -200,7 +206,8 @@ class HomeScreen extends StatelessWidget {
                               width: AppSize.s2,
                             ),
                           ),
-                          duration: const Duration(milliseconds: AppConstants.containerAnimation),
+                          duration: const Duration(
+                              milliseconds: AppConstants.containerAnimation),
                           child: Center(
                             child: FittedBox(
                               child: Text(

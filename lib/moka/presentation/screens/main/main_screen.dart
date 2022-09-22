@@ -10,6 +10,7 @@ import 'package:moka_store/core/utils/constants_manager.dart';
 import 'package:moka_store/core/utils/icons_manager.dart';
 import 'package:moka_store/core/utils/strings_manager.dart';
 import 'package:moka_store/core/utils/values_manager.dart';
+import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/color_manager.dart';
 import '../../controller/moka_bloc.dart';
 import 'list_icons.dart';
@@ -25,7 +26,7 @@ class MainHomeZoom extends StatelessWidget {
       create: (context) {
         log('zoom Bloccccccccc');
 
-        return MokaBloc();
+        return sl<MokaBloc>()..add(GetElectronicsProductEvent());
       },
       child: ZoomDrawer(
         controller: zoomDrawerController,
@@ -137,7 +138,8 @@ class MenuScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MokaBloc, MokaState>(
-    buildWhen: (previous, current) => previous.menuRefresh!=current.menuRefresh,
+      buildWhen: (previous, current) =>
+          previous.menuRefresh != current.menuRefresh,
       builder: (context, state) {
         log('menuu Bloccccccccc');
 

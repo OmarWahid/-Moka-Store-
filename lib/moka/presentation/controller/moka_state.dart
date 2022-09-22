@@ -7,8 +7,13 @@ class MokaState extends Equatable {
   final List<ProductSelectedState>? compare1;
   final List<Widget>? screens;
   final ProductSelectedState? itemSelected;
+  final List<ItemDetails> electronicsProduct;
+  final RequestState electronicsProductState;
 
-  const MokaState({this.currentIndexItem = 0,
+  const MokaState({
+    this.electronicsProduct = const [],
+    this.electronicsProductState = RequestState.loading,
+    this.currentIndexItem = 0,
     this.currentIndexNavigation = 0,
     this.menuRefresh = 0,
     this.screens = const [
@@ -26,6 +31,8 @@ class MokaState extends Equatable {
     ]});
 
   MokaState copyWith({
+    List<ItemDetails>? electronicsProduct,
+    RequestState ?electronicsProductState ,
     int? currentIndexNavigation,
     itemSelected,
     int? currentIndexItem,
@@ -35,6 +42,8 @@ class MokaState extends Equatable {
       currentIndexNavigation ?? this.currentIndexNavigation,
       itemSelected: itemSelected ?? this.itemSelected,
       currentIndexItem: currentIndexItem ?? this.currentIndexItem,
+      electronicsProduct: electronicsProduct ?? this.electronicsProduct,
+      electronicsProductState: electronicsProductState ?? this.electronicsProductState,
     );
   }
 
@@ -47,5 +56,8 @@ class MokaState extends Equatable {
         compare1,
         screens,
         itemSelected,
+        electronicsProduct,
+        electronicsProductState,
+
       ];
 }
