@@ -17,8 +17,8 @@ part 'moka_state.dart';
 
 class MokaBloc extends Bloc<MokaEvent, MokaState> {
   final GetElectronicsProductUseCase getElectronicsProductUseCase;
-  static MokaBloc get(context) => BlocProvider.of(context);
 
+  static MokaBloc get(context) => BlocProvider.of(context);
 
   MokaBloc(this.getElectronicsProductUseCase) : super(const MokaState()) {
     on<ChangeIndexEvent>(_changeIndexNavigationBar);
@@ -28,18 +28,24 @@ class MokaBloc extends Bloc<MokaEvent, MokaState> {
 
   FutureOr<void> _isSelected(
       IsSelectedItemProductsEvent event, Emitter<MokaState> emit) {
+    List<ItemDetails> nowProduct = [];
+    if (event.index == 0) nowProduct = state.electronicsProduct;
+    if (event.index == 1) nowProduct = state.electronicsProduct;
+    if (event.index == 2) nowProduct = state.electronicsProduct;
+    if (event.index == 3) nowProduct = state.electronicsProduct;
+    if (event.index == 4) nowProduct = state.electronicsProduct;
+
     emit(state.copyWith(
       currentIndexItem: event.index,
+      currentProduct: nowProduct,
     ));
   }
 
   FutureOr<void> _changeIndexNavigationBar(
       ChangeIndexEvent event, Emitter<MokaState> emit) {
-    // print( "before ${state.currentIndexNavigation}");
     emit(state.copyWith(
       currentIndexNavigation: event.index,
     ));
-    //print( "after ${state.currentIndexNavigation}");
   }
 
   FutureOr<void> _getElectronicsProduct(
@@ -47,7 +53,10 @@ class MokaBloc extends Bloc<MokaEvent, MokaState> {
     final result = await getElectronicsProductUseCase();
     emit(state.copyWith(
       electronicsProduct: result,
+      currentProduct: result,
       electronicsProductState: RequestState.loaded,
+      currentProductState: RequestState.loaded,
     ));
+    print(state.currentProduct);
   }
 }

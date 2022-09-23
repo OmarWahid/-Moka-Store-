@@ -1,11 +1,7 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:moka_store/core/utils/constants_manager.dart';
+import 'package:moka_store/moka/presentation/screens/home/product_part.dart';
 import '../../../../core/utils/color_manager.dart';
-import '../../../../core/utils/enums_manager.dart';
-import '../../../../core/utils/font_manager.dart';
 import '../../../../core/utils/icons_manager.dart';
 import '../../../../core/utils/routes_manager.dart';
 import '../../../../core/utils/strings_manager.dart';
@@ -13,12 +9,6 @@ import '../../../../core/utils/values_manager.dart';
 import '../../controller/moka_bloc.dart';
 import 'category_items.dart';
 
-List<ProductSelectedState> compare2 = [
-  ProductSelectedState.men,
-  ProductSelectedState.women,
-  ProductSelectedState.electric,
-  ProductSelectedState.watch
-];
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -72,28 +62,25 @@ class HomeScreen extends StatelessWidget {
                 const SizedBox(
                   width: AppSize.s12,
                 ),
-                BlocBuilder<MokaBloc, MokaState>(
-                  builder: (context, state) {
-                    return GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(context, Routes.searchRoute,
-                            arguments: state.electronicsProduct);
-                      },
-                      child: Container(
-                        height: AppSize.s50,
-                        width: AppSize.s50,
-                        decoration: BoxDecoration(
-                          color: AppColor.primary,
-                          borderRadius: BorderRadius.circular(AppSize.s8),
-                        ),
-                        child: const Icon(
-                          IconBroken.Filter,
-                          color: AppColor.white,
-                        ),
-                      ),
-                    );
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, Routes.searchRoute,
+                        arguments:
+                            MokaBloc.get(context).state.electronicsProduct);
                   },
-                ),
+                  child: Container(
+                    height: AppSize.s50,
+                    width: AppSize.s50,
+                    decoration: BoxDecoration(
+                      color: AppColor.primary,
+                      borderRadius: BorderRadius.circular(AppSize.s8),
+                    ),
+                    child: const Icon(
+                      IconBroken.Filter,
+                      color: AppColor.white,
+                    ),
+                  ),
+                )
               ],
             ),
             const SizedBox(
@@ -175,69 +162,8 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(
               height: AppSize.s14,
             ),
-            BlocBuilder<MokaBloc, MokaState>(
-              buildWhen: (previous, current) =>
-                  previous.currentIndexItem != current.currentIndexItem,
-              builder: (context, state) {
-                var bloc = MokaBloc.get(context);
-                log('Home Bloccccccccc');
-                return SizedBox(
-                  height: AppSize.s50,
-                  child: ListView.separated(
-                    scrollDirection: Axis.horizontal,
-                    physics: const BouncingScrollPhysics(),
-                    itemBuilder: (BuildContext context, int index) {
-                      return GestureDetector(
-                        onTap: () {
-                          bloc.add(IsSelectedItemProductsEvent(index));
-                        },
-                        child: AnimatedContainer(
-                          width: AppSize.s140,
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: AppPadding.p10),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(AppSize.s30),
-                            border: Border.all(
-                              color:
-                                  (state.compare1![state.currentIndexItem!] ==
-                                          compare2[index])
-                                      ? AppColor.primary
-                                      : AppColor.lightGrey,
-                              width: AppSize.s2,
-                            ),
-                          ),
-                          duration: const Duration(
-                              milliseconds: AppConstants.containerAnimation),
-                          child: Center(
-                            child: FittedBox(
-                              child: Text(
-                                listCategory[index].name,
-                                style: TextStyle(
-                                  color: (state.compare1![
-                                              state.currentIndexItem!] ==
-                                          compare2[index])
-                                      ? AppColor.primary
-                                      : AppColor.lightGrey,
-                                  fontWeight: AppFontWeight.semiBold,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      );
-                    },
-                    separatorBuilder: (BuildContext context, int index) =>
-                        const SizedBox(
-                      width: 10,
-                    ),
-                    itemCount: 4,
-                  ),
-                );
-              },
-            ),
-            const SizedBox(
-              height: AppSize.s14,
-            ),
+            const ProductPart(),
+
           ],
         ),
       ),

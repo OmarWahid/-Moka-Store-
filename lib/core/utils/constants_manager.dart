@@ -27,6 +27,7 @@ class AppConstants {
   static const int cI0 = 0;
   static const int cI1 = 1;
   static const int cI2 = 2;
+  static const int cI3 = 3;
   static const int cI4 = 4;
   static const int cI5 = 5;
   static const int cI10 = 10;

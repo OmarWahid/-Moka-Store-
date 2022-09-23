@@ -137,162 +137,186 @@ class MenuScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MokaBloc, MokaState>(
-      buildWhen: (previous, current) =>
-          previous.menuRefresh != current.menuRefresh,
-      builder: (context, state) {
-        log('menuu Bloccccccccc');
-
-        return Theme(
-          data: ThemeData.dark(),
-          child: Scaffold(
-            backgroundColor: AppColor.primary,
-            body: Padding(
-              padding: const EdgeInsets.only(left: AppPadding.p24),
-              child: Stack(
+    return  Theme(
+      data: ThemeData.dark(),
+      child: Scaffold(
+        backgroundColor: AppColor.primary,
+        body: Padding(
+          padding: const EdgeInsets.only(left: AppPadding.p24),
+          child: Stack(
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      InkWell(
-                        onTap: () async {
-                          MokaBloc.get(context)
-                              .add(const ChangeIndexEvent(AppConstants.cI1));
-                          zoomDrawerController.close!();
-                        },
-                        splashColor: AppColor.lightGrey,
-                        borderRadius: BorderRadius.circular(AppSize.s16),
-                        child: Padding(
-                          padding: const EdgeInsets.all(AppPadding.p8),
-                          child: Row(
-                            children: [
-                              const Icon(IconBroken.Heart),
-                              const SizedBox(
-                                width: AppSize.s12,
-                              ),
-                              Text(
-                                'Favorites',
-                                style: Theme.of(context).textTheme.titleMedium,
-                              ),
-                            ],
+                  InkWell(
+                    onTap: () async {
+                    },
+                    splashColor: AppColor.lightGrey,
+                    borderRadius: BorderRadius.circular(AppSize.s16),
+                    child: Padding(
+                      padding: const EdgeInsets.all(AppPadding.p8),
+                      child: Row(
+                        children: [
+                          const Icon(IconBroken.Profile),
+                          const SizedBox(
+                            width: AppSize.s12,
                           ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: AppPadding.p24,
-                      ),
-                      InkWell(
-                        onTap: () {},
-                        splashColor: AppColor.lightGrey,
-                        borderRadius: BorderRadius.circular(AppSize.s16),
-                        child: Padding(
-                          padding: const EdgeInsets.all(AppPadding.p8),
-                          child: Row(
-                            children: [
-                              const Icon(IconBroken.Wallet),
-                              const SizedBox(
-                                width: AppSize.s12,
-                              ),
-                              Text(
-                                'My orders',
-                                style: Theme.of(context).textTheme.titleMedium,
-                              ),
-                            ],
+                          Text(
+                            AppStrings.profile,
+                            style: Theme.of(context).textTheme.titleMedium,
                           ),
-                        ),
+                        ],
                       ),
-                      const SizedBox(
-                        height: AppPadding.p24,
-                      ),
-                      InkWell(
-                        onTap: () {},
-                        splashColor: AppColor.lightGrey,
-                        borderRadius: BorderRadius.circular(AppSize.s16),
-                        child: Padding(
-                          padding: const EdgeInsets.all(AppPadding.p8),
-                          child: Row(
-                            children: [
-                              const Icon(IconBroken.Calling),
-                              const SizedBox(
-                                width: AppSize.s12,
-                              ),
-                              Text(
-                                'Delivery',
-                                style: Theme.of(context).textTheme.titleMedium,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: AppPadding.p24,
-                      ),
-                      InkWell(
-                        onTap: () {},
-                        splashColor: AppColor.lightGrey,
-                        borderRadius: BorderRadius.circular(AppSize.s16),
-                        child: Padding(
-                          padding: const EdgeInsets.all(AppPadding.p8),
-                          child: Row(
-                            children: [
-                              const Icon(IconBroken.Setting),
-                              const SizedBox(
-                                width: AppSize.s12,
-                              ),
-                              Text(
-                                'Settings',
-                                style: Theme.of(context).textTheme.titleMedium,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: AppPadding.p24,
-                      ),
-                    ],
-                  ),
-                  Positioned(
-                    top: MediaQuery.of(context).size.height * 0.7,
-                    child: const Icon(
-                      Icons.circle,
-                      color: AppColor.menuDesign,
-                      size: AppSize.s140,
                     ),
                   ),
-                  Positioned(
-                    top: MediaQuery.of(context).size.height * 0.65,
-                    left: MediaQuery.of(context).size.width * 0.35,
-                    child: const Icon(
-                      Icons.circle_outlined,
-                      color: AppColor.menuDesign,
-                      size: AppSize.s40,
+                  const SizedBox(
+                    height: AppPadding.p24,
+                  ),
+                  InkWell(
+                    onTap: () async {
+                      MokaBloc.get(context)
+                          .add(const ChangeIndexEvent(AppConstants.cI1));
+                      zoomDrawerController.close!();
+                    },
+                    splashColor: AppColor.lightGrey,
+                    borderRadius: BorderRadius.circular(AppSize.s16),
+                    child: Padding(
+                      padding: const EdgeInsets.all(AppPadding.p8),
+                      child: Row(
+                        children: [
+                          const Icon(IconBroken.Heart),
+                          const SizedBox(
+                            width: AppSize.s12,
+                          ),
+                          Text(
+                            AppStrings.favorites,
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                  Positioned(
-                    top: MediaQuery.of(context).size.height * 0.1,
-                    left: MediaQuery.of(context).size.width * 0.38,
-                    child: const Icon(
-                      Icons.circle_outlined,
-                      color: AppColor.menuDesign,
-                      size: AppSize.s30,
+                  const SizedBox(
+                    height: AppPadding.p24,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      MokaBloc.get(context)
+                          .add(const ChangeIndexEvent(AppConstants.cI2));
+                      zoomDrawerController.close!();
+                    },
+                    splashColor: AppColor.lightGrey,
+                    borderRadius: BorderRadius.circular(AppSize.s16),
+                    child: Padding(
+                      padding: const EdgeInsets.all(AppPadding.p8),
+                      child: Row(
+                        children: [
+                          const Icon(IconBroken.Wallet),
+                          const SizedBox(
+                            width: AppSize.s12,
+                          ),
+                          Text(
+                            AppStrings.order,
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                  Positioned(
-                    top: -35,
-                    left: MediaQuery.of(context).size.width * 0.1,
-                    child: const Icon(
-                      Icons.circle,
-                      color: AppColor.menuDesign,
-                      size: AppSize.s80,
+                  const SizedBox(
+                    height: AppPadding.p24,
+                  ),
+                  InkWell(
+                    onTap: () {},
+                    splashColor: AppColor.lightGrey,
+                    borderRadius: BorderRadius.circular(AppSize.s16),
+                    child: Padding(
+                      padding: const EdgeInsets.all(AppPadding.p8),
+                      child: Row(
+                        children: [
+                          const Icon(IconBroken.Calling),
+                          const SizedBox(
+                            width: AppSize.s12,
+                          ),
+                          Text(
+                            AppStrings.delivery,
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                        ],
+                      ),
                     ),
+                  ),
+                  const SizedBox(
+                    height: AppPadding.p24,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      MokaBloc.get(context)
+                          .add(const ChangeIndexEvent(AppConstants.cI3));
+                      zoomDrawerController.close!();
+                    },
+                    splashColor: AppColor.lightGrey,
+                    borderRadius: BorderRadius.circular(AppSize.s16),
+                    child: Padding(
+                      padding: const EdgeInsets.all(AppPadding.p8),
+                      child: Row(
+                        children: [
+                          const Icon(IconBroken.Setting),
+                          const SizedBox(
+                            width: AppSize.s12,
+                          ),
+                          Text(
+                            AppStrings.settings,
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: AppPadding.p24,
                   ),
                 ],
               ),
-            ),
+              Positioned(
+                top: MediaQuery.of(context).size.height * 0.7,
+                child: const Icon(
+                  Icons.circle,
+                  color: AppColor.menuDesign,
+                  size: AppSize.s140,
+                ),
+              ),
+              Positioned(
+                top: MediaQuery.of(context).size.height * 0.65,
+                left: MediaQuery.of(context).size.width * 0.35,
+                child: const Icon(
+                  Icons.circle_outlined,
+                  color: AppColor.menuDesign,
+                  size: AppSize.s40,
+                ),
+              ),
+              Positioned(
+                top: MediaQuery.of(context).size.height * 0.1,
+                left: MediaQuery.of(context).size.width * 0.38,
+                child: const Icon(
+                  Icons.circle_outlined,
+                  color: AppColor.menuDesign,
+                  size: AppSize.s30,
+                ),
+              ),
+              Positioned(
+                top: -35,
+                left: MediaQuery.of(context).size.width * 0.1,
+                child: const Icon(
+                  Icons.circle,
+                  color: AppColor.menuDesign,
+                  size: AppSize.s80,
+                ),
+              ),
+            ],
           ),
-        );
-      },
-    );
+        ),
+      ),
+    ) ;
   }
 }

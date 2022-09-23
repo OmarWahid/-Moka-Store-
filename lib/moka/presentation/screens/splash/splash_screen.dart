@@ -74,7 +74,7 @@ class _SplashScreenState extends State<SplashScreen>
               ),
               child: Text(
                 AppStrings.appName,
-                style: GoogleFonts.josefinSans(
+                style: GoogleFonts.bungee(
                   textStyle: Theme.of(context).textTheme.headline4!.copyWith(
                         color: AppColor.white,
                       ),

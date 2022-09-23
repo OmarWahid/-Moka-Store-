@@ -34,7 +34,9 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const CategorySeeMoreScreen());
 
       case Routes.categoryItemsRoute:
-        return MaterialPageRoute(builder: (_) => const CategoryItemsScreen());
+        return MaterialPageRoute(builder: (_) =>  CategoryItemsScreen(
+          item: settings.arguments,
+        ));
 
       case Routes.itemDetailsRoute:
         return MaterialPageRoute(builder: (_) => ItemDetailsScreen(

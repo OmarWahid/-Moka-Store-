@@ -9,4 +9,5 @@ enum ProductSelectedState {
   women,
   electric,
   watch,
+  supermarket,
 }

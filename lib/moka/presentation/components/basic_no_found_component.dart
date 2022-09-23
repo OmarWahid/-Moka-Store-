@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moka_store/core/utils/font_manager.dart';
 import '../../../core/utils/constants_manager.dart';
 import '../../../core/utils/strings_manager.dart';
@@ -44,24 +43,20 @@ class BasicNoFoundScreen extends StatelessWidget {
             height: AppSize.s20,
           ),
           if (name != AppStrings.noSearch)
-            BlocBuilder<MokaBloc, MokaState>(
-              builder: (context, state) {
-                return SizedBox(
-                  width: AppSize.s250,
-                  height: AppSize.s50,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      MokaBloc.get(context)
-                          .add(const ChangeIndexEvent(AppConstants.cI0));
-                    },
-                    child: Text(
-                      AppStrings.startOrdering,
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                  ),
-                );
-              },
-            ),
+            SizedBox(
+              width: AppSize.s250,
+              height: AppSize.s50,
+              child: ElevatedButton(
+                onPressed: () {
+                  MokaBloc.get(context)
+                      .add(const ChangeIndexEvent(AppConstants.cI0));
+                },
+                child: Text(
+                  AppStrings.startOrdering,
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+              ),
+            )
         ],
       ),
     );

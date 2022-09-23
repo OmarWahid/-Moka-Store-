@@ -17,22 +17,24 @@ class ItemDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    print("disssssssssssssssssssssssss ${item.discount}");
     return Scaffold(
       body: Stack(
         children: [
-          CachedNetworkImage(
-            imageUrl: '${item.image}',
-            width: double.infinity,
-            height: size.height * 0.421,
-            fit: BoxFit.fill,
-            placeholder: (context, url) => Container(
-              color: AppColor.primary,
+          Hero(
+            tag: item.image,
+            child: CachedNetworkImage(
+              imageUrl: '${item.image}',
               width: double.infinity,
-              height: size.height * 0.46,
-              child: const Center(
-                child: CircularProgressIndicator(
-                  color: AppColor.white,
+              height: size.height * 0.421,
+              fit: BoxFit.fill,
+              placeholder: (context, url) => Container(
+                color: AppColor.primary,
+                width: double.infinity,
+                height: size.height * 0.46,
+                child: const Center(
+                  child: CircularProgressIndicator(
+                    color: AppColor.white,
+                  ),
                 ),
               ),
             ),
@@ -174,15 +176,25 @@ class ItemDetailsScreen extends StatelessWidget {
                                                             AppFontSize.s30,
                                                         fontFamily: '')),
                                             if (item.discount != "0")
-                                              Text('${item.discount} ',
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .headlineLarge!
-                                                      .copyWith(
-                                                        fontSize:
-                                                            AppFontSize.s30,
-                                                        fontFamily: '',
-                                                      )),
+                                              (item.discount == "12,000")
+                                                  ? Text('12K ',
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .headlineLarge!
+                                                          .copyWith(
+                                                            fontSize:
+                                                                AppFontSize.s30,
+                                                            fontFamily: '',
+                                                          ))
+                                                  : Text('${item.discount} ',
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .headlineLarge!
+                                                          .copyWith(
+                                                            fontSize:
+                                                                AppFontSize.s30,
+                                                            fontFamily: '',
+                                                          )),
                                             Text('${item.price}',
                                                 style: Theme.of(context)
                                                     .textTheme
@@ -190,8 +202,8 @@ class ItemDetailsScreen extends StatelessWidget {
                                                     .copyWith(
                                                         fontSize: item
                                                                     .discount !=
-                                                            "0"
-                                                            ? 15
+                                                                "0"
+                                                            ? AppFontSize.s15
                                                             : AppFontSize.s30,
                                                         fontFamily: '',
                                                         decoration:

@@ -232,15 +232,14 @@ class _SearchScreenState extends State<SearchScreen> {
                             height: AppSize.s5,
                           ),
                           Text(
-                              textAlign: TextAlign.center,
-                              AppStrings.basicNoSearchWord,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall!
-                                  .copyWith(
-                                    fontSize: AppFontSize.s14,
-                                    color: AppColor.grey,
-                                  )),
+                            textAlign: TextAlign.center,
+                            AppStrings.basicNoSearchWord,
+                            style:
+                                Theme.of(context).textTheme.bodySmall!.copyWith(
+                                      fontSize: AppFontSize.s14,
+                                      color: AppColor.grey,
+                                    ),
+                          ),
                         ],
                       )
                     : buildSearchItem(),
@@ -253,189 +252,209 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   Widget buildSearchItem() {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return Column(
       children: [
-        Expanded(
-          child: Column(children: [
-            ListView.separated(
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(context, Routes.itemDetailsRoute,
-                        arguments: liftList[index]);
-                  },
-                  child: Stack(
-                    alignment: AlignmentDirectional.topCenter,
-                    children: [
-                      Column(
-                        children: [
-                          const SizedBox(
-                            height: AppSize.s60,
-                          ),
-                          Container(
-                            height: AppSize.s230,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(AppSize.s10),
-                              color: AppColor.white,
-                            ),
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: AppPadding.p12,
-                            ),
-                            child: Align(
-                              alignment: Alignment.bottomCenter,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  Text(
-                                    liftList[index].title,
-                                    //   liftList[index],
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headlineLarge!
-                                        .copyWith(fontSize: AppFontSize.s18),
-                                    textAlign: TextAlign.center,
+        Text(
+          '${AppStrings.found} ${listSearch.length} ${AppStrings.result}',
+          style: Theme.of(context).textTheme.headlineLarge,
+        ),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: Column(children: [
+                ListView.separated(
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, Routes.itemDetailsRoute,
+                            arguments: liftList[index]);
+                      },
+                      child: Hero(
+                        tag: liftList[index].image,
+                        child: Stack(
+                          alignment: AlignmentDirectional.topCenter,
+                          children: [
+                            Column(
+                              children: [
+                                const SizedBox(
+                                  height: AppSize.s60,
+                                ),
+                                Container(
+                                  height: AppSize.s230,
+                                  decoration: BoxDecoration(
+                                    borderRadius:
+                                        BorderRadius.circular(AppSize.s10),
+                                    color: AppColor.white,
                                   ),
-                                  const SizedBox(
-                                    height: AppSize.s8,
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: AppPadding.p12,
                                   ),
-                                  Text(
-                                    "${liftList[index].price} ${AppStrings.poundLE}",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyLarge!
-                                        .copyWith(
-                                          fontSize: AppFontSize.s18,
+                                  child: Align(
+                                    alignment: Alignment.bottomCenter,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Text(
+                                          liftList[index].title,
+                                          //   liftList[index],
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headlineLarge!
+                                              .copyWith(
+                                                  fontSize: AppFontSize.s18),
+                                          textAlign: TextAlign.center,
                                         ),
+                                        const SizedBox(
+                                          height: AppSize.s8,
+                                        ),
+                                        Text(
+                                          "${liftList[index].price} ${AppStrings.poundLE}",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyLarge!
+                                              .copyWith(
+                                                fontSize: AppFontSize.s18,
+                                              ),
+                                        ),
+                                        const SizedBox(
+                                          height: AppSize.s20,
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                  const SizedBox(
-                                    height: AppSize.s20,
-                                  ),
-                                ],
+                                ),
+                              ],
+                            ),
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(AppSize.s8),
+                              child: CachedNetworkImage(
+                                height: AppSize.s140,
+                                width: AppSize.s140,
+                                fit: BoxFit.fill,
+                                imageUrl: '${liftList[index].image}',
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(AppSize.s8),
-                        child: CachedNetworkImage(
-                          height: AppSize.s140,
-                          width: AppSize.s140,
-                          fit: BoxFit.fill,
-                          imageUrl: '${liftList[index].image}',
+                          ],
                         ),
                       ),
-                    ],
-                  ),
-                );
-              },
-              separatorBuilder: (context, index) {
-                return const SizedBox(
-                  height: AppSize.s18,
-                );
-              },
-              itemCount: liftList.length,
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-            )
-          ]),
-        ),
-        const SizedBox(
-          width: AppSize.s20,
-        ),
-        Expanded(
-          child: Column(children: [
-            const SizedBox(
-              height: AppSize.s70,
+                    );
+                  },
+                  separatorBuilder: (context, index) {
+                    return const SizedBox(
+                      height: AppSize.s18,
+                    );
+                  },
+                  itemCount: liftList.length,
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                )
+              ]),
             ),
-            ListView.separated(
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(context, Routes.itemDetailsRoute,
-                        arguments: rightList[index]);
-                  },
-                  child: Stack(
-                    alignment: AlignmentDirectional.topCenter,
-                    children: [
-                      Column(
-                        children: [
-                          const SizedBox(
-                            height: AppSize.s60,
-                          ),
-                          Container(
-                            height: AppSize.s230,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(AppSize.s10),
-                              color: AppColor.white,
-                            ),
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: AppPadding.p12,
-                            ),
-                            child: Align(
-                              alignment: Alignment.bottomCenter,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  Text(
-                                    rightList[index].title,
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headlineLarge!
-                                        .copyWith(fontSize: AppFontSize.s18),
-                                    textAlign: TextAlign.center,
+            const SizedBox(
+              width: AppSize.s20,
+            ),
+            Expanded(
+              child: Column(children: [
+                const SizedBox(
+                  height: AppSize.s70,
+                ),
+                ListView.separated(
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, Routes.itemDetailsRoute,
+                            arguments: rightList[index]);
+                      },
+                      child: Hero(
+                        tag: rightList[index].image,
+                        child: Stack(
+                          alignment: AlignmentDirectional.topCenter,
+                          children: [
+                            Column(
+                              children: [
+                                const SizedBox(
+                                  height: AppSize.s60,
+                                ),
+                                Container(
+                                  height: AppSize.s230,
+                                  decoration: BoxDecoration(
+                                    borderRadius:
+                                        BorderRadius.circular(AppSize.s10),
+                                    color: AppColor.white,
                                   ),
-                                  const SizedBox(
-                                    height: AppSize.s8,
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: AppPadding.p12,
                                   ),
-                                  Text(
-                                    "${rightList[index].price} ${AppStrings.poundLE}",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyLarge!
-                                        .copyWith(
-                                          fontSize: AppFontSize.s18,
+                                  child: Align(
+                                    alignment: Alignment.bottomCenter,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Text(
+                                          rightList[index].title,
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headlineLarge!
+                                              .copyWith(
+                                                  fontSize: AppFontSize.s18),
+                                          textAlign: TextAlign.center,
                                         ),
+                                        const SizedBox(
+                                          height: AppSize.s8,
+                                        ),
+                                        Text(
+                                          "${rightList[index].price} ${AppStrings.poundLE}",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyLarge!
+                                              .copyWith(
+                                                fontSize: AppFontSize.s18,
+                                              ),
+                                        ),
+                                        const SizedBox(
+                                          height: AppSize.s20,
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                  const SizedBox(
-                                    height: AppSize.s20,
-                                  ),
-                                ],
+                                ),
+                              ],
+                            ),
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(AppSize.s8),
+                              child: CachedNetworkImage(
+                                height: AppSize.s140,
+                                width: AppSize.s140,
+                                fit: BoxFit.fill,
+                                imageUrl: '${rightList[index].image}',
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(AppSize.s8),
-                        child: CachedNetworkImage(
-                          height: AppSize.s140,
-                          width: AppSize.s140,
-                          fit: BoxFit.fill,
-                          imageUrl: '${rightList[index].image}',
+                          ],
                         ),
                       ),
-                    ],
-                  ),
-                );
-              },
-              separatorBuilder: (context, index) {
-                return const SizedBox(
-                  height: AppSize.s18,
-                );
-              },
-              itemCount: rightList.length,
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-            )
-          ]),
+                    );
+                  },
+                  separatorBuilder: (context, index) {
+                    return const SizedBox(
+                      height: AppSize.s18,
+                    );
+                  },
+                  itemCount: rightList.length,
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                )
+              ]),
+            ),
+          ],
         ),
       ],
     );
