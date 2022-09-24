@@ -3,6 +3,7 @@ import 'package:moka_store/moka/data/models/item_details_model.dart';
 
 abstract class BaseMokaRemoteDataSource {
   Future<List<ItemDetailsModel>> getElectronicsProduct();
+  Future<List<ItemDetailsModel>> getSupermarketProduct();
 }
 
 /// no handle error because it's handled in the repository
@@ -22,4 +23,18 @@ class MokaRemoteDataSource extends BaseMokaRemoteDataSource {
     }
     return result;
   }
+
+  @override
+  Future<List<ItemDetailsModel>> getSupermarketProduct() async {
+    List<ItemDetailsModel> result =[];
+    final response =
+        await FirebaseFirestore.instance.collection('supermarket').get();
+
+    for (var element in response.docs) {
+      result.add(ItemDetailsModel.fromJson(element.data()));
+    }
+    return result;
+  }
+
+
 }

@@ -7,6 +7,7 @@ import 'package:moka_store/core/utils/font_manager.dart';
 import 'package:moka_store/core/utils/strings_manager.dart';
 import 'package:moka_store/core/utils/values_manager.dart';
 import 'package:readmore/readmore.dart';
+import '../../../../config/shared/component.dart';
 import '../../../../core/utils/color_manager.dart';
 
 class ItemDetailsScreen extends StatelessWidget {
@@ -20,20 +21,23 @@ class ItemDetailsScreen extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          Hero(
-            tag: item.image,
-            child: CachedNetworkImage(
-              imageUrl: '${item.image}',
-              width: double.infinity,
-              height: size.height * 0.421,
-              fit: BoxFit.fill,
-              placeholder: (context, url) => Container(
-                color: AppColor.primary,
+          Container(
+            color: AppColor.white,
+            child: Hero(
+              tag: item.image,
+              child: CachedNetworkImage(
+                imageUrl: '${item.image}',
                 width: double.infinity,
-                height: size.height * 0.46,
-                child: const Center(
-                  child: CircularProgressIndicator(
-                    color: AppColor.white,
+                height: size.height * 0.4215,
+                //   fit: BoxFit.fill,
+                placeholder: (context, url) => Container(
+                  color: AppColor.white,
+                  width: double.infinity,
+                  height: size.height * 0.46,
+                  child: const Center(
+                    child: CircularProgressIndicator(
+                      color: AppColor.white,
+                    ),
                   ),
                 ),
               ),
@@ -569,56 +573,3 @@ class ItemDetailsScreen extends StatelessWidget {
   }
 }
 
-Widget defaultButton({
-  double width = double.infinity,
-  double height = 60,
-  Color backgroundColor = AppColor.primary,
-  Color borderColor = AppColor.primary,
-  Color fontColor = Colors.white,
-  bool isUpperCase = true,
-  //String fontFamily = 'Metropolis-SemiBold',
-  double radius = 3.0,
-  double borderWidth = 0,
-  double fontSize = 16.0,
-  required Function function,
-  required String text,
-  IconData? prefix,
-}) =>
-    Container(
-      width: width,
-      height: height,
-      decoration: BoxDecoration(
-        border: Border.all(width: borderWidth, color: borderColor),
-        borderRadius: BorderRadius.circular(
-          radius,
-        ),
-        color: backgroundColor,
-      ),
-      child: MaterialButton(
-        onPressed: () {
-          function();
-        },
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            if (prefix != null)
-              Icon(
-                prefix,
-                size: 20,
-                color: const Color(0xFFffffff),
-              ),
-            if (prefix != null)
-              const SizedBox(
-                width: 20,
-              ),
-            Text(
-              isUpperCase ? text.toUpperCase() : text,
-              style: TextStyle(
-                color: fontColor,
-                fontSize: fontSize,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );

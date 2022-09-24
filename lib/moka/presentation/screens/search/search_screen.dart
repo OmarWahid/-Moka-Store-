@@ -254,6 +254,7 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget buildSearchItem() {
     return Column(
       children: [
+       if(listSearch.length>0)
         Text(
           '${AppStrings.found} ${listSearch.length} ${AppStrings.result}',
           style: Theme.of(context).textTheme.headlineLarge,
@@ -270,68 +271,67 @@ class _SearchScreenState extends State<SearchScreen> {
                         Navigator.pushNamed(context, Routes.itemDetailsRoute,
                             arguments: liftList[index]);
                       },
-                      child: Hero(
-                        tag: liftList[index].image,
-                        child: Stack(
-                          alignment: AlignmentDirectional.topCenter,
-                          children: [
-                            Column(
-                              children: [
-                                const SizedBox(
-                                  height: AppSize.s60,
+                      child: Stack(
+                        alignment: AlignmentDirectional.topCenter,
+                        children: [
+                          Column(
+                            children: [
+                              const SizedBox(
+                                height: AppSize.s60,
+                              ),
+                              Container(
+                                height: AppSize.s230,
+                                decoration: BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.circular(AppSize.s10),
+                                  color: AppColor.white,
                                 ),
-                                Container(
-                                  height: AppSize.s230,
-                                  decoration: BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.circular(AppSize.s10),
-                                    color: AppColor.white,
-                                  ),
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: AppPadding.p12,
-                                  ),
-                                  child: Align(
-                                    alignment: Alignment.bottomCenter,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        Text(
-                                          liftList[index].title,
-                                          //   liftList[index],
-                                          maxLines: 2,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headlineLarge!
-                                              .copyWith(
-                                                  fontSize: AppFontSize.s18),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                        const SizedBox(
-                                          height: AppSize.s8,
-                                        ),
-                                        Text(
-                                          "${liftList[index].price} ${AppStrings.poundLE}",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyLarge!
-                                              .copyWith(
-                                                fontSize: AppFontSize.s18,
-                                              ),
-                                        ),
-                                        const SizedBox(
-                                          height: AppSize.s20,
-                                        ),
-                                      ],
-                                    ),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: AppPadding.p12,
+                                ),
+                                child: Align(
+                                  alignment: Alignment.bottomCenter,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Text(
+                                        liftList[index].title,
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headlineLarge!
+                                            .copyWith(
+                                                fontSize: AppFontSize.s18),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                      const SizedBox(
+                                        height: AppSize.s8,
+                                      ),
+                                      Text(
+                                        "${liftList[index].price} ${AppStrings.poundLE}",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyLarge!
+                                            .copyWith(
+                                              fontSize: AppFontSize.s18,
+                                            ),
+                                      ),
+                                      const SizedBox(
+                                        height: AppSize.s20,
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ],
-                            ),
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(AppSize.s8),
+                              ),
+                            ],
+                          ),
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(AppSize.s8),
+                            child: Hero(
+                              tag: liftList[index].image,
                               child: CachedNetworkImage(
                                 height: AppSize.s140,
                                 width: AppSize.s140,
@@ -339,8 +339,8 @@ class _SearchScreenState extends State<SearchScreen> {
                                 imageUrl: '${liftList[index].image}',
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     );
                   },
@@ -370,67 +370,67 @@ class _SearchScreenState extends State<SearchScreen> {
                         Navigator.pushNamed(context, Routes.itemDetailsRoute,
                             arguments: rightList[index]);
                       },
-                      child: Hero(
-                        tag: rightList[index].image,
-                        child: Stack(
-                          alignment: AlignmentDirectional.topCenter,
-                          children: [
-                            Column(
-                              children: [
-                                const SizedBox(
-                                  height: AppSize.s60,
+                      child: Stack(
+                        alignment: AlignmentDirectional.topCenter,
+                        children: [
+                          Column(
+                            children: [
+                              const SizedBox(
+                                height: AppSize.s60,
+                              ),
+                              Container(
+                                height: AppSize.s230,
+                                decoration: BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.circular(AppSize.s10),
+                                  color: AppColor.white,
                                 ),
-                                Container(
-                                  height: AppSize.s230,
-                                  decoration: BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.circular(AppSize.s10),
-                                    color: AppColor.white,
-                                  ),
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: AppPadding.p12,
-                                  ),
-                                  child: Align(
-                                    alignment: Alignment.bottomCenter,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        Text(
-                                          rightList[index].title,
-                                          maxLines: 2,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headlineLarge!
-                                              .copyWith(
-                                                  fontSize: AppFontSize.s18),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                        const SizedBox(
-                                          height: AppSize.s8,
-                                        ),
-                                        Text(
-                                          "${rightList[index].price} ${AppStrings.poundLE}",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyLarge!
-                                              .copyWith(
-                                                fontSize: AppFontSize.s18,
-                                              ),
-                                        ),
-                                        const SizedBox(
-                                          height: AppSize.s20,
-                                        ),
-                                      ],
-                                    ),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: AppPadding.p12,
+                                ),
+                                child: Align(
+                                  alignment: Alignment.bottomCenter,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Text(
+                                        rightList[index].title,
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headlineLarge!
+                                            .copyWith(
+                                                fontSize: AppFontSize.s18),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                      const SizedBox(
+                                        height: AppSize.s8,
+                                      ),
+                                      Text(
+                                        "${rightList[index].price} ${AppStrings.poundLE}",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyLarge!
+                                            .copyWith(
+                                              fontSize: AppFontSize.s18,
+                                            ),
+                                      ),
+                                      const SizedBox(
+                                        height: AppSize.s20,
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ],
-                            ),
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(AppSize.s8),
+                              ),
+                            ],
+                          ),
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(AppSize.s8),
+                            child: Hero(
+                              tag: rightList[index].image,
                               child: CachedNetworkImage(
                                 height: AppSize.s140,
                                 width: AppSize.s140,
@@ -438,8 +438,8 @@ class _SearchScreenState extends State<SearchScreen> {
                                 imageUrl: '${rightList[index].image}',
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     );
                   },

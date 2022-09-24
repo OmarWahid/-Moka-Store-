@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:moka_store/moka/presentation/screens/home/product_part.dart';
 import '../../../../core/utils/color_manager.dart';
@@ -6,9 +5,7 @@ import '../../../../core/utils/icons_manager.dart';
 import '../../../../core/utils/routes_manager.dart';
 import '../../../../core/utils/strings_manager.dart';
 import '../../../../core/utils/values_manager.dart';
-import '../../controller/moka_bloc.dart';
 import 'category_items.dart';
-
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -63,11 +60,7 @@ class HomeScreen extends StatelessWidget {
                   width: AppSize.s12,
                 ),
                 GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(context, Routes.searchRoute,
-                        arguments:
-                            MokaBloc.get(context).state.electronicsProduct);
-                  },
+                  onTap: () {},
                   child: Container(
                     height: AppSize.s50,
                     width: AppSize.s50,
@@ -163,7 +156,6 @@ class HomeScreen extends StatelessWidget {
               height: AppSize.s14,
             ),
             const ProductPart(),
-
           ],
         ),
       ),

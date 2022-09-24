@@ -24,9 +24,7 @@ class MainHomeZoom extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) {
-        log('zoom Bloccccccccc');
-
-        return sl<MokaBloc>()..add(GetElectronicsProductEvent());
+        return sl<MokaBloc>()..add(GetElectronicsProductEvent())..add(GetSupermarketProductEvent());
       },
       child: ZoomDrawer(
         controller: zoomDrawerController,

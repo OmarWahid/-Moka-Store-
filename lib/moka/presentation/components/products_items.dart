@@ -16,100 +16,100 @@ class ProductItems extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Hero(
-      tag: item.image,
-      child: GestureDetector(
-        onTap: () {
-          Navigator.pushNamed(
-            context,
-            Routes.itemDetailsRoute,
-            arguments: item,
-          );
-        },
-        child: Stack(
-          children: [
-            Container(
-              height: AppSize.s260,
-              width: AppSize.s200,
-              padding: const EdgeInsets.symmetric(
-                  horizontal: AppPadding.p8, vertical: AppPadding.p12),
-              decoration: BoxDecoration(
-                color: AppColor.white,
-                borderRadius: BorderRadius.circular(AppSize.s12),
-                border: Border.all(
-                  color: AppColor.lightPrimary,
-                ),
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(
+          context,
+          Routes.itemDetailsRoute,
+          arguments: item,
+        );
+      },
+      child: Stack(
+        children: [
+          Container(
+            height: AppSize.s260,
+            width: AppSize.s200,
+            padding: const EdgeInsets.symmetric(
+                horizontal: AppPadding.p8, vertical: AppPadding.p12),
+            decoration: BoxDecoration(
+              color: AppColor.white,
+              borderRadius: BorderRadius.circular(AppSize.s12),
+              border: Border.all(
+                color: AppColor.lightPrimary,
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(AppSize.s12),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(AppSize.s12),
+                  child: Hero(
+                    tag: item.image,
                     child: CachedNetworkImage(
                       imageUrl: item.image,
                       height: AppSize.s150,
                       fit: BoxFit.fill,
                     ),
                   ),
-                  const SizedBox(
-                    height: AppSize.s8,
+                ),
+                const SizedBox(
+                  height: AppSize.s8,
+                ),
+                Text(
+                  item.title,
+                  textAlign: TextAlign.center,
+                  maxLines: AppConstants.cI1,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+                const SizedBox(
+                  height: AppSize.s4,
+                ),
+                (item.discount != "0")
+                    ? Text(
+                        '${AppStrings.poundLE} ${item.discount}',
+                        style: Theme.of(context).textTheme.bodyLarge,
+                      )
+                    : Text(
+                        '${AppStrings.poundLE} ${item.price}',
+                        style: Theme.of(context).textTheme.bodyLarge,
+                      ),
+                const SizedBox(
+                  height: AppSize.s8,
+                ),
+                RatingBar.builder(
+                  itemSize: AppSize.s20,
+                  initialRating: double.parse(item.rate),
+                  ignoreGestures: true,
+                  minRating: AppConstants.cD1,
+                  direction: Axis.horizontal,
+                  allowHalfRating: true,
+                  itemCount: AppConstants.cI5,
+                  itemPadding: const EdgeInsetsDirectional.only(
+                    end: AppPadding.p1,
                   ),
-                  Text(
-                    item.title,
-                    textAlign: TextAlign.center,
-                    maxLines: AppConstants.cI1,
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.bodyLarge,
+                  itemBuilder: (context, _) => const Icon(
+                    Icons.star,
+                    color: AppColor.primary,
+                    size: AppSize.s10,
                   ),
-                  const SizedBox(
-                    height: AppSize.s4,
-                  ),
-                  (item.discount != "0")
-                      ? Text(
-                          '${AppStrings.poundLE} ${item.discount}',
-                          style: Theme.of(context).textTheme.bodyLarge,
-                        )
-                      : Text(
-                          '${AppStrings.poundLE} ${item.price}',
-                          style: Theme.of(context).textTheme.bodyLarge,
-                        ),
-                  const SizedBox(
-                    height: AppSize.s8,
-                  ),
-                  RatingBar.builder(
-                    itemSize: AppSize.s20,
-                    initialRating: double.parse(item.rate),
-                    ignoreGestures: true,
-                    minRating: AppConstants.cD1,
-                    direction: Axis.horizontal,
-                    allowHalfRating: true,
-                    itemCount: AppConstants.cI5,
-                    itemPadding: const EdgeInsetsDirectional.only(
-                      end: AppPadding.p1,
-                    ),
-                    itemBuilder: (context, _) => const Icon(
-                      Icons.star,
-                      color: AppColor.primary,
-                      size: AppSize.s10,
-                    ),
-                    onRatingUpdate: (rating) {
-                      // print(rating);
-                    },
-                  ),
-                ],
-              ),
+                  onRatingUpdate: (rating) {
+                    // print(rating);
+                  },
+                ),
+              ],
             ),
-            if(item.discount != "0")
-              Positioned(
-                  bottom: AppSize.s100,
-                  right: AppPadding.p6,
-                  child: SvgPicture.asset(
-                    ImageAssets.discountIcon,
-                    height: AppSize.s26,
-                    width: AppSize.s26,
-                  )),
-          ],
-        ),
+          ),
+          if(item.discount != "0")
+            Positioned(
+                bottom: AppSize.s100,
+                right: AppPadding.p6,
+                child: SvgPicture.asset(
+                  ImageAssets.discountIcon,
+                  height: AppSize.s26,
+                  width: AppSize.s26,
+                )),
+        ],
       ),
     );
   }

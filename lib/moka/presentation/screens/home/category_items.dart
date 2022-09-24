@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:equatable/equatable.dart';
@@ -5,10 +7,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moka_store/core/utils/color_manager.dart';
 import 'package:moka_store/core/utils/routes_manager.dart';
-import 'package:moka_store/moka/presentation/controller/moka_bloc.dart';
+import '../../../../config/shared/constant.dart';
 import '../../../../core/utils/constants_manager.dart';
 import '../../../../core/utils/strings_manager.dart';
 import '../../../../core/utils/values_manager.dart';
+import '../../controller/moka_bloc.dart';
 
 class CarouselSliderItem extends StatelessWidget {
   const CarouselSliderItem({Key? key}) : super(key: key);
@@ -16,18 +19,19 @@ class CarouselSliderItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MokaBloc, MokaState>(
-      buildWhen: (previous, current) =>
-          previous.menuRefresh != current.menuRefresh,
+    buildWhen: (previous, current) => previous.electronicsProduct != current.electronicsProduct,
       builder: (context, state) {
-        print('figma 1314');
+        log('build CarouselSliderItem');
+
         return CarouselSlider(
             items: listCategory(context).map((e) {
+
               return GestureDetector(
                 onTap: () {
                   Navigator.pushNamed(
                     context,
                     Routes.categoryItemsRoute,
-                    arguments: e.list,
+                    arguments: [e.list, e.name],
                   );
                 },
                 child: Stack(
@@ -49,7 +53,8 @@ class CarouselSliderItem extends StatelessWidget {
                       left: AppPadding.p24,
                       child: Text(
                         e.name,
-                        style: Theme.of(context)
+                        style: Theme
+                            .of(context)
                             .textTheme
                             .displayLarge!
                             .copyWith(color: AppColor.white),
@@ -67,9 +72,9 @@ class CarouselSliderItem extends StatelessWidget {
               reverse: false,
               autoPlay: true,
               autoPlayInterval:
-                  const Duration(seconds: AppConstants.playInterval),
+              const Duration(seconds: AppConstants.playInterval),
               autoPlayAnimationDuration:
-                  const Duration(milliseconds: AppConstants.playAnimation),
+              const Duration(milliseconds: AppConstants.playAnimation),
               autoPlayCurve: Curves.fastOutSlowIn,
               enlargeCenterPage: true,
               scrollDirection: Axis.horizontal,
@@ -91,30 +96,31 @@ class ComponentCategories extends Equatable {
   List<Object> get props => [image, name, list];
 }
 
-List<ComponentCategories> listCategory(context) => [
+List<ComponentCategories> listCategory(context) =>
+    [
       ComponentCategories(
         image: AppStrings.categoryImage3,
         name: AppStrings.categoryName3,
-        list: MokaBloc.get(context).state.electronicsProduct,
+        list: electronicsProductConstant!,
       ),
       ComponentCategories(
         image: AppStrings.categoryImage1,
         name: AppStrings.categoryName1,
-        list: MokaBloc.get(context).state.electronicsProduct,
+        list: electronicsProductConstant!,
       ),
       ComponentCategories(
         image: AppStrings.categoryImage2,
         name: AppStrings.categoryName2,
-        list: MokaBloc.get(context).state.electronicsProduct,
+        list: electronicsProductConstant!,
       ),
       ComponentCategories(
         image: AppStrings.categoryImage4,
         name: AppStrings.categoryName4,
-        list: MokaBloc.get(context).state.electronicsProduct,
+        list: electronicsProductConstant!,
       ),
       ComponentCategories(
         image: AppStrings.categoryImage5,
         name: AppStrings.categoryName5,
-        list: MokaBloc.get(context).state.electronicsProduct,
+        list: supermarketProductConstant!,
       ),
     ];

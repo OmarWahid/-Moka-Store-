@@ -4,7 +4,7 @@ class AppConstants {
   static const double fadeInFrom = 20.0;
 
   static const int fadeDelay = 500;
-  static const int splashDelay = 4;
+  static const int splashDelay = 3600;
   static const int containerDelay = 1500;
   static const int playInterval = 4;
   static const int playAnimation = 800;

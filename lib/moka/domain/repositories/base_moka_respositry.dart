@@ -6,5 +6,7 @@ abstract class BaseMokaRepository {
 
   Future<List<ItemDetails>> getElectronicsProduct();
 
+  Future<List<ItemDetails>> getSupermarketProduct();
+
 
 }

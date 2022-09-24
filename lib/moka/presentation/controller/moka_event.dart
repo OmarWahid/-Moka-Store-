@@ -27,3 +27,7 @@ class GetElectronicsProductEvent extends MokaEvent {
   @override
   List<Object?> get props => [];
 }
+class GetSupermarketProductEvent extends MokaEvent {
+  @override
+  List<Object?> get props => [];
+}

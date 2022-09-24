@@ -22,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen>
   late final AnimationController _controller;
 
   _startDelay() {
-    _timer = Timer(const Duration(seconds: AppConstants.splashDelay), _goNext);
+    _timer = Timer(const Duration(milliseconds: AppConstants.splashDelay), _goNext);
   }
 
   _goNext() {

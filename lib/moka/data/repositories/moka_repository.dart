@@ -13,4 +13,9 @@ class MokaRepository extends BaseMokaRepository{
     return await baseMokaRemoteDataSource.getElectronicsProduct();
   }
 
+  @override
+  Future<List<ItemDetails>> getSupermarketProduct() async{
+   return await baseMokaRemoteDataSource.getSupermarketProduct();
+  }
+
 }

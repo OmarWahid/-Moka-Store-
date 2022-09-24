@@ -4,20 +4,24 @@ class MokaState extends Equatable {
   final int? currentIndexNavigation;
   final int? currentIndexItem;
   final int? menuRefresh;
-
   final List<ProductSelectedState>? compare1;
   final List<Widget>? screens;
   final ProductSelectedState? itemSelected;
+
   final List<ItemDetails> electronicsProduct;
+  final List<ItemDetails> supermarketProduct;
   final List<ItemDetails> currentProduct;
   final RequestState electronicsProductState;
   final RequestState currentProductState;
+  final RequestState supermarketProductState;
 
   const MokaState(
       {this.electronicsProduct = const [],
       this.currentProduct = const [] ,
+      this.supermarketProduct = const [],
       this.electronicsProductState = RequestState.loading,
       this.currentProductState = RequestState.loading,
+      this.supermarketProductState = RequestState.loading,
       this.currentIndexItem = 0,
       this.currentIndexNavigation = 0,
       this.menuRefresh = 0,
@@ -25,7 +29,7 @@ class MokaState extends Equatable {
         HomeScreen(),
         FavoritesScreen(),
         CartsScreen(),
-        SettingsScreen(),
+        SettingsScreen()
       ],
       this.itemSelected = ProductSelectedState.men,
       this.compare1 = const [
@@ -40,8 +44,10 @@ class MokaState extends Equatable {
   MokaState copyWith({
     List<ItemDetails>? electronicsProduct,
     List<ItemDetails>? currentProduct,
+    List<ItemDetails>? supermarketProduct,
     RequestState? electronicsProductState,
     RequestState? currentProductState,
+    RequestState? supermarketProductState,
     int? currentIndexNavigation,
     itemSelected,
     int? currentIndexItem,
@@ -56,6 +62,9 @@ class MokaState extends Equatable {
           electronicsProductState ?? this.electronicsProductState,
       currentProduct: currentProduct ?? this.currentProduct,
       currentProductState: currentProductState ?? this.currentProductState,
+      supermarketProduct: supermarketProduct ?? this.supermarketProduct,
+      supermarketProductState:
+          supermarketProductState ?? this.supermarketProductState,
     );
   }
 
@@ -71,5 +80,7 @@ class MokaState extends Equatable {
         electronicsProductState,
         currentProduct,
         currentProductState,
+        supermarketProduct,
+        supermarketProductState
       ];
 }

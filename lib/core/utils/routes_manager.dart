@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moka_store/core/utils/constants_manager.dart';
 import 'package:moka_store/moka/presentation/screens/category_see_more/category_details_screen.dart';
 import 'package:moka_store/moka/presentation/screens/category_see_more/catogry_items_screen.dart';
 import 'package:moka_store/moka/presentation/screens/item_details/item_details_screen.dart';
@@ -34,8 +35,10 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const CategorySeeMoreScreen());
 
       case Routes.categoryItemsRoute:
+        List<dynamic>? args = settings.arguments as List?;
         return MaterialPageRoute(builder: (_) =>  CategoryItemsScreen(
-          item: settings.arguments,
+          item: args![AppConstants.cI0],
+          appbarTitle: args[AppConstants.cI1],
         ));
 
       case Routes.itemDetailsRoute:

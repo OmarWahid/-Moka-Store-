@@ -7,21 +7,29 @@ import '../../../../core/utils/routes_manager.dart';
 import '../../components/products_items.dart';
 
 class CategoryItemsScreen extends StatelessWidget {
-  final item ;
-  const CategoryItemsScreen({required this.item,Key? key}) : super(key: key);
+  final item;
+  final appbarTitle;
+
+  const CategoryItemsScreen(
+      {required this.appbarTitle, required this.item, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          appbarTitle,
+        ),
+      ),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
-
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: AppPadding.p16),
           child: Column(
             children: [
               const SizedBox(
-                height: AppSize.s60,
+                height: AppSize.s8,
               ),
               Row(
                 children: [
@@ -29,7 +37,7 @@ class CategoryItemsScreen extends StatelessWidget {
                     child: GestureDetector(
                       onTap: () {
                         Navigator.pushNamed(context, Routes.searchRoute,
-                            arguments: item);
+                            arguments: item,);
                       },
                       child: Container(
                         height: AppSize.s50,
@@ -79,6 +87,7 @@ class CategoryItemsScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(
                   bottom: AppPadding.p18,
+                  top: AppPadding.p24,
                 ),
                 child: GridView.builder(
                   physics: const NeverScrollableScrollPhysics(),
