@@ -19,13 +19,12 @@ class CarouselSliderItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MokaBloc, MokaState>(
-    buildWhen: (previous, current) => previous.electronicsProduct != current.electronicsProduct,
+      buildWhen: (previous, current) =>
+          previous.electronicsProduct != current.electronicsProduct,
       builder: (context, state) {
         log('build CarouselSliderItem');
-
         return CarouselSlider(
             items: listCategory(context).map((e) {
-
               return GestureDetector(
                 onTap: () {
                   Navigator.pushNamed(
@@ -53,8 +52,7 @@ class CarouselSliderItem extends StatelessWidget {
                       left: AppPadding.p24,
                       child: Text(
                         e.name,
-                        style: Theme
-                            .of(context)
+                        style: Theme.of(context)
                             .textTheme
                             .displayLarge!
                             .copyWith(color: AppColor.white),
@@ -72,9 +70,9 @@ class CarouselSliderItem extends StatelessWidget {
               reverse: false,
               autoPlay: true,
               autoPlayInterval:
-              const Duration(seconds: AppConstants.playInterval),
+                  const Duration(seconds: AppConstants.playInterval),
               autoPlayAnimationDuration:
-              const Duration(milliseconds: AppConstants.playAnimation),
+                  const Duration(milliseconds: AppConstants.playAnimation),
               autoPlayCurve: Curves.fastOutSlowIn,
               enlargeCenterPage: true,
               scrollDirection: Axis.horizontal,
@@ -96,8 +94,7 @@ class ComponentCategories extends Equatable {
   List<Object> get props => [image, name, list];
 }
 
-List<ComponentCategories> listCategory(context) =>
-    [
+List<ComponentCategories> listCategory(context) => [
       ComponentCategories(
         image: AppStrings.categoryImage3,
         name: AppStrings.categoryName3,

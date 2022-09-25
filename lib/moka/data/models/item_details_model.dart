@@ -1,14 +1,15 @@
 import 'package:moka_store/moka/domain/entities/item_details.dart';
 
 class ItemDetailsModel extends ItemDetails {
-  const ItemDetailsModel(
-      {required super.title,
-      required super.description,
-      required super.image,
-      required super.price,
-      required super.discount,
-      required super.id,
-      required super.rate,});
+  const ItemDetailsModel({
+    required super.title,
+    required super.description,
+    required super.image,
+    required super.price,
+    required super.discount,
+    required super.id,
+    required super.rate,
+  });
 
   factory ItemDetailsModel.fromJson(Map<String, dynamic> json) {
     return ItemDetailsModel(

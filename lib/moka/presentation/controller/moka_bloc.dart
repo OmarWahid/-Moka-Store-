@@ -10,7 +10,10 @@ import 'package:moka_store/moka/presentation/screens/favorites/favorites_screen.
 import 'package:moka_store/moka/presentation/screens/home/home_screen.dart';
 import '../../../config/shared/constant.dart';
 import '../../../core/utils/enums_manager.dart';
+import '../../domain/use_cases/get_men_use_case.dart';
 import '../../domain/use_cases/get_supermarket_use_case.dart';
+import '../../domain/use_cases/get_watches_use_case.dart';
+import '../../domain/use_cases/get_women_use_case.dart';
 import '../screens/settings/settings_screen.dart';
 
 part 'moka_event.dart';
@@ -20,24 +23,35 @@ part 'moka_state.dart';
 class MokaBloc extends Bloc<MokaEvent, MokaState> {
   final GetElectronicsProductUseCase getElectronicsProductUseCase;
   final GetSupermarketProductUseCase getSupermarketProductUseCase;
+  final GetMenProductUseCase getMenProductUseCase;
+  final GetWomenProductUseCase getWomenProductUseCase;
+  final GetWatchesProductUseCase getWatchesProductUseCase;
 
   static MokaBloc get(context) => BlocProvider.of(context);
 
-  MokaBloc(this.getSupermarketProductUseCase, this.getElectronicsProductUseCase)
-      : super(const MokaState()) {
+  MokaBloc(
+    this.getWomenProductUseCase,
+    this.getWatchesProductUseCase,
+    this.getMenProductUseCase,
+    this.getSupermarketProductUseCase,
+    this.getElectronicsProductUseCase,
+  ) : super(const MokaState()) {
     on<ChangeIndexEvent>(_changeIndexNavigationBar);
     on<IsSelectedItemProductsEvent>(_isSelected);
     on<GetElectronicsProductEvent>(_getElectronicsProduct);
     on<GetSupermarketProductEvent>(_getSupermarketProduct);
+    on<GetMenProductEvent>(_getMenProduct);
+    on<GetWomenProductEvent>(_getWomenProduct);
+    on<GetWatchesProductEvent>(_getWatchesProduct);
   }
 
   FutureOr<void> _isSelected(
       IsSelectedItemProductsEvent event, Emitter<MokaState> emit) {
     List<ItemDetails> nowProduct = [];
     if (event.index == 0) nowProduct = state.electronicsProduct;
-    if (event.index == 1) nowProduct = state.electronicsProduct;
-    if (event.index == 2) nowProduct = state.electronicsProduct;
-    if (event.index == 3) nowProduct = state.electronicsProduct;
+    if (event.index == 1) nowProduct = state.menProduct;
+    if (event.index == 2) nowProduct = state.womenProduct;
+    if (event.index == 3) nowProduct = state.watchesProduct;
     if (event.index == 4) nowProduct = state.supermarketProduct;
 
     emit(state.copyWith(
@@ -72,6 +86,36 @@ class MokaBloc extends Bloc<MokaEvent, MokaState> {
     emit(state.copyWith(
       supermarketProduct: result,
       supermarketProductState: RequestState.loaded,
+    ));
+  }
+
+  FutureOr<void> _getWatchesProduct(
+      GetWatchesProductEvent event, Emitter<MokaState> emit) async {
+    final result = await getWatchesProductUseCase();
+    watchesProductConstant = result;
+    emit(state.copyWith(
+      watchesProduct: result,
+      watchesProductState: RequestState.loaded,
+    ));
+  }
+
+  FutureOr<void> _getMenProduct(
+      GetMenProductEvent event, Emitter<MokaState> emit) async {
+    final result = await getMenProductUseCase();
+    menProductConstant = result;
+    emit(state.copyWith(
+      menProduct: result,
+      menProductState: RequestState.loaded,
+    ));
+  }
+
+  FutureOr<void> _getWomenProduct(
+      GetWomenProductEvent event, Emitter<MokaState> emit) async {
+    final result = await getWomenProductUseCase();
+    womenProductConstant = result;
+    emit(state.copyWith(
+      womenProduct: result,
+      womenProductState: RequestState.loaded,
     ));
   }
 }

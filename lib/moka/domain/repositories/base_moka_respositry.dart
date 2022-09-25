@@ -8,5 +8,11 @@ abstract class BaseMokaRepository {
 
   Future<List<ItemDetails>> getSupermarketProduct();
 
+  Future<List<ItemDetails>> getWatchesProduct();
+
+  Future<List<ItemDetails>> getMenProduct();
+
+  Future<List<ItemDetails>> getWomenProduct();
+
 
 }

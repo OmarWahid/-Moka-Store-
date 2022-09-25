@@ -24,7 +24,12 @@ class MainHomeZoom extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) {
-        return sl<MokaBloc>()..add(GetElectronicsProductEvent())..add(GetSupermarketProductEvent());
+        return sl<MokaBloc>()
+          ..add(GetElectronicsProductEvent())
+          ..add(GetSupermarketProductEvent()) ;
+          // ..add(GetMenProductEvent())
+          // ..add(GetWomenProductEvent())
+          // ..add(GetWatchesProductEvent());
       },
       child: ZoomDrawer(
         controller: zoomDrawerController,
@@ -135,7 +140,7 @@ class MenuScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Theme(
+    return Theme(
       data: ThemeData.dark(),
       child: Scaffold(
         backgroundColor: AppColor.primary,
@@ -147,8 +152,7 @@ class MenuScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   InkWell(
-                    onTap: () async {
-                    },
+                    onTap: () async {},
                     splashColor: AppColor.lightGrey,
                     borderRadius: BorderRadius.circular(AppSize.s16),
                     child: Padding(
@@ -315,6 +319,6 @@ class MenuScreen extends StatelessWidget {
           ),
         ),
       ),
-    ) ;
+    );
   }
 }
