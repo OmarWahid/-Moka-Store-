@@ -26,10 +26,10 @@ class MainHomeZoom extends StatelessWidget {
       create: (context) {
         return sl<MokaBloc>()
           ..add(GetElectronicsProductEvent())
-          ..add(GetSupermarketProductEvent()) ;
+          ..add(GetSupermarketProductEvent())
           // ..add(GetMenProductEvent())
           // ..add(GetWomenProductEvent())
-          // ..add(GetWatchesProductEvent());
+          ..add(GetWatchesProductEvent());
       },
       child: ZoomDrawer(
         controller: zoomDrawerController,

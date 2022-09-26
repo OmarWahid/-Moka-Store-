@@ -182,7 +182,7 @@ class SettingsScreen extends StatelessWidget {
                   trailing: Icon(
                     Icons.check,
                     color:
-                        current == 'light' ? Colors.blue : Colors.transparent,
+                        current == 'light' ? Colors.green : Colors.transparent,
                   ),
                 ),
                 const SizedBox(height: 16),
