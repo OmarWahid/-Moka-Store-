@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:moka_store/core/utils/constants_manager.dart';
 import 'package:moka_store/core/utils/font_manager.dart';
@@ -9,6 +10,7 @@ import 'package:moka_store/core/utils/values_manager.dart';
 import 'package:readmore/readmore.dart';
 import '../../../../config/shared/component.dart';
 import '../../../../core/utils/color_manager.dart';
+import '../../controller/moka_bloc.dart';
 
 class ItemDetailsScreen extends StatelessWidget {
   final item;
@@ -492,52 +494,63 @@ class ItemDetailsScreen extends StatelessWidget {
                     Text('${AppStrings.poundLE} 300',
                         style: Theme.of(context)
                             .textTheme
-                            .headline1!
+                            .displayLarge!
                             .copyWith(fontFamily: '')),
                     const SizedBox(
                       height: AppSize.s10,
                     ),
                     Padding(
                       padding: const EdgeInsets.only(bottom: AppPadding.p14),
-                      child: Container(
-                        width: double.infinity,
-                        height: AppSize.s40,
-                        decoration: BoxDecoration(
-                          border: Border.all(width: 0, color: AppColor.primary),
-                          borderRadius: BorderRadius.circular(
-                            AppSize.s30,
-                          ),
-                          color: AppColor.primary,
-                        ),
-                        child: MaterialButton(
-                          onPressed: () {
-                            // cubit.addToCart(
-                            //     id: item.id,
-                            //     itemCount: cubit.numberOfPortions,
-                            //     totalPrice: cubit.totalPrice);
-                            //  showToast(msg: 'Added Successfully');
-                          },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
-                              Icon(
-                                Icons.add_shopping_cart,
-                                size: AppSize.s20,
-                                color: AppColor.white,
+                      child: BlocBuilder<MokaBloc, MokaState>(
+                        builder: (context, state) {
+                          return Container(
+                            width: double.infinity,
+                            height: AppSize.s40,
+                            decoration: BoxDecoration(
+                              border:
+                                  Border.all(width: 0, color: AppColor.primary),
+                              borderRadius: BorderRadius.circular(
+                                AppSize.s30,
                               ),
-                              SizedBox(
-                                width: AppSize.s20,
+                              color: AppColor.primary,
+                            ),
+                            child: MaterialButton(
+                              onPressed: () {
+                                // cubit.addToCart(
+                                //     id: item.id,
+                                //     itemCount: cubit.numberOfPortions,
+                                //     totalPrice: cubit.totalPrice);
+                                //  showToast(msg: 'Added Successfully');
+                                MokaBloc.get(context)
+                                    .add( InsertToDatabaseEvent(
+                                  image: item.image,
+                                  name: item.title,
+                                  price: item.price,
+                                ));
+                              },
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: const [
+                                  Icon(
+                                    Icons.add_shopping_cart,
+                                    size: AppSize.s20,
+                                    color: AppColor.white,
+                                  ),
+                                  SizedBox(
+                                    width: AppSize.s20,
+                                  ),
+                                  Text(
+                                    AppStrings.addCart,
+                                    style: TextStyle(
+                                      color: AppColor.white,
+                                      fontSize: AppFontSize.s16,
+                                    ),
+                                  ),
+                                ],
                               ),
-                              Text(
-                                AppStrings.addCart,
-                                style: TextStyle(
-                                  color: AppColor.white,
-                                  fontSize: AppFontSize.s16,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
+                            ),
+                          );
+                        },
                       ),
                     ),
                   ],
@@ -572,4 +585,3 @@ class ItemDetailsScreen extends StatelessWidget {
     );
   }
 }
-

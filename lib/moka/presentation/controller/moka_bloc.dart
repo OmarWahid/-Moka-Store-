@@ -3,11 +3,13 @@ import 'dart:async';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:moka_store/moka/domain/entities/item_details.dart';
 import 'package:moka_store/moka/domain/use_cases/get_electronics_use_case.dart';
 import 'package:moka_store/moka/presentation/screens/carts/carts_screen.dart';
 import 'package:moka_store/moka/presentation/screens/favorites/favorites_screen.dart';
 import 'package:moka_store/moka/presentation/screens/home/home_screen.dart';
+import 'package:sqflite/sqflite.dart';
 import '../../../config/shared/constant.dart';
 import '../../../core/utils/enums_manager.dart';
 import '../../domain/use_cases/get_men_use_case.dart';
@@ -43,6 +45,10 @@ class MokaBloc extends Bloc<MokaEvent, MokaState> {
     on<GetMenProductEvent>(_getMenProduct);
     on<GetWomenProductEvent>(_getWomenProduct);
     on<GetWatchesProductEvent>(_getWatchesProduct);
+    on<CreateDataBaseEvent>(_createDataBase);
+    on<InsertToDatabaseEvent>(_insertToDatabase);
+    on<GetFromDatabaseEvent>(_getFromDatabase);
+    on<DeleteFromDatabaseEvent>(_deleteFromDatabase);
   }
 
   FutureOr<void> _isSelected(
@@ -117,5 +123,78 @@ class MokaBloc extends Bloc<MokaEvent, MokaState> {
       womenProduct: result,
       womenProductState: RequestState.loaded,
     ));
+  }
+
+  FutureOr<void> _createDataBase(
+      CreateDataBaseEvent event, Emitter<MokaState> emit) async {
+    print('DataBase Created !');
+
+    await openDatabase('carts.db', version: 1, onCreate: (db, version) {
+      db.execute(
+        'CREATE TABLE carts (id INTEGER PRIMARY KEY, name TEXT, price TEXT, image TEXT, quantity INTEGER)',
+      );
+    }, onOpen: (db) {
+      add(GetFromDatabaseEvent());
+      emit(state.copyWith(
+        database: db,
+      ));
+      print('DataBase Opened !');
+    });
+  }
+
+  FutureOr<void> _insertToDatabase(
+      InsertToDatabaseEvent event, Emitter<MokaState> emit) async {
+    final database = state.database;
+    await database!.transaction((txn) async {
+      int id1 = await txn.rawInsert(
+          'INSERT INTO carts(name, price, image, quantity) VALUES(?, ?, ?, ?)',
+          [
+            event.name,
+            event.price,
+            event.image,
+            event.count,
+          ]);
+      add(GetFromDatabaseEvent());
+      Fluttertoast.showToast(
+        msg: 'Added successfully ✔',
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.TOP,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.green,
+        textColor: Colors.white,
+        fontSize: 16.0,
+      );
+      print('inserted1: $id1');
+    });
+  }
+
+  FutureOr<void> _getFromDatabase(
+      GetFromDatabaseEvent event, Emitter<MokaState> emit) async {
+    final database = state.database;
+    List<Map> cartItems = [];
+    if (database != null) {
+      await database.rawQuery('SELECT * FROM carts').then((value) {
+        for (var element in value) {
+          cartItems.add(element);
+        }
+        print('success get from database');
+        cartConstant = cartItems;
+        emit(state.copyWith(
+          cartItems: cartItems,
+        ));
+      });
+    }
+
+  }
+
+  FutureOr<void> _deleteFromDatabase(
+      DeleteFromDatabaseEvent event, Emitter<MokaState> emit) async {
+    final database = state.database;
+    await database!.transaction((txn) async {
+      int id1 =
+          await txn.rawDelete('DELETE FROM carts WHERE id = ?', [event.id]);
+      add(GetFromDatabaseEvent());
+      print('deleted1: $id1');
+    });
   }
 }

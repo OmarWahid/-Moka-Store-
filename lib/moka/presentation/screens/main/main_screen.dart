@@ -10,7 +10,6 @@ import 'package:moka_store/core/utils/constants_manager.dart';
 import 'package:moka_store/core/utils/icons_manager.dart';
 import 'package:moka_store/core/utils/strings_manager.dart';
 import 'package:moka_store/core/utils/values_manager.dart';
-import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/color_manager.dart';
 import '../../controller/moka_bloc.dart';
 import 'list_icons.dart';
@@ -22,30 +21,20 @@ class MainHomeZoom extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) {
-        return sl<MokaBloc>()
-          ..add(GetElectronicsProductEvent())
-          ..add(GetSupermarketProductEvent())
-          // ..add(GetMenProductEvent())
-          // ..add(GetWomenProductEvent())
-          ..add(GetWatchesProductEvent());
-      },
-      child: ZoomDrawer(
-        controller: zoomDrawerController,
-        menuScreen: const MenuScreen(),
-        mainScreen: const MainScreen(),
-        borderRadius: AppSize.s24,
-        menuBackgroundColor: AppColor.primary,
-        style: DrawerStyle.defaultStyle,
-        duration: const Duration(milliseconds: AppConstants.zoomDelay),
-        openCurve: Curves.fastOutSlowIn,
-        showShadow: true,
-        angle: -AppSize.s12,
-        mainScreenTapClose: true,
-        drawerShadowsBackgroundColor: Colors.grey[300]!,
-        slideWidth: MediaQuery.of(context).size.width * 0.65,
-      ),
+    return ZoomDrawer(
+      controller: zoomDrawerController,
+      menuScreen: const MenuScreen(),
+      mainScreen: const MainScreen(),
+      borderRadius: AppSize.s24,
+      menuBackgroundColor: AppColor.primary,
+      style: DrawerStyle.defaultStyle,
+      duration: const Duration(milliseconds: AppConstants.zoomDelay),
+      openCurve: Curves.fastOutSlowIn,
+      showShadow: true,
+      angle: -AppSize.s12,
+      mainScreenTapClose: true,
+      drawerShadowsBackgroundColor: Colors.grey[300]!,
+      slideWidth: MediaQuery.of(context).size.width * 0.65,
     );
   }
 }

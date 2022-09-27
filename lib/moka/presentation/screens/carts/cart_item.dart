@@ -4,26 +4,18 @@ import 'package:moka_store/core/utils/constants_manager.dart';
 import 'package:moka_store/core/utils/font_manager.dart';
 import 'package:moka_store/core/utils/strings_manager.dart';
 import 'package:moka_store/core/utils/values_manager.dart';
-import '../../../../core/utils/assets_manager.dart';
 import '../../../../core/utils/color_manager.dart';
-import '../../components/basic_no_found_component.dart';
 import '../../controller/moka_bloc.dart';
 
-class CartsScreen extends StatelessWidget {
-  const CartsScreen({Key? key}) : super(key: key);
+class CardItemScreen extends StatelessWidget {
+  const CardItemScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MokaBloc, MokaState>(
-      buildWhen: (previous, current) => previous.cartItems != current.cartItems,
       builder: (context, state) {
+        print('Build Cart Screen');
         var itemCard = state.cartItems;
-        if (state.cartItems!.isEmpty) {
-          return const BasicNoFoundScreen(
-            image: ImageAssets.noCarts,
-            name: AppStrings.noCarts,
-          );
-        }
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: AppPadding.p16),
           child: Column(
@@ -84,7 +76,7 @@ class CartsScreen extends StatelessWidget {
                                           .bodySmall!
                                           .copyWith(
                                             fontFamily: '',
-                                            color: AppColor.primary,
+                                        color: AppColor.primary,
                                           ),
                                     ),
                                     const SizedBox(

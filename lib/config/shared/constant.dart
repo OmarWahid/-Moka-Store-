@@ -5,3 +5,4 @@ List<ItemDetails>? supermarketProductConstant = [];
 List<ItemDetails>? menProductConstant = [];
 List<ItemDetails>? womenProductConstant = [];
 List<ItemDetails>? watchesProductConstant = [];
+List<Map> cartConstant = [];
