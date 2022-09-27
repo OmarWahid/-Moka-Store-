@@ -1,16 +1,9 @@
-# moka_store
+# Moka Store
+🔹This is a complete e-commerce application that contains a lot of concepts.<br>
+🔹I made by using Firebase ,clean architecture with MVVM ,Shared Preference and State Management(Bloc).<br>
+🔹This app connects to the FirebaseFirestore to show you the all products in the store based on the category like (Baby-Electronics-Men's Fashion).<br>
+🔹Also you add your product to your favorites list to buy later or cart to make an order.<br>
+🔹Also it has the dark mode and translation option.<br>
+🔹contains the Payment gateway integration for orders.<br>
 
-A new Flutter project.
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
