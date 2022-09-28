@@ -52,13 +52,22 @@ class CreateDataBaseEvent extends MokaEvent {
   List<Object?> get props => [];
 }
 
-class InsertToDatabaseEvent extends MokaEvent {
+class InsertToFavoritesDatabaseEvent extends MokaEvent {
+  final ItemDetails itemDetails;
+
+  const InsertToFavoritesDatabaseEvent(this.itemDetails);
+
+  @override
+  List<Object?> get props => [itemDetails];
+}
+
+class InsertToCartDatabaseEvent extends MokaEvent {
   final String name;
   final String price;
   final String image;
   final int count;
 
-  const InsertToDatabaseEvent({
+  const InsertToCartDatabaseEvent({
     required this.name,
     required this.price,
     required this.image,
@@ -69,26 +78,78 @@ class InsertToDatabaseEvent extends MokaEvent {
   List<Object> get props => [name, price, image, count];
 }
 
-class GetFromDatabaseEvent extends MokaEvent {
+class GetFromFavoriteDatabaseEvent extends MokaEvent {
   @override
   List<Object?> get props => [];
 }
 
-class DeleteFromDatabaseEvent extends MokaEvent {
+
+class GetFromCartDatabaseEvent extends MokaEvent {
+  @override
+  List<Object?> get props => [];
+}
+
+
+class DeleteFromCartDatabaseEvent extends MokaEvent {
   final int id;
 
-  const DeleteFromDatabaseEvent(this.id);
+  const DeleteFromCartDatabaseEvent(this.id);
 
   @override
   List<Object> get props => [id];
 }
 
-class UpdateFromDatabaseEvent extends MokaEvent {
+class DeleteFromFavoriteDatabaseEvent extends MokaEvent {
+  final int id;
+
+  const DeleteFromFavoriteDatabaseEvent(this.id);
+
+  @override
+  List<Object> get props => [id];
+}
+
+class UpdateFromFavoriteDatabaseEvent extends MokaEvent {
+  final int id;
+  final int isLiked;
+
+  const UpdateFromFavoriteDatabaseEvent(this.id, this.isLiked);
+
+  @override
+  List<Object> get props => [id, isLiked];
+}
+
+
+class UpdateFromCartDatabaseEvent extends MokaEvent {
   final int id;
   final int count;
 
-  const UpdateFromDatabaseEvent(this.id, this.count);
+  const UpdateFromCartDatabaseEvent(this.id, this.count);
 
   @override
   List<Object> get props => [id, count];
 }
+
+
+
+class IsInFavoriteDatabaseEvent extends MokaEvent {
+  final ItemDetails itemDetails;
+
+  const IsInFavoriteDatabaseEvent(this.itemDetails);
+
+  @override
+  List<Object> get props => [itemDetails];
+}
+class ChangeNumberOfPieceEvent extends MokaEvent {
+  final String typeOfChange;
+
+  const ChangeNumberOfPieceEvent(this.typeOfChange);
+
+  @override
+  List<Object> get props => [typeOfChange];
+}
+
+class SetNumberOfPieceEvent extends MokaEvent {
+  @override
+  List<Object?> get props => [];
+}
+

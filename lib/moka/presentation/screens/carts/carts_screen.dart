@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moka_store/core/utils/constants_manager.dart';
@@ -17,6 +18,7 @@ class CartsScreen extends StatelessWidget {
     return BlocBuilder<MokaBloc, MokaState>(
       buildWhen: (previous, current) => previous.cartItems != current.cartItems,
       builder: (context, state) {
+        print('CartsScreen');
         var itemCard = state.cartItems;
         if (state.cartItems!.isEmpty) {
           return const BasicNoFoundScreen(
@@ -51,10 +53,15 @@ class CartsScreen extends StatelessWidget {
                         children: [
                           ClipRRect(
                             borderRadius: BorderRadius.circular(AppSize.s16),
-                            child: Image.network(
-                              itemCard[index]['image'],
+                            child: CachedNetworkImage(
+                              imageUrl: itemCard[index]['image'],
                               height: AppSize.s150,
                               width: AppSize.s150,
+                              errorWidget: (context, url, error) => Image.asset(
+                                ImageAssets.onboardingLogo3,
+                                height: AppSize.s150,
+                                width: AppSize.s150,
+                              ),
                             ),
                           ),
                           const SizedBox(width: AppSize.s16),
@@ -115,7 +122,16 @@ class CartsScreen extends StatelessWidget {
                                     Row(
                                       children: [
                                         GestureDetector(
-                                          onTap: () {},
+                                          onTap: () {
+                                            if (itemCard[index]['quantity'] >
+                                                1) {
+                                              MokaBloc.get(context)
+                                                  .add(UpdateFromCartDatabaseEvent(
+                                                itemCard[index]['id'],
+                                                itemCard[index]['quantity'] - 1,
+                                              ));
+                                            }
+                                          },
                                           child: Container(
                                             height: AppSize.s24,
                                             width: AppSize.s24,
@@ -144,13 +160,20 @@ class CartsScreen extends StatelessWidget {
                                               .copyWith(
                                                 color: AppColor.black,
                                                 fontSize: AppSize.s20,
+                                            fontFamily: '',
                                               ),
                                         ),
                                         const SizedBox(
                                           width: AppSize.s10,
                                         ),
                                         GestureDetector(
-                                          onTap: () {},
+                                          onTap: () {
+                                            MokaBloc.get(context)
+                                                .add(UpdateFromCartDatabaseEvent(
+                                              itemCard[index]['id'],
+                                              itemCard[index]['quantity'] + 1,
+                                            ));
+                                          },
                                           child: Container(
                                             height: AppSize.s24,
                                             width: AppSize.s24,
@@ -172,7 +195,7 @@ class CartsScreen extends StatelessWidget {
                                     GestureDetector(
                                       onTap: () {
                                         MokaBloc.get(context).add(
-                                          DeleteFromDatabaseEvent(
+                                          DeleteFromCartDatabaseEvent(
                                             itemCard[index]['id'],
                                           ),
                                         );
@@ -211,7 +234,7 @@ class CartsScreen extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    '3 ${AppStrings.items}',
+                    '${itemCard.length} ${AppStrings.items}',
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
                           color: AppColor.lightGrey,
                           fontSize: AppSize.s16,
@@ -220,7 +243,7 @@ class CartsScreen extends StatelessWidget {
                   ),
                   const Spacer(),
                   Text(
-                    '${AppStrings.poundLE} 3.555',
+                    '${AppStrings.poundLE} ${state.totalPrice}',
                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                           fontFamily: '',
                           fontSize: AppSize.s20,

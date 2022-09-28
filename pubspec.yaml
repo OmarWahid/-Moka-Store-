@@ -32,6 +32,7 @@ dependencies:
   flutter_rating_bar: ^4.0.1
   readmore: ^2.2.0
   sqflite: ^2.1.0
+  flutter_launcher_icons: ^0.10.0
 
   #firebase
   firebase_core: ^1.22.0
@@ -41,6 +42,10 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icons/fruit-shop.png"
 
   flutter_lints: ^2.0.0
 flutter:

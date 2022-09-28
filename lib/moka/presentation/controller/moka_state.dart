@@ -24,10 +24,16 @@ class MokaState extends Equatable {
 
   final Database? database;
   final List<Map>? cartItems;
+  final List<Map>? favoritesItems;
+  final double totalPrice;
+  final int itemCount;
 
   const MokaState({
     this.cartItems = const [],
+    this.favoritesItems = const [],
     this.database,
+    this.totalPrice = 0,
+    this.itemCount = 1,
     this.electronicsProduct = const [],
     this.currentProduct = const [],
     this.supermarketProduct = const [],
@@ -62,6 +68,9 @@ class MokaState extends Equatable {
   MokaState copyWith({
     Database? database,
     List<Map>? cartItems,
+    List<Map>? favoritesItems,
+    double? totalPrice,
+    int? itemCount ,
     List<ItemDetails>? electronicsProduct,
     List<ItemDetails>? currentProduct,
     List<ItemDetails>? supermarketProduct,
@@ -80,7 +89,10 @@ class MokaState extends Equatable {
   }) {
     return MokaState(
       cartItems: cartItems ?? this.cartItems,
+      favoritesItems: favoritesItems ?? this.favoritesItems,
       database: database ?? this.database,
+      totalPrice: totalPrice ?? this.totalPrice,
+      itemCount: itemCount ?? this.itemCount,
       currentIndexNavigation:
           currentIndexNavigation ?? this.currentIndexNavigation,
       itemSelected: itemSelected ?? this.itemSelected,
@@ -105,7 +117,10 @@ class MokaState extends Equatable {
   @override
   List<Object?> get props => [
         cartItems,
+        favoritesItems,
         database,
+        totalPrice,
+        itemCount,
         currentIndexNavigation,
         currentIndexItem,
         menuRefresh,

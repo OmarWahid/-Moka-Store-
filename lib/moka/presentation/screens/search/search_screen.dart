@@ -337,6 +337,11 @@ class _SearchScreenState extends State<SearchScreen> {
                                 width: AppSize.s140,
                                 fit: BoxFit.fill,
                                 imageUrl: '${liftList[index].image}',
+                                errorWidget: (context, url, error) => Image.asset(
+                                  ImageAssets.onboardingLogo3,
+                                  height: AppSize.s150,
+                                  width: AppSize.s150,
+                                ),
                               ),
                             ),
                           ),
@@ -436,6 +441,11 @@ class _SearchScreenState extends State<SearchScreen> {
                                 width: AppSize.s140,
                                 fit: BoxFit.fill,
                                 imageUrl: '${rightList[index].image}',
+                                errorWidget: (context, url, error) => Image.asset(
+                                  ImageAssets.onboardingLogo3,
+                                  height: AppSize.s150,
+                                  width: AppSize.s150,
+                                ),
                               ),
                             ),
                           ),

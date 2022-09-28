@@ -49,6 +49,11 @@ class ProductItems extends StatelessWidget {
                       imageUrl: item.image,
                       height: AppSize.s150,
                       fit: BoxFit.fill,
+                      errorWidget: (context, url, error) => Image.asset(
+                        ImageAssets.onboardingLogo3,
+                        height: AppSize.s150,
+                        width: AppSize.s150,
+                      ),
                     ),
                   ),
                 ),

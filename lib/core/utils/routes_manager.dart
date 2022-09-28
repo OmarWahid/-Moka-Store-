@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moka_store/core/utils/constants_manager.dart';
+import 'package:moka_store/moka/presentation/screens/carts/general_cart_screen.dart';
 import 'package:moka_store/moka/presentation/screens/category_see_more/category_details_screen.dart';
 import 'package:moka_store/moka/presentation/screens/category_see_more/catogry_items_screen.dart';
 import 'package:moka_store/moka/presentation/screens/item_details/item_details_screen.dart';
@@ -17,6 +18,7 @@ class Routes {
   static const String categoryItemsRoute = "/categoryItems";
   static const String itemDetailsRoute = "/itemDetails";
   static const String searchRoute = "/search";
+  static const String generalCartRoute = "/cart";
 }
 
 class RouteGenerator {
@@ -36,20 +38,26 @@ class RouteGenerator {
 
       case Routes.categoryItemsRoute:
         List<dynamic>? args = settings.arguments as List?;
-        return MaterialPageRoute(builder: (_) =>  CategoryItemsScreen(
-          item: args![AppConstants.cI0],
-          appbarTitle: args[AppConstants.cI1],
-        ));
+        return MaterialPageRoute(
+            builder: (_) => CategoryItemsScreen(
+                  item: args![AppConstants.cI0],
+                  appbarTitle: args[AppConstants.cI1],
+                ));
 
       case Routes.itemDetailsRoute:
-        return MaterialPageRoute(builder: (_) => ItemDetailsScreen(
-          item: settings.arguments,
-        ));
+        return MaterialPageRoute(
+            builder: (_) => ItemDetailsScreen(
+                  item: settings.arguments,
+                ));
 
       case Routes.searchRoute:
-        return MaterialPageRoute(builder: (_) =>  SearchScreen(
-          listSearch: settings.arguments,
-        ));
+        return MaterialPageRoute(
+            builder: (_) => SearchScreen(
+                  listSearch: settings.arguments,
+                ));
+
+      case Routes.generalCartRoute:
+        return MaterialPageRoute(builder: (_) => const GeneralCartScreen());
 
       default:
         return unDefinedRoute();

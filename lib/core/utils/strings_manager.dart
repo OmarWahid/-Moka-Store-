@@ -29,6 +29,7 @@ class AppStrings {
   static const String settings = "Settings";
   static const String checkout = "Checkout";
   static const String items = "Items";
+  static const String cart = "Cart";
 
   static const String search = "Search";
   static const String seeMore = "See more";

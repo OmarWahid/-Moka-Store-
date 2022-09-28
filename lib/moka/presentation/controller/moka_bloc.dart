@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -46,9 +45,17 @@ class MokaBloc extends Bloc<MokaEvent, MokaState> {
     on<GetWomenProductEvent>(_getWomenProduct);
     on<GetWatchesProductEvent>(_getWatchesProduct);
     on<CreateDataBaseEvent>(_createDataBase);
-    on<InsertToDatabaseEvent>(_insertToDatabase);
-    on<GetFromDatabaseEvent>(_getFromDatabase);
-    on<DeleteFromDatabaseEvent>(_deleteFromDatabase);
+    on<InsertToCartDatabaseEvent>(_insertToDatabase);
+    on<InsertToFavoritesDatabaseEvent>(_insertToFavoritesDatabase);
+    on<GetFromCartDatabaseEvent>(_getFromDatabase);
+    on<GetFromFavoriteDatabaseEvent>(_getFromFavoritesDatabase);
+    on<DeleteFromCartDatabaseEvent>(_deleteFromDatabase);
+    on<DeleteFromFavoriteDatabaseEvent>(_deleteFromFavoritesDatabase);
+    on<UpdateFromCartDatabaseEvent>(_updateFromDatabase);
+    on<UpdateFromFavoriteDatabaseEvent>(_updateFromFavoritesDatabase);
+    on<ChangeNumberOfPieceEvent>(_changeNumberOfPiece);
+    on<SetNumberOfPieceEvent>(_setNumberOfPiece);
+    on<IsInFavoriteDatabaseEvent>(_isInFavoriteDatabase);
   }
 
   FutureOr<void> _isSelected(
@@ -129,12 +136,16 @@ class MokaBloc extends Bloc<MokaEvent, MokaState> {
       CreateDataBaseEvent event, Emitter<MokaState> emit) async {
     print('DataBase Created !');
 
-    await openDatabase('carts.db', version: 1, onCreate: (db, version) {
-      db.execute(
+    await openDatabase('moka.db', version: 1, onCreate: (db, version) async {
+      await db.execute(
         'CREATE TABLE carts (id INTEGER PRIMARY KEY, name TEXT, price TEXT, image TEXT, quantity INTEGER)',
       );
+      await db.execute(
+        'CREATE TABLE favorites (id INTEGER PRIMARY KEY, name TEXT, price TEXT, image TEXT, rate TEXT, isLiked INTEGER)',
+      );
     }, onOpen: (db) {
-      add(GetFromDatabaseEvent());
+      add(GetFromCartDatabaseEvent());
+      add(GetFromFavoriteDatabaseEvent());
       emit(state.copyWith(
         database: db,
       ));
@@ -143,7 +154,7 @@ class MokaBloc extends Bloc<MokaEvent, MokaState> {
   }
 
   FutureOr<void> _insertToDatabase(
-      InsertToDatabaseEvent event, Emitter<MokaState> emit) async {
+      InsertToCartDatabaseEvent event, Emitter<MokaState> emit) async {
     final database = state.database;
     await database!.transaction((txn) async {
       int id1 = await txn.rawInsert(
@@ -154,7 +165,7 @@ class MokaBloc extends Bloc<MokaEvent, MokaState> {
             event.image,
             event.count,
           ]);
-      add(GetFromDatabaseEvent());
+      add(GetFromCartDatabaseEvent());
       Fluttertoast.showToast(
         msg: 'Added successfully ✔',
         toastLength: Toast.LENGTH_SHORT,
@@ -169,32 +180,158 @@ class MokaBloc extends Bloc<MokaEvent, MokaState> {
   }
 
   FutureOr<void> _getFromDatabase(
-      GetFromDatabaseEvent event, Emitter<MokaState> emit) async {
+      GetFromCartDatabaseEvent event, Emitter<MokaState> emit) async {
     final database = state.database;
     List<Map> cartItems = [];
+    double totalPrice = 0;
+    double filterPrice = 0;
     if (database != null) {
       await database.rawQuery('SELECT * FROM carts').then((value) {
         for (var element in value) {
           cartItems.add(element);
+          filterPrice =
+              double.parse(element['price'].toString().replaceAll(',', ''));
+          totalPrice +=
+              filterPrice * double.parse(element['quantity'].toString());
         }
         print('success get from database');
         cartConstant = cartItems;
         emit(state.copyWith(
           cartItems: cartItems,
+          // filter total price from digits
+          totalPrice: double.parse(totalPrice.toStringAsFixed(2)),
         ));
       });
     }
-
   }
 
   FutureOr<void> _deleteFromDatabase(
-      DeleteFromDatabaseEvent event, Emitter<MokaState> emit) async {
+      DeleteFromCartDatabaseEvent event, Emitter<MokaState> emit) async {
     final database = state.database;
     await database!.transaction((txn) async {
       int id1 =
           await txn.rawDelete('DELETE FROM carts WHERE id = ?', [event.id]);
-      add(GetFromDatabaseEvent());
+      add(GetFromCartDatabaseEvent());
       print('deleted1: $id1');
     });
+  }
+
+  FutureOr<void> _updateFromDatabase(
+      UpdateFromCartDatabaseEvent event, Emitter<MokaState> emit) async {
+    final database = state.database;
+    await database!.transaction((txn) async {
+      int id1 =
+          await txn.rawUpdate('UPDATE carts SET quantity = ? WHERE id = ?', [
+        event.count,
+        event.id,
+      ]);
+      add(GetFromCartDatabaseEvent());
+      print('updated1: $id1');
+    });
+  }
+
+  FutureOr<void> _changeNumberOfPiece(
+      ChangeNumberOfPieceEvent event, Emitter<MokaState> emit) {
+    if (event.typeOfChange == '-') {
+      if (state.itemCount > 1) {
+        emit(state.copyWith(
+          itemCount: state.itemCount - 1,
+        ));
+      }
+    } else {
+      emit(state.copyWith(
+        itemCount: state.itemCount + 1,
+      ));
+    }
+  }
+
+  FutureOr<void> _setNumberOfPiece(
+      SetNumberOfPieceEvent event, Emitter<MokaState> emit) {
+    emit(state.copyWith(
+      itemCount: 1,
+    ));
+  }
+
+  FutureOr<void> _insertToFavoritesDatabase(
+      InsertToFavoritesDatabaseEvent event, Emitter<MokaState> emit) async {
+    final database = state.database;
+    await database!.transaction((txn) async {
+      int id1 = await txn.rawInsert(
+          'INSERT INTO favorites(name, price, image, rate, isLiked) VALUES(?, ?, ?, ?, ?)',
+          [
+            event.itemDetails.title,
+            event.itemDetails.price,
+            event.itemDetails.image,
+            event.itemDetails.rate,
+            1,
+          ]);
+      add(GetFromFavoriteDatabaseEvent());
+
+      print('inserted1: $id1');
+    });
+  }
+
+  FutureOr<void> _getFromFavoritesDatabase(
+      GetFromFavoriteDatabaseEvent event, Emitter<MokaState> emit) async {
+    final database = state.database;
+    List<Map> favoritesItems = [];
+    if (database != null) {
+      await database.rawQuery('SELECT * FROM favorites').then((value) {
+        for (var element in value) {
+          favoritesItems.add(element);
+        }
+        print('success get from database');
+        emit(state.copyWith(
+          favoritesItems: favoritesItems,
+        ));
+      });
+    }
+  }
+
+  FutureOr<void> _deleteFromFavoritesDatabase(
+      DeleteFromFavoriteDatabaseEvent event, Emitter<MokaState> emit) async {
+    final database = state.database;
+    await database!.transaction((txn) async {
+      int id1 =
+          await txn.rawDelete('DELETE FROM favorites WHERE id = ?', [event.id]);
+      add(GetFromFavoriteDatabaseEvent());
+      print('deleted1: $id1');
+    });
+  }
+
+  FutureOr<void> _updateFromFavoritesDatabase(
+      UpdateFromFavoriteDatabaseEvent event, Emitter<MokaState> emit) async {
+    final database = state.database;
+    await database!.transaction((txn) async {
+      int id1 =
+          await txn.rawUpdate('UPDATE favorites SET isLiked = ? WHERE id = ?', [
+        event.isLiked,
+        event.id,
+      ]);
+      add(GetFromFavoriteDatabaseEvent());
+      print('updated1: $id1');
+    });
+  }
+
+  FutureOr<void> _isInFavoriteDatabase(
+      IsInFavoriteDatabaseEvent event, Emitter<MokaState> emit) async {
+    bool isContain = false;
+    int elementId = 0;
+    if (state.favoritesItems!.isNotEmpty) {
+      for (var element in state.favoritesItems as List<Map>) {
+        if (element['name'] == event.itemDetails.title) {
+          isContain = true;
+          elementId = element['id'];
+          break;
+        }
+      }
+      if (isContain) {
+        add(DeleteFromFavoriteDatabaseEvent(elementId));
+      } else {
+        add(InsertToFavoritesDatabaseEvent(event.itemDetails));
+      }
+    } else {
+      add(InsertToFavoritesDatabaseEvent(event.itemDetails));
+    }
   }
 }
