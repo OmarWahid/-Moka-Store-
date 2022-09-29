@@ -103,12 +103,12 @@ List<ComponentCategories> listCategory(context) => [
       ComponentCategories(
         image: AppStrings.categoryImage1,
         name: AppStrings.categoryName1,
-        list: womenProductConstant!,
+          list: menProductConstant!,
       ),
       ComponentCategories(
         image: AppStrings.categoryImage2,
         name: AppStrings.categoryName2,
-        list: menProductConstant!,
+        list: womenProductConstant!,
       ),
       ComponentCategories(
         image: AppStrings.categoryImage4,

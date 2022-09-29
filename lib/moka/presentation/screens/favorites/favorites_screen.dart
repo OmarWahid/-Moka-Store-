@@ -20,7 +20,7 @@ class FavoritesScreen extends StatelessWidget {
       buildWhen: (previous, current) =>
           previous.favoritesItems != current.favoritesItems,
       builder: (context, state) {
-        print('CartsScreen');
+        print('CartsScreen favorites');
         var itemFavorite = state.favoritesItems;
         if (state.favoritesItems!.isEmpty) {
           return const BasicNoFoundScreen(

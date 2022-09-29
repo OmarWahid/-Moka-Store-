@@ -30,6 +30,10 @@ class AppStrings {
   static const String checkout = "Checkout";
   static const String items = "Items";
   static const String cart = "Cart";
+  static const String areYouSure = "Are you sure?";
+  static const String doYouExit = "Do you want to exit this app ?";
+  static const String yes = "Yes";
+  static const String no = "No";
 
   static const String search = "Search";
   static const String seeMore = "See more";

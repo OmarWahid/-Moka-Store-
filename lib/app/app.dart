@@ -24,8 +24,8 @@ class _MyAppState extends State<MyApp> {
         return sl<MokaBloc>()
           ..add(GetElectronicsProductEvent())
           ..add(GetSupermarketProductEvent())
-        // ..add(GetMenProductEvent())
-        // ..add(GetWomenProductEvent())
+          ..add(GetMenProductEvent())
+          ..add(GetWomenProductEvent())
           ..add(GetWatchesProductEvent())
           ..add(CreateDataBaseEvent());
       },

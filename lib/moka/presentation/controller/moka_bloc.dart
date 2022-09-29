@@ -52,7 +52,6 @@ class MokaBloc extends Bloc<MokaEvent, MokaState> {
     on<DeleteFromCartDatabaseEvent>(_deleteFromDatabase);
     on<DeleteFromFavoriteDatabaseEvent>(_deleteFromFavoritesDatabase);
     on<UpdateFromCartDatabaseEvent>(_updateFromDatabase);
-    on<UpdateFromFavoriteDatabaseEvent>(_updateFromFavoritesDatabase);
     on<ChangeNumberOfPieceEvent>(_changeNumberOfPiece);
     on<SetNumberOfPieceEvent>(_setNumberOfPiece);
     on<IsInFavoriteDatabaseEvent>(_isInFavoriteDatabase);
@@ -136,12 +135,12 @@ class MokaBloc extends Bloc<MokaEvent, MokaState> {
       CreateDataBaseEvent event, Emitter<MokaState> emit) async {
     print('DataBase Created !');
 
-    await openDatabase('moka.db', version: 1, onCreate: (db, version) async {
+    await openDatabase('moka1.db', version: 1, onCreate: (db, version) async {
       await db.execute(
         'CREATE TABLE carts (id INTEGER PRIMARY KEY, name TEXT, price TEXT, image TEXT, quantity INTEGER)',
       );
       await db.execute(
-        'CREATE TABLE favorites (id INTEGER PRIMARY KEY, name TEXT, price TEXT, image TEXT, rate TEXT, isLiked INTEGER)',
+        'CREATE TABLE favorites (id INTEGER PRIMARY KEY, name TEXT, price TEXT, image TEXT, rate TEXT)',
       );
     }, onOpen: (db) {
       add(GetFromCartDatabaseEvent());
@@ -257,13 +256,14 @@ class MokaBloc extends Bloc<MokaEvent, MokaState> {
     final database = state.database;
     await database!.transaction((txn) async {
       int id1 = await txn.rawInsert(
-          'INSERT INTO favorites(name, price, image, rate, isLiked) VALUES(?, ?, ?, ?, ?)',
+          'INSERT INTO favorites(name, price, image, rate) VALUES(?, ?, ?, ?)',
           [
             event.itemDetails.title,
-            event.itemDetails.price,
+            (event.itemDetails.discount != '0')
+                ? event.itemDetails.discount
+                : event.itemDetails.price,
             event.itemDetails.image,
             event.itemDetails.rate,
-            1,
           ]);
       add(GetFromFavoriteDatabaseEvent());
 
@@ -296,20 +296,6 @@ class MokaBloc extends Bloc<MokaEvent, MokaState> {
           await txn.rawDelete('DELETE FROM favorites WHERE id = ?', [event.id]);
       add(GetFromFavoriteDatabaseEvent());
       print('deleted1: $id1');
-    });
-  }
-
-  FutureOr<void> _updateFromFavoritesDatabase(
-      UpdateFromFavoriteDatabaseEvent event, Emitter<MokaState> emit) async {
-    final database = state.database;
-    await database!.transaction((txn) async {
-      int id1 =
-          await txn.rawUpdate('UPDATE favorites SET isLiked = ? WHERE id = ?', [
-        event.isLiked,
-        event.id,
-      ]);
-      add(GetFromFavoriteDatabaseEvent());
-      print('updated1: $id1');
     });
   }
 

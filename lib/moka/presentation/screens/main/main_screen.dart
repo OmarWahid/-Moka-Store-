@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -51,73 +50,140 @@ class MainScreen extends StatelessWidget {
       builder: (context, state) {
         var bloc = MokaBloc.get(context);
         log('main Bloccccccccc');
-        return Scaffold(
-          appBar: AppBar(
-              title: const Text(AppStrings.appName),
-              leading: InkWell(
-                onTap: () {
-                  zoomDrawerController.toggle!();
-                },
-                splashColor: AppColor.transparent,
-                borderRadius: BorderRadius.circular(AppSize.s30),
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                      left: AppPadding.p16, right: AppPadding.p14),
-                  child: SvgPicture.asset(
-                    ImageAssets.menu,
-                  ),
-                ),
-              )),
-          body: state.screens![state.currentIndexNavigation!],
-          bottomNavigationBar: SizedBox(
-              height: size.width * .155,
-              child: ListView.builder(
-                itemCount: AppConstants.cI4,
-                scrollDirection: Axis.horizontal,
-                padding: EdgeInsets.symmetric(horizontal: size.width * .024),
-                itemBuilder: (context, index) => InkWell(
-                  onTap: () {
-                    bloc.add(ChangeIndexEvent(index));
-                  },
-                  splashColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SizedBox(height: size.width * .014),
-                      Icon(
-                        listOfIcons[index],
-                        size: size.width * .076,
-                        color: index == state.currentIndexNavigation
-                            ? AppColor.primary
-                            : Colors.white,
-                      ),
-                      AnimatedContainer(
-                        duration: const Duration(
-                            milliseconds: AppConstants.containerDelay),
-                        curve: Curves.fastLinearToSlowEaseIn,
-                        margin: EdgeInsets.only(
-                          top: index == state.currentIndexNavigation
-                              ? 0
-                              : size.width * .029,
-                          right: size.width * .0422,
-                          left: size.width * .0422,
-                        ),
-                        width: size.width * .153,
-                        height: index == state.currentIndexNavigation
-                            ? size.width * .014
-                            : 0,
-                        decoration: const BoxDecoration(
+        return WillPopScope(
+          onWillPop: () async {
+            final value = await showDialog<bool>(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(AppSize.s18)),
+                    actionsPadding: EdgeInsetsDirectional.only(
+                      bottom: AppPadding.p10,
+                    ),
+                    title: Text(AppStrings.areYouSure,
+                        style:
+                            Theme.of(context).textTheme.displayLarge!.copyWith(
+                                  color: AppColor.primary,
+                                )),
+                    content: Text(AppStrings.doYouExit,
+                        style:
+                            Theme.of(context).textTheme.displayLarge!.copyWith(
+                                  fontSize: AppSize.s16,
+                                )),
+                    actionsAlignment: MainAxisAlignment.spaceEvenly,
+                    actions: [
+                      Container(
+                        width: AppSize.s100,
+                        height: AppSize.s40,
+                        decoration: BoxDecoration(
                           color: AppColor.primary,
-                          borderRadius: BorderRadius.vertical(
-                            top: Radius.circular(AppSize.s20),
+                          borderRadius: BorderRadius.circular(AppSize.s5),
+                        ),
+                        child: MaterialButton(
+                          onPressed: () {
+                            return Navigator.of(context).pop(true);
+                          },
+                          child: Text(
+                            AppStrings.yes,
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: AppSize.s100,
+                        height: AppSize.s40,
+                        decoration: BoxDecoration(
+                          color: AppColor.primary,
+                          borderRadius: BorderRadius.circular(AppSize.s5),
+                        ),
+                        child: MaterialButton(
+                          onPressed: () {
+                            return Navigator.of(context).pop(false);
+                          },
+                          child: Text(
+                            AppStrings.no,
+                            style: Theme.of(context).textTheme.titleMedium,
                           ),
                         ),
                       ),
                     ],
+                  );
+                });
+            if (value != null) {
+              return Future.value(value);
+            } else {
+              return Future.value(false);
+            }
+          },
+          child: Scaffold(
+            appBar: AppBar(
+                title: const Text(AppStrings.appName),
+                leading: InkWell(
+                  onTap: () {
+                    zoomDrawerController.toggle!();
+                  },
+                  splashColor: AppColor.transparent,
+                  borderRadius: BorderRadius.circular(AppSize.s30),
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                        left: AppPadding.p16, right: AppPadding.p14),
+                    child: SvgPicture.asset(
+                      ImageAssets.menu,
+                    ),
                   ),
-                ),
-              )),
+                )),
+            body: state.screens![state.currentIndexNavigation!],
+            bottomNavigationBar: SizedBox(
+                height: size.width * .155,
+                child: ListView.builder(
+                  itemCount: AppConstants.cI4,
+                  scrollDirection: Axis.horizontal,
+                  padding: EdgeInsets.symmetric(horizontal: size.width * .024),
+                  itemBuilder: (context, index) => InkWell(
+                    onTap: () {
+                      bloc.add(ChangeIndexEvent(index));
+                    },
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SizedBox(height: size.width * .014),
+                        Icon(
+                          listOfIcons[index],
+                          size: size.width * .076,
+                          color: index == state.currentIndexNavigation
+                              ? AppColor.primary
+                              : Colors.white,
+                        ),
+                        AnimatedContainer(
+                          duration: const Duration(
+                              milliseconds: AppConstants.containerDelay),
+                          curve: Curves.fastLinearToSlowEaseIn,
+                          margin: EdgeInsets.only(
+                            top: index == state.currentIndexNavigation
+                                ? 0
+                                : size.width * .029,
+                            right: size.width * .0422,
+                            left: size.width * .0422,
+                          ),
+                          width: size.width * .153,
+                          height: index == state.currentIndexNavigation
+                              ? size.width * .014
+                              : 0,
+                          decoration: const BoxDecoration(
+                            color: AppColor.primary,
+                            borderRadius: BorderRadius.vertical(
+                              top: Radius.circular(AppSize.s20),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                )),
+          ),
         );
       },
     );
