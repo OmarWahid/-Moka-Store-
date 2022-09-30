@@ -5,8 +5,8 @@ import 'package:moka_store/core/utils/constants_manager.dart';
 import 'package:moka_store/core/utils/font_manager.dart';
 import 'package:moka_store/core/utils/strings_manager.dart';
 import 'package:moka_store/core/utils/values_manager.dart';
+import '../../../../config/shared/component.dart';
 import '../../../../core/utils/icons_manager.dart';
-import '../../../../core/utils/routes_manager.dart';
 
 class CashScreen extends StatelessWidget {
   const CashScreen({Key? key}) : super(key: key);
@@ -23,15 +23,10 @@ class CashScreen extends StatelessWidget {
             ),
             child: IconButton(
                 onPressed: () {
-                  Navigator.pushNamedAndRemoveUntil(
-                    context,
-                    Routes.mainRoute,
-                        (route) => false,
-                  );
+                  backToHome(context, AppStrings.backToHomeCash);
                 },
                 icon: const Icon(
                   IconBroken.Home,
-
                 )),
           )
         ],
@@ -60,7 +55,7 @@ class CashScreen extends StatelessWidget {
               style: Theme.of(context).textTheme.titleMedium!.copyWith(
                     fontSize: AppFontSize.s18,
                     color: AppColor.black,
-                height: AppSize.s1_5,
+                    height: AppSize.s1_5,
                   ),
             ),
             const SizedBox(height: AppSize.s20),

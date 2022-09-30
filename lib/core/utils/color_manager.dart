@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class AppColor {
   static const Color primary = Color(0xff5956e9);
   static const Color scaffoldBackGround = Color(0xffE5E5E5);
+  static const Color paymobBackGround = Color(0xfff2f2f2);
   static const Color amber = Color(0xffFFC107);
   static const Color redAccent = Color(0xffFF5252);
   static const Color darkGrey = Color(0xff525252);

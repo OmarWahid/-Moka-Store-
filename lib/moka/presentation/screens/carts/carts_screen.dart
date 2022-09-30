@@ -11,6 +11,10 @@ import '../../../../core/utils/enums_manager.dart';
 import '../../../../core/utils/routes_manager.dart';
 import '../../components/basic_no_found_component.dart';
 import '../../controller/moka_bloc.dart';
+import 'package:rounded_loading_button/rounded_loading_button.dart';
+
+final RoundedLoadingButtonController _btnController =
+    RoundedLoadingButtonController();
 
 class CartsScreen extends StatelessWidget {
   const CartsScreen({Key? key}) : super(key: key);
@@ -23,12 +27,18 @@ class CartsScreen extends StatelessWidget {
           previous.cartState != current.cartState,
       listener: (context, state) {
         if (state.cartState == RequestState.loaded) {
-          Navigator.pushNamed(context, Routes.toggleRoute);
-          state.copyWith(cartState: RequestState.error);
+          _btnController.reset();
+          Navigator.pushReplacementNamed(
+            context,
+            Routes.toggleRoute,
+          );
+          print(': buildWhen: listener: ${state.cartState}');
         }
       },
       builder: (context, state) {
         print('CartsScreen');
+        print(': buildWhen: builder: ${state.cartState}');
+
         var itemCard = state.cartItems;
         if (state.cartItems!.isEmpty) {
           return const BasicNoFoundScreen(
@@ -262,40 +272,58 @@ class CartsScreen extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: AppSize.s16),
-              (state.cartState == RequestState.loading)
-                  ? SizedBox(
-                      height: AppSize.s60,
-                      width: double.infinity,
-                      child: Center(
-                        child: CircularProgressIndicator(
-                          color: AppColor.primary,
-                        ),
+              // (state.cartState == RequestState.loading)
+              //     ? SizedBox(
+              //         height: AppSize.s60,
+              //         width: double.infinity,
+              //         child: Center(
+              //           child: CircularProgressIndicator(
+              //             color: AppColor.primary,
+              //           ),
+              //         ),
+              //       )
+              //     : Container(
+              //         height: AppSize.s60,
+              //         width: double.infinity,
+              //         decoration: BoxDecoration(
+              //           borderRadius: BorderRadius.circular(AppSize.s10),
+              //           color: AppColor.primary,
+              //         ),
+              //         child: TextButton(
+              //           onPressed: () {
+              //             MokaBloc.get(context).add(getFirstTokenEvent(
+              //               (state.totalPrice * AppConstants.cD100).toString(),
+              //             ));
+              //           },
+              //           child: Text(
+              //             AppStrings.checkout,
+              //             style:
+              //                 Theme.of(context).textTheme.bodyLarge!.copyWith(
+              //                       color: AppColor.white,
+              //                       fontSize: AppSize.s18,
+              //                     ),
+              //           ),
+              //         ),
+              //       ),
+              RoundedLoadingButton(
+                child: Text(
+                  AppStrings.checkout,
+                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                        color: AppColor.white,
+                        fontSize: AppSize.s18,
                       ),
-                    )
-                  : Container(
-                      height: AppSize.s60,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(AppSize.s10),
-                        color: AppColor.primary,
-                      ),
-                      child: TextButton(
-                        onPressed: () {
-                          MokaBloc.get(context).add(getFirstTokenEvent(
-                            (state.totalPrice * 100.0).toString(),
-                          ));
-                        },
-                        child: Text(
-                          AppStrings.checkout,
-                          style:
-                              Theme.of(context).textTheme.bodyLarge!.copyWith(
-                                    color: AppColor.white,
-                                    fontSize: AppSize.s18,
-                                  ),
-                        ),
-                      ),
-                    ),
-              const SizedBox(height: AppSize.s8),
+                ),
+                controller: _btnController,
+                onPressed: () {
+                  MokaBloc.get(context).add(getFirstTokenEvent(
+                    (state.totalPrice * AppConstants.cD100).toString(),
+                  ));
+                },
+                color: AppColor.primary,
+                height: AppSize.s60,
+                width: MediaQuery.of(context).size.width - AppSize.s35,
+              ),
+              const SizedBox(height: AppSize.s12),
             ],
           ),
         );

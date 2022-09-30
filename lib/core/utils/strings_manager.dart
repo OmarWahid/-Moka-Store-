@@ -50,6 +50,9 @@ class AppStrings {
   static const String paymentWithCash = "Payment With Cash";
   static const String orderNum = "This is your order number\n🔽 copy it 🔽";
   static const String goSupermarket = "You should go to the nearest supermarket to pay for your order";
+  static const String backToHomeCash = "Are you sure you copied the order number ?";
+  static const String backToHomeVisa = "Are you sure you completed the payment ?";
+  static const String backToHomeBase = "you want to go back to the home screen without completing the payment ?";
 
   // onBoarding
   static const String onBoardingTitle1 = "Welcome";

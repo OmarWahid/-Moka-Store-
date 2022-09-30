@@ -387,5 +387,9 @@ class MokaBloc extends Bloc<MokaEvent, MokaState> {
     emit(state.copyWith(
       cartState: RequestState.loaded,
     ));
+    print('object : DIV');
+    emit(state.copyWith(
+      cartState: RequestState.error,
+    ));
   }
 }
