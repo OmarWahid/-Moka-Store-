@@ -6,3 +6,4 @@ List<ItemDetails>? menProductConstant = [];
 List<ItemDetails>? womenProductConstant = [];
 List<ItemDetails>? watchesProductConstant = [];
 List<Map> cartConstant = [];
+String totalPrice = '';

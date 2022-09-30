@@ -1,5 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dio/dio.dart';
 import 'package:moka_store/moka/data/models/item_details_model.dart';
+
+import '../../../config/helper/dio_helper.dart';
+import '../../../core/network/api_constance.dart';
 
 abstract class BaseMokaRemoteDataSource {
   Future<List<ItemDetailsModel>> getElectronicsProduct();
@@ -11,6 +15,16 @@ abstract class BaseMokaRemoteDataSource {
   Future<List<ItemDetailsModel>> getMenProduct();
 
   Future<List<ItemDetailsModel>> getWomenProduct();
+
+  Future<Response<dynamic>> getFirstToken(String price);
+
+  Future<Response<dynamic>> getOrderId(String price);
+
+  Future<Response<dynamic>> getFinalTokenCardVisa(String price);
+
+  Future<Response<dynamic>> getFinalTokenKiosk(String price);
+
+  Future<Response<dynamic>> getReferenceCode();
 }
 
 /// no handle error because it's handled in the repository
@@ -75,5 +89,99 @@ class MokaRemoteDataSource extends BaseMokaRemoteDataSource {
       result.add(ItemDetailsModel.fromJson(element.data()));
     }
     return result;
+  }
+
+  @override
+  Future<Response> getFinalTokenCardVisa(String price) async {
+    final response = await DioHelper.postData(
+        endPoint: ApiConstance.FINAL_TOKEN_ENDPOINT,
+        data: {
+          "auth_token": ApiConstance.PAYMENT_FIRST_TOKEN,
+          "amount_cents": price,
+          "expiration": 3600,
+          "order_id": ApiConstance.PAYMENT_ORDER_ID,
+          "billing_data": {
+            "apartment": "NA",
+            "email": "admin@gmail.com",
+            "floor": "NA",
+            "first_name": "admin",
+            "street": "NA",
+            "building": "NA",
+            "phone_number": "0123456789",
+            "shipping_method": "NA",
+            "postal_code": "NA",
+            "city": "NA",
+            "country": "NA",
+            "last_name": "admin",
+            "state": "NA"
+          },
+          "currency": "EGP",
+          "integration_id": ApiConstance.INTEGRATION_ID_VISACARD
+        });
+    return response;
+  }
+
+  @override
+  Future<Response> getFinalTokenKiosk(String price) async {
+    final response = await DioHelper.postData(
+        endPoint: ApiConstance.FINAL_TOKEN_ENDPOINT,
+        data: {
+          "auth_token": ApiConstance.PAYMENT_FIRST_TOKEN,
+          "amount_cents": price,
+          "expiration": 3600,
+          "order_id": ApiConstance.PAYMENT_ORDER_ID,
+          "billing_data": {
+            "apartment": "NA",
+            "email": "admin@gmail.com",
+            "floor": "NA",
+            "first_name": "admin",
+            "street": "NA",
+            "building": "NA",
+            "phone_number": "0123456789",
+            "shipping_method": "NA",
+            "postal_code": "NA",
+            "city": "NA",
+            "country": "NA",
+            "last_name": "admin",
+            "state": "NA"
+          },
+          "currency": "EGP",
+          "integration_id": ApiConstance.INTEGRATION_ID_KIOSK
+        });
+    return response;
+  }
+
+  @override
+  Future<Response> getFirstToken(String price) async {
+    final response = await DioHelper.postData(
+        endPoint: ApiConstance.FIRST_TOKEN_ENDPOINT,
+        data: {"api_key": ApiConstance.APIKEY});
+    return response;
+  }
+
+  @override
+  Future<Response> getOrderId(String price) async {
+    final response = await DioHelper.postData(
+      endPoint: ApiConstance.ORDER_ID_ENDPOINT,
+      data: {
+        "auth_token": ApiConstance.PAYMENT_FIRST_TOKEN,
+        "delivery_needed": "false",
+        "amount_cents": price,
+        "currency": "EGP",
+        "items": [],
+      },
+    );
+    return response;
+  }
+
+  @override
+  Future<Response> getReferenceCode() async {
+    final response = await DioHelper.postData(
+        endPoint: ApiConstance.REFCODE_ENDPOINT,
+        data: {
+          "source": {"identifier": "AGGREGATOR", "subtype": "AGGREGATOR"},
+          "payment_token": ApiConstance.PAYMENT_FINAL_TOKEN_KIOSK
+        });
+    return response;
   }
 }

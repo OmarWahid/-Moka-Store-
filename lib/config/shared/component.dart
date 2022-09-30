@@ -10,7 +10,6 @@ Widget defaultButton({
   Color borderColor = AppColor.primary,
   Color fontColor = Colors.white,
   bool isUpperCase = true,
-  //String fontFamily = 'Metropolis-SemiBold',
   double radius = AppSize.s3,
   double borderWidth = 0,
   double fontSize = AppFontSize.s16,

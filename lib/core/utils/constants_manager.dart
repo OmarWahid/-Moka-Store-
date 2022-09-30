@@ -19,6 +19,7 @@ class AppConstants {
   static const double cD0_3 = 0.3;
   static const double cD0_5 = 0.5;
   static const double cD1 = 1.0;
+  static const double cD2 = 2.0;
   static const double cD1_8 = 1.8;
   static const double cD10 = 10.0;
   static const double cD20 = 20.0;

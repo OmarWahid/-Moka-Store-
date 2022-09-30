@@ -1,3 +1,4 @@
+import 'package:dio/src/response.dart';
 import 'package:moka_store/moka/data/data_sources/moka_remote_data_source.dart';
 import 'package:moka_store/moka/domain/entities/item_details.dart';
 import 'package:moka_store/moka/domain/repositories/base_moka_respositry.dart';
@@ -30,5 +31,30 @@ class MokaRepository extends BaseMokaRepository {
   @override
   Future<List<ItemDetails>> getWomenProduct() {
     return baseMokaRemoteDataSource.getWomenProduct();
+  }
+
+  @override
+  Future<Response> getFinalTokenCardVisa(String price) {
+    return baseMokaRemoteDataSource.getFinalTokenCardVisa(price);
+  }
+
+  @override
+  Future<Response> getFinalTokenKiosk(String price) {
+    return baseMokaRemoteDataSource.getFinalTokenKiosk(price);
+  }
+
+  @override
+  Future<Response> getFirstToken(String price) {
+    return baseMokaRemoteDataSource.getFirstToken(price);
+  }
+
+  @override
+  Future<Response> getOrderId(String price) {
+    return baseMokaRemoteDataSource.getOrderId(price);
+  }
+
+  @override
+  Future<Response> getReferenceCode() {
+    return baseMokaRemoteDataSource.getReferenceCode();
   }
 }

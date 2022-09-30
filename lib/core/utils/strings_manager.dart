@@ -34,6 +34,8 @@ class AppStrings {
   static const String doYouExit = "Do you want to exit this app ?";
   static const String yes = "Yes";
   static const String no = "No";
+  static const String cash = "Cash";
+  static const String visa = "Visa";
 
   static const String search = "Search";
   static const String seeMore = "See more";
@@ -44,6 +46,10 @@ class AppStrings {
   static const String description = "Description";
   static const String perPiece = "/ per piece";
   static const String addCart = "Add to cart";
+  static const String paymentWithCard = "Payment With Card";
+  static const String paymentWithCash = "Payment With Cash";
+  static const String orderNum = "This is your order number\n🔽 copy it 🔽";
+  static const String goSupermarket = "You should go to the nearest supermarket to pay for your order";
 
   // onBoarding
   static const String onBoardingTitle1 = "Welcome";

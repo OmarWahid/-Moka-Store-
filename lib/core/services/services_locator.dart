@@ -1,6 +1,11 @@
 import 'package:get_it/get_it.dart';
 import 'package:moka_store/moka/domain/use_cases/get_electronics_use_case.dart';
+import 'package:moka_store/moka/domain/use_cases/get_final_token_card_visa_use_case.dart';
+import 'package:moka_store/moka/domain/use_cases/get_final_token_kiosk_use_case.dart';
+import 'package:moka_store/moka/domain/use_cases/get_first_token_use_case.dart';
 import 'package:moka_store/moka/domain/use_cases/get_men_use_case.dart';
+import 'package:moka_store/moka/domain/use_cases/get_order_id_use_case.dart';
+import 'package:moka_store/moka/domain/use_cases/get_reference_code_use_case.dart';
 
 import '../../moka/data/data_sources/moka_remote_data_source.dart';
 import '../../moka/data/repositories/moka_repository.dart';
@@ -15,7 +20,18 @@ final sl = GetIt.instance;
 class ServicesLocator {
   void init() {
     /// BLOC
-    sl.registerFactory(() => MokaBloc(sl(), sl(), sl(), sl(), sl()));
+    sl.registerFactory(() => MokaBloc(
+          sl(),
+          sl(),
+          sl(),
+          sl(),
+          sl(),
+          sl(),
+          sl(),
+          sl(),
+          sl(),
+          sl(),
+        ));
 
     /// USE CASES
     sl.registerLazySingleton(() => GetElectronicsProductUseCase(sl()));
@@ -23,6 +39,11 @@ class ServicesLocator {
     sl.registerLazySingleton(() => GetMenProductUseCase(sl()));
     sl.registerLazySingleton(() => GetWomenProductUseCase(sl()));
     sl.registerLazySingleton(() => GetWatchesProductUseCase(sl()));
+    sl.registerLazySingleton(() => GetFirstTokenUseCase(sl()));
+    sl.registerLazySingleton(() => GetOrderIdUseCase(sl()));
+    sl.registerLazySingleton(() => GetFinalTokenCardVisaUseCase(sl()));
+    sl.registerLazySingleton(() => GetFinalTokenKioskUseCase(sl()));
+    sl.registerLazySingleton(() => GetReferenceCodeUseCase(sl()));
 
     /// REPOSITORY
     sl.registerLazySingleton<BaseMokaRepository>(() => MokaRepository(sl()));

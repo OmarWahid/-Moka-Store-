@@ -3,14 +3,20 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:moka_store/core/network/api_constance.dart';
 import 'package:moka_store/moka/domain/entities/item_details.dart';
 import 'package:moka_store/moka/domain/use_cases/get_electronics_use_case.dart';
+import 'package:moka_store/moka/domain/use_cases/get_final_token_card_visa_use_case.dart';
+import 'package:moka_store/moka/domain/use_cases/get_final_token_kiosk_use_case.dart';
+import 'package:moka_store/moka/domain/use_cases/get_order_id_use_case.dart';
+import 'package:moka_store/moka/domain/use_cases/get_reference_code_use_case.dart';
 import 'package:moka_store/moka/presentation/screens/carts/carts_screen.dart';
 import 'package:moka_store/moka/presentation/screens/favorites/favorites_screen.dart';
 import 'package:moka_store/moka/presentation/screens/home/home_screen.dart';
 import 'package:sqflite/sqflite.dart';
 import '../../../config/shared/constant.dart';
 import '../../../core/utils/enums_manager.dart';
+import '../../domain/use_cases/get_first_token_use_case.dart';
 import '../../domain/use_cases/get_men_use_case.dart';
 import '../../domain/use_cases/get_supermarket_use_case.dart';
 import '../../domain/use_cases/get_watches_use_case.dart';
@@ -27,6 +33,11 @@ class MokaBloc extends Bloc<MokaEvent, MokaState> {
   final GetMenProductUseCase getMenProductUseCase;
   final GetWomenProductUseCase getWomenProductUseCase;
   final GetWatchesProductUseCase getWatchesProductUseCase;
+  final GetFirstTokenUseCase getFirstTokenUseCase;
+  final GetOrderIdUseCase getOrderIdUseCase;
+  final GetFinalTokenCardVisaUseCase getFinalTokenCardVisaUseCase;
+  final GetFinalTokenKioskUseCase getFinalTokenKioskUseCase;
+  final GetReferenceCodeUseCase getReferenceCodeUseCase;
 
   static MokaBloc get(context) => BlocProvider.of(context);
 
@@ -36,6 +47,11 @@ class MokaBloc extends Bloc<MokaEvent, MokaState> {
     this.getMenProductUseCase,
     this.getSupermarketProductUseCase,
     this.getElectronicsProductUseCase,
+    this.getFirstTokenUseCase,
+    this.getOrderIdUseCase,
+    this.getFinalTokenCardVisaUseCase,
+    this.getFinalTokenKioskUseCase,
+    this.getReferenceCodeUseCase,
   ) : super(const MokaState()) {
     on<ChangeIndexEvent>(_changeIndexNavigationBar);
     on<IsSelectedItemProductsEvent>(_isSelected);
@@ -55,6 +71,11 @@ class MokaBloc extends Bloc<MokaEvent, MokaState> {
     on<ChangeNumberOfPieceEvent>(_changeNumberOfPiece);
     on<SetNumberOfPieceEvent>(_setNumberOfPiece);
     on<IsInFavoriteDatabaseEvent>(_isInFavoriteDatabase);
+    on<getFirstTokenEvent>(_getFirstToken);
+    on<getOrderIdEvent>(_getOrderId);
+    on<getFinalTokenCardVisaEvent>(_getFinalTokenCardVisa);
+    on<getFinalTokenKioskEvent>(_getFinalTokenKiosk);
+    on<getReferenceCodeEvent>(_getReferenceCode);
   }
 
   FutureOr<void> _isSelected(
@@ -319,5 +340,52 @@ class MokaBloc extends Bloc<MokaEvent, MokaState> {
     } else {
       add(InsertToFavoritesDatabaseEvent(event.itemDetails));
     }
+  }
+
+  FutureOr<void> _getFirstToken(
+      getFirstTokenEvent event, Emitter<MokaState> emit) async {
+    print('object : 1');
+    emit(state.copyWith(
+      cartState: RequestState.loading,
+    ));
+    final result = await getFirstTokenUseCase(event.price);
+    ApiConstance.PAYMENT_FIRST_TOKEN = result.data['token'];
+    add(getOrderIdEvent(event.price));
+  }
+
+  FutureOr<void> _getOrderId(
+      getOrderIdEvent event, Emitter<MokaState> emit) async {
+    print('object : 2');
+
+    final result = await getOrderIdUseCase(event.price);
+    ApiConstance.PAYMENT_ORDER_ID = result.data['id'].toString();
+    add(getFinalTokenCardVisaEvent(event.price));
+    add(getFinalTokenKioskEvent(event.price));
+  }
+
+  FutureOr<void> _getFinalTokenCardVisa(
+      getFinalTokenCardVisaEvent event, Emitter<MokaState> emit) async {
+    print('object : 3');
+
+    final result = await getFinalTokenCardVisaUseCase(event.price);
+    ApiConstance.PAYMENT_FINAL_TOKEN_VISA = result.data['token'];
+  }
+
+  FutureOr<void> _getFinalTokenKiosk(
+      getFinalTokenKioskEvent event, Emitter<MokaState> emit) async {
+    print('object : 4');
+    final result = await getFinalTokenKioskUseCase(event.price);
+    ApiConstance.PAYMENT_FINAL_TOKEN_KIOSK = result.data['token'];
+    add(getReferenceCodeEvent());
+  }
+
+  FutureOr<void> _getReferenceCode(
+      getReferenceCodeEvent event, Emitter<MokaState> emit) async {
+    print('object : 5');
+    final result = await getReferenceCodeUseCase();
+    ApiConstance.REFCODE = result.data['id'].toString();
+    emit(state.copyWith(
+      cartState: RequestState.loaded,
+    ));
   }
 }

@@ -1,21 +1,25 @@
 class ApiConstance {
-  static const String baseUrl = 'https://api.themoviedb.org/3';
-  static const String baseImageUrl = 'https://image.tmdb.org/t/p/w500';
-  static const String appKey = 'e613aa671ba32dc306753fcb43d5c9b9';
-  static const String whenNullImage = '/nmGWzTLMXy9x7mKd8NKPLmHtWGa.jpg';
+  static const String BASEURL = 'https://accept.paymob.com/api/';
+  static const String APIKEY =
+      'ZXlKaGJHY2lPaUpJVXpVeE1pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SnVZVzFsSWpvaWFXNXBkR2xoYkNJc0ltTnNZWE56SWpvaVRXVnlZMmhoYm5RaUxDSndjbTltYVd4bFgzQnJJam8xTXpNNE1UVjkuTWZUdlF0WC1idlIwbjdyX2lwQnQ3S2tFYnAtdlJHTzc0NXJRcTZITDJ4QklaTlZPSG9weGJpRjNXR3d5Um0zejBtb0pOYVh6TlU2VzJzbGUwQm5oLWc=';
 
-  static const String nowPlayingMoviesPath =
-      '$baseUrl/movie/now_playing?api_key=$appKey';
-  static const String popularMoviesPath =
-      '$baseUrl/movie/popular?api_key=$appKey';
-  static const String topRatedMoviesPath =
-      '$baseUrl/movie/top_rated?api_key=$appKey';
+  static const String FIRST_TOKEN_ENDPOINT = 'auth/tokens';
+  static const String ORDER_ID_ENDPOINT = 'ecommerce/orders';
+  static const String FINAL_TOKEN_ENDPOINT = 'acceptance/payment_keys';
+  static const String REFCODE_ENDPOINT = 'acceptance/payments/pay';
 
-  static String detailsMoviePath(int movieId) =>
-      '$baseUrl/movie/$movieId?api_key=$appKey';
 
-  static String recommendationsMoviePath(int movieId) =>
-      '$baseUrl/movie/$movieId/recommendations?api_key=$appKey';
+  static  String PAYMENT_FIRST_TOKEN = '';
+  static  String PAYMENT_ORDER_ID = '';
 
-  static String imageUrl(String path) => '$baseImageUrl$path';
+  static  String PAYMENT_FINAL_TOKEN_VISA = '';
+  static  String PAYMENT_FINAL_TOKEN_KIOSK = '';
+
+  static  String REFCODE = '';
+
+  static const String INTEGRATION_ID_VISACARD = '2844106';
+  static const String INTEGRATION_ID_KIOSK = '2844127';
+
+  static const String FRAME_URL =
+      'https://accept.paymob.com/api/acceptance/iframes/680789?payment_token=';
 }

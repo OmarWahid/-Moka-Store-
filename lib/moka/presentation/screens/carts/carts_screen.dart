@@ -7,6 +7,8 @@ import 'package:moka_store/core/utils/strings_manager.dart';
 import 'package:moka_store/core/utils/values_manager.dart';
 import '../../../../core/utils/assets_manager.dart';
 import '../../../../core/utils/color_manager.dart';
+import '../../../../core/utils/enums_manager.dart';
+import '../../../../core/utils/routes_manager.dart';
 import '../../components/basic_no_found_component.dart';
 import '../../controller/moka_bloc.dart';
 
@@ -15,8 +17,16 @@ class CartsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MokaBloc, MokaState>(
-      buildWhen: (previous, current) => previous.cartItems != current.cartItems,
+    return BlocConsumer<MokaBloc, MokaState>(
+      buildWhen: (previous, current) =>
+          previous.cartItems != current.cartItems ||
+          previous.cartState != current.cartState,
+      listener: (context, state) {
+        if (state.cartState == RequestState.loaded) {
+          Navigator.pushNamed(context, Routes.toggleRoute);
+          state.copyWith(cartState: RequestState.error);
+        }
+      },
       builder: (context, state) {
         print('CartsScreen');
         var itemCard = state.cartItems;
@@ -125,8 +135,8 @@ class CartsScreen extends StatelessWidget {
                                           onTap: () {
                                             if (itemCard[index]['quantity'] >
                                                 1) {
-                                              MokaBloc.get(context)
-                                                  .add(UpdateFromCartDatabaseEvent(
+                                              MokaBloc.get(context).add(
+                                                  UpdateFromCartDatabaseEvent(
                                                 itemCard[index]['id'],
                                                 itemCard[index]['quantity'] - 1,
                                               ));
@@ -160,7 +170,7 @@ class CartsScreen extends StatelessWidget {
                                               .copyWith(
                                                 color: AppColor.black,
                                                 fontSize: AppSize.s20,
-                                            fontFamily: '',
+                                                fontFamily: '',
                                               ),
                                         ),
                                         const SizedBox(
@@ -168,8 +178,8 @@ class CartsScreen extends StatelessWidget {
                                         ),
                                         GestureDetector(
                                           onTap: () {
-                                            MokaBloc.get(context)
-                                                .add(UpdateFromCartDatabaseEvent(
+                                            MokaBloc.get(context).add(
+                                                UpdateFromCartDatabaseEvent(
                                               itemCard[index]['id'],
                                               itemCard[index]['quantity'] + 1,
                                             ));
@@ -252,24 +262,39 @@ class CartsScreen extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: AppSize.s16),
-              Container(
-                height: AppSize.s60,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(AppSize.s10),
-                  color: AppColor.primary,
-                ),
-                child: TextButton(
-                  onPressed: () {},
-                  child: Text(
-                    AppStrings.checkout,
-                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                          color: AppColor.white,
-                          fontSize: AppSize.s18,
+              (state.cartState == RequestState.loading)
+                  ? SizedBox(
+                      height: AppSize.s60,
+                      width: double.infinity,
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          color: AppColor.primary,
                         ),
-                  ),
-                ),
-              ),
+                      ),
+                    )
+                  : Container(
+                      height: AppSize.s60,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(AppSize.s10),
+                        color: AppColor.primary,
+                      ),
+                      child: TextButton(
+                        onPressed: () {
+                          MokaBloc.get(context).add(getFirstTokenEvent(
+                            (state.totalPrice * 100.0).toString(),
+                          ));
+                        },
+                        child: Text(
+                          AppStrings.checkout,
+                          style:
+                              Theme.of(context).textTheme.bodyLarge!.copyWith(
+                                    color: AppColor.white,
+                                    fontSize: AppSize.s18,
+                                  ),
+                        ),
+                      ),
+                    ),
               const SizedBox(height: AppSize.s8),
             ],
           ),

@@ -27,6 +27,7 @@ class MokaState extends Equatable {
   final List<Map>? favoritesItems;
   final double totalPrice;
   final int itemCount;
+  final RequestState cartState;
 
   const MokaState({
     this.cartItems = const [],
@@ -46,6 +47,7 @@ class MokaState extends Equatable {
     this.menProductState = RequestState.loading,
     this.womenProductState = RequestState.loading,
     this.watchesProductState = RequestState.loading,
+    this.cartState = RequestState.error,
     this.currentIndexItem = 0,
     this.currentIndexNavigation = 0,
     this.menuRefresh = 0,
@@ -83,6 +85,7 @@ class MokaState extends Equatable {
     RequestState? menProductState,
     RequestState? womenProductState,
     RequestState? watchesProductState,
+    RequestState? cartState,
     int? currentIndexNavigation,
     itemSelected,
     int? currentIndexItem,
@@ -111,6 +114,7 @@ class MokaState extends Equatable {
       womenProductState: womenProductState ?? this.womenProductState,
       watchesProduct: watchesProduct ?? this.watchesProduct,
       watchesProductState: watchesProductState ?? this.watchesProductState,
+      cartState: cartState ?? this.cartState,
     );
   }
 
@@ -139,5 +143,6 @@ class MokaState extends Equatable {
         menProductState,
         womenProductState,
         watchesProductState,
+        cartState,
       ];
 }

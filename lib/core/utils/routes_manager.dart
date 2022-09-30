@@ -7,6 +7,8 @@ import 'package:moka_store/moka/presentation/screens/item_details/item_details_s
 import 'package:moka_store/moka/presentation/screens/search/search_screen.dart';
 import '../../moka/presentation/screens/main/main_screen.dart';
 import '../../moka/presentation/screens/onboarding/onboarding_screen.dart';
+import '../../moka/presentation/screens/payment/cash_screen.dart';
+import '../../moka/presentation/screens/payment/payment_toggle_screen.dart';
 import '../../moka/presentation/screens/splash/splash_screen.dart';
 import 'strings_manager.dart';
 
@@ -19,6 +21,9 @@ class Routes {
   static const String itemDetailsRoute = "/itemDetails";
   static const String searchRoute = "/search";
   static const String generalCartRoute = "/cart";
+  static const String toggleRoute = "/toggle";
+  static const String cashRoute = "/cash";
+  static const String visaRoute = "/visa";
 }
 
 class RouteGenerator {
@@ -58,6 +63,15 @@ class RouteGenerator {
 
       case Routes.generalCartRoute:
         return MaterialPageRoute(builder: (_) => const GeneralCartScreen());
+
+      case Routes.toggleRoute:
+        return MaterialPageRoute(builder: (_) => const ToggleScreen());
+
+      case Routes.cashRoute:
+        return MaterialPageRoute(builder: (_) => const CashScreen());
+
+        // case Routes.visaRoute:
+        // return MaterialPageRoute(builder: (_) => const VisaScreen());
 
       default:
         return unDefinedRoute();

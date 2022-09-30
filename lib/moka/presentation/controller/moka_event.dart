@@ -153,3 +153,43 @@ class SetNumberOfPieceEvent extends MokaEvent {
   List<Object?> get props => [];
 }
 
+class getFirstTokenEvent extends MokaEvent {
+  final String price;
+
+  const getFirstTokenEvent(this.price);
+
+  @override
+  List<Object> get props => [price];
+}
+
+class getOrderIdEvent extends MokaEvent {
+  final String price;
+
+  const getOrderIdEvent(this.price);
+
+  @override
+  List<Object> get props => [price];
+}
+
+class getFinalTokenCardVisaEvent extends MokaEvent {
+  final String price;
+
+  const getFinalTokenCardVisaEvent(this.price);
+
+  @override
+  List<Object> get props => [price];
+}
+
+class getFinalTokenKioskEvent extends MokaEvent {
+  final String price;
+
+  const getFinalTokenKioskEvent(this.price);
+
+  @override
+  List<Object> get props => [price];
+}
+
+class getReferenceCodeEvent extends MokaEvent {
+  @override
+  List<Object?> get props => [];
+}
