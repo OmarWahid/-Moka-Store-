@@ -47,6 +47,11 @@ class GetWatchesProductEvent extends MokaEvent {
   List<Object?> get props => [];
 }
 
+class GetAllProductEvent extends MokaEvent {
+  @override
+  List<Object?> get props => [];
+}
+
 class CreateDataBaseEvent extends MokaEvent {
   @override
   List<Object?> get props => [];

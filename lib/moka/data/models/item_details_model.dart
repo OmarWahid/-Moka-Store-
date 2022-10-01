@@ -9,6 +9,7 @@ class ItemDetailsModel extends ItemDetails {
     required super.discount,
     required super.id,
     required super.rate,
+    super.category,
   });
 
   factory ItemDetailsModel.fromJson(Map<String, dynamic> json) {
@@ -20,6 +21,7 @@ class ItemDetailsModel extends ItemDetails {
       discount: json['discount'],
       id: json['id'],
       rate: json['rate'],
+      category: json['category'],
     );
   }
 }

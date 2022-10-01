@@ -27,6 +27,7 @@ class _MyAppState extends State<MyApp> {
           ..add(GetMenProductEvent())
           ..add(GetWomenProductEvent())
           ..add(GetWatchesProductEvent())
+          ..add(GetAllProductEvent())
           ..add(CreateDataBaseEvent());
       },
       child: MaterialApp(

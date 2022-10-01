@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moka_store/moka/presentation/screens/home/product_part.dart';
+import '../../../../config/shared/constant.dart';
 import '../../../../core/utils/color_manager.dart';
 import '../../../../core/utils/icons_manager.dart';
 import '../../../../core/utils/routes_manager.dart';
@@ -26,7 +27,11 @@ class HomeScreen extends StatelessWidget {
                 Expanded(
                   child: GestureDetector(
                     onTap: () {
-                      // Navigator.pushNamed(context, Routes.) ;
+                      Navigator.pushNamed(
+                        context,
+                        Routes.searchRoute,
+                        arguments: allProductConstant,
+                      );
                     },
                     child: Container(
                       height: AppSize.s50,
@@ -128,7 +133,13 @@ class HomeScreen extends StatelessWidget {
                 ),
                 const Spacer(),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pushNamed(context, Routes.categoryItemsRoute,
+                        arguments: [
+                          allProductConstant,
+                          AppStrings.allProducts
+                        ]);
+                  },
                   child: Padding(
                     padding:
                         const EdgeInsets.symmetric(vertical: AppPadding.p8),

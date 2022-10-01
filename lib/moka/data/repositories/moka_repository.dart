@@ -34,6 +34,11 @@ class MokaRepository extends BaseMokaRepository {
   }
 
   @override
+  Future<List<ItemDetails>> getAllProduct() {
+    return baseMokaRemoteDataSource.getAllProduct();
+  }
+
+  @override
   Future<Response> getFinalTokenCardVisa(String price) {
     return baseMokaRemoteDataSource.getFinalTokenCardVisa(price);
   }

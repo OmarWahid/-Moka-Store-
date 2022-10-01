@@ -35,7 +35,7 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const SplashScreen());
 
       case Routes.onBoardingRoute:
-        return SlideTransition1( const OnBoardingScreen());
+        return SlideTransition1(const OnBoardingScreen());
 
       case Routes.mainRoute:
         return SlideTransition1(const MainHomeZoom());

@@ -8,6 +8,7 @@ class ItemDetails extends Equatable {
   final String discount;
   final String id;
   final String rate;
+  final String? category;
 
   const ItemDetails({
     required this.title,
@@ -17,11 +18,11 @@ class ItemDetails extends Equatable {
     required this.discount,
     required this.id,
     required this.rate,
+    this.category = '',
   });
 
-
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         title,
         description,
         image,
@@ -29,6 +30,6 @@ class ItemDetails extends Equatable {
         discount,
         id,
         rate,
+        category,
       ];
 }
-

@@ -16,6 +16,8 @@ abstract class BaseMokaRemoteDataSource {
 
   Future<List<ItemDetailsModel>> getWomenProduct();
 
+  Future<List<ItemDetailsModel>> getAllProduct();
+
   Future<Response<dynamic>> getFirstToken(String price);
 
   Future<Response<dynamic>> getOrderId(String price);
@@ -84,6 +86,17 @@ class MokaRemoteDataSource extends BaseMokaRemoteDataSource {
   Future<List<ItemDetailsModel>> getWomenProduct() async {
     List<ItemDetailsModel> result = [];
     final response = await FirebaseFirestore.instance.collection('women').get();
+
+    for (var element in response.docs) {
+      result.add(ItemDetailsModel.fromJson(element.data()));
+    }
+    return result;
+  }
+
+  @override
+  Future<List<ItemDetailsModel>> getAllProduct() async {
+    List<ItemDetailsModel> result = [];
+    final response = await FirebaseFirestore.instance.collection('all').get();
 
     for (var element in response.docs) {
       result.add(ItemDetailsModel.fromJson(element.data()));

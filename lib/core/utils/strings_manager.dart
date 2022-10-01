@@ -36,10 +36,22 @@ class AppStrings {
   static const String no = "No";
   static const String cash = "Cash";
   static const String visa = "Visa";
+  static const String ok = "Apply";
+  static const String cancel = "Cancel";
+  static const String filter = "Filter";
+  static const String filterBy = "Filter by";
+  static const String price = "Price";
+  // category
+  static const String shirt = "shirt";
+  static const String tShirt = "t-shirt";
+  static const String pants = "pants";
+  static const String shorts = "shorts";
 
   static const String search = "Search";
   static const String seeMore = "See more";
   static const String categories = "Categories";
+  static const String category = "Category";
+  static const String allProducts = "All Products";
   static const String products = "Products";
   static const String totalPrice = "Total Price";
   static const String poundLE = "L.E";

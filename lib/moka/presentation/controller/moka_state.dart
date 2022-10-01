@@ -14,6 +14,7 @@ class MokaState extends Equatable {
   final List<ItemDetails> womenProduct;
   final List<ItemDetails> watchesProduct;
   final List<ItemDetails> currentProduct;
+  final List<ItemDetails> allProduct;
 
   final RequestState electronicsProductState;
   final RequestState currentProductState;
@@ -21,6 +22,7 @@ class MokaState extends Equatable {
   final RequestState menProductState;
   final RequestState womenProductState;
   final RequestState watchesProductState;
+  final RequestState allProductState;
 
   final Database? database;
   final List<Map>? cartItems;
@@ -41,12 +43,14 @@ class MokaState extends Equatable {
     this.menProduct = const [],
     this.womenProduct = const [],
     this.watchesProduct = const [],
+    this.allProduct = const [],
     this.electronicsProductState = RequestState.loading,
     this.currentProductState = RequestState.loading,
     this.supermarketProductState = RequestState.loading,
     this.menProductState = RequestState.loading,
     this.womenProductState = RequestState.loading,
     this.watchesProductState = RequestState.loading,
+    this.allProductState = RequestState.loading,
     this.cartState = RequestState.error,
     this.currentIndexItem = 0,
     this.currentIndexNavigation = 0,
@@ -72,19 +76,21 @@ class MokaState extends Equatable {
     List<Map>? cartItems,
     List<Map>? favoritesItems,
     double? totalPrice,
-    int? itemCount ,
+    int? itemCount,
     List<ItemDetails>? electronicsProduct,
     List<ItemDetails>? currentProduct,
     List<ItemDetails>? supermarketProduct,
     List<ItemDetails>? menProduct,
     List<ItemDetails>? womenProduct,
     List<ItemDetails>? watchesProduct,
+    List<ItemDetails>? allProduct,
     RequestState? electronicsProductState,
     RequestState? currentProductState,
     RequestState? supermarketProductState,
     RequestState? menProductState,
     RequestState? womenProductState,
     RequestState? watchesProductState,
+    RequestState? allProductState,
     RequestState? cartState,
     int? currentIndexNavigation,
     itemSelected,
@@ -115,6 +121,8 @@ class MokaState extends Equatable {
       watchesProduct: watchesProduct ?? this.watchesProduct,
       watchesProductState: watchesProductState ?? this.watchesProductState,
       cartState: cartState ?? this.cartState,
+      allProduct: allProduct ?? this.allProduct,
+      allProductState: allProductState ?? this.allProductState,
     );
   }
 
@@ -144,5 +152,7 @@ class MokaState extends Equatable {
         womenProductState,
         watchesProductState,
         cartState,
+        allProduct,
+        allProductState,
       ];
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:moka_store/core/utils/strings_manager.dart';
 import 'package:moka_store/core/utils/values_manager.dart';
 import '../../../../core/utils/color_manager.dart';
+import '../../../../core/utils/font_manager.dart';
 import '../../../../core/utils/icons_manager.dart';
 import '../../../../core/utils/routes_manager.dart';
 import '../../components/products_items.dart';
@@ -36,8 +37,11 @@ class CategoryItemsScreen extends StatelessWidget {
                   Expanded(
                     child: GestureDetector(
                       onTap: () {
-                        Navigator.pushNamed(context, Routes.searchRoute,
-                            arguments: item,);
+                        Navigator.pushNamed(
+                          context,
+                          Routes.searchRoute,
+                          arguments: item,
+                        );
                       },
                       child: Container(
                         height: AppSize.s50,
@@ -68,7 +72,188 @@ class CategoryItemsScreen extends StatelessWidget {
                     width: AppSize.s12,
                   ),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: Text(
+                                AppStrings.filter,
+                                style: Theme.of(context).textTheme.displayLarge,
+                              ),
+                              actionsAlignment: MainAxisAlignment.center,
+                              content: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    AppStrings.price,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineLarge!
+                                        .copyWith(
+                                          fontSize: AppFontSize.s18,
+                                          color: AppColor.lightBlue,
+                                        ),
+                                  ),
+                                  Slider(
+                                    value: 0,
+                                    min: 0,
+                                    max: 100,
+                                    divisions: 10,
+                                    label: '5',
+                                    onChanged: (value) {
+                                      print(value);
+                                    },
+                                  ),
+                                  Text(
+                                    AppStrings.category,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineLarge!
+                                        .copyWith(
+                                          fontSize: AppFontSize.s18,
+                                          color: AppColor.lightBlue,
+                                        ),
+                                  ),
+                                  SizedBox(
+                                    height: AppSize.s8,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        AppStrings.shirt,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headlineLarge!
+                                            .copyWith(
+                                              fontSize: AppFontSize.s16,
+                                            ),
+                                      ),
+                                      Spacer(),
+                                      Checkbox(
+                                        value: true,
+                                        materialTapTargetSize:
+                                            MaterialTapTargetSize.shrinkWrap,
+                                        onChanged: (value) {
+                                          print(value);
+                                        },
+                                      ),
+                                      SizedBox(
+                                        width: AppSize.s8,
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        AppStrings.tShirt,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headlineLarge!
+                                            .copyWith(
+                                              fontSize: AppFontSize.s16,
+                                            ),
+                                      ),
+                                      Spacer(),
+                                      Checkbox(
+                                        value: false,
+                                        materialTapTargetSize:
+                                            MaterialTapTargetSize.shrinkWrap,
+                                        onChanged: (value) {
+                                          print(value);
+                                        },
+                                      ),
+                                      SizedBox(
+                                        width: AppSize.s8,
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        AppStrings.pants,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headlineLarge!
+                                            .copyWith(
+                                              fontSize: AppFontSize.s16,
+                                            ),
+                                      ),
+                                      Spacer(),
+                                      Checkbox(
+                                        value: true,
+                                        materialTapTargetSize:
+                                            MaterialTapTargetSize.shrinkWrap,
+                                        onChanged: (value) {
+                                          print(value);
+                                        },
+                                      ),
+                                      SizedBox(
+                                        width: AppSize.s8,
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        AppStrings.shorts,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headlineLarge!
+                                            .copyWith(
+                                              fontSize: AppFontSize.s16,
+                                            ),
+                                      ),
+                                      Spacer(),
+                                      Checkbox(
+                                        value: false,
+                                        materialTapTargetSize:
+                                            MaterialTapTargetSize.shrinkWrap,
+                                        onChanged: (value) {
+                                          print(value);
+                                        },
+                                      ),
+                                      SizedBox(
+                                        width: AppSize.s8,
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              actions: [
+                                TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text(
+                                      AppStrings.cancel,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headlineLarge!
+                                          .copyWith(
+                                            fontSize: AppFontSize.s16,
+                                            color: AppColor.lightBlue,
+                                          ),
+                                    )),
+                                TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text(
+                                      AppStrings.ok,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headlineLarge!
+                                          .copyWith(
+                                            fontSize: AppFontSize.s16,
+                                            color: AppColor.lightBlue,
+                                          ),
+                                    )),
+                              ],
+                            );
+                          });
+                    },
                     child: Container(
                       height: AppSize.s50,
                       width: AppSize.s50,

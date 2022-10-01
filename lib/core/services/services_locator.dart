@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:moka_store/moka/domain/use_cases/get_all_use_case.dart';
 import 'package:moka_store/moka/domain/use_cases/get_electronics_use_case.dart';
 import 'package:moka_store/moka/domain/use_cases/get_final_token_card_visa_use_case.dart';
 import 'package:moka_store/moka/domain/use_cases/get_final_token_kiosk_use_case.dart';
@@ -31,6 +32,7 @@ class ServicesLocator {
           sl(),
           sl(),
           sl(),
+          sl(),
         ));
 
     /// USE CASES
@@ -44,6 +46,7 @@ class ServicesLocator {
     sl.registerLazySingleton(() => GetFinalTokenCardVisaUseCase(sl()));
     sl.registerLazySingleton(() => GetFinalTokenKioskUseCase(sl()));
     sl.registerLazySingleton(() => GetReferenceCodeUseCase(sl()));
+    sl.registerLazySingleton(() => GetAllProductUseCase(sl()));
 
     /// REPOSITORY
     sl.registerLazySingleton<BaseMokaRepository>(() => MokaRepository(sl()));

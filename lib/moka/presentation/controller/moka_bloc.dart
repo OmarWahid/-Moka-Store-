@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:moka_store/core/network/api_constance.dart';
 import 'package:moka_store/moka/domain/entities/item_details.dart';
+import 'package:moka_store/moka/domain/use_cases/get_all_use_case.dart';
 import 'package:moka_store/moka/domain/use_cases/get_electronics_use_case.dart';
 import 'package:moka_store/moka/domain/use_cases/get_final_token_card_visa_use_case.dart';
 import 'package:moka_store/moka/domain/use_cases/get_final_token_kiosk_use_case.dart';
@@ -33,6 +34,7 @@ class MokaBloc extends Bloc<MokaEvent, MokaState> {
   final GetMenProductUseCase getMenProductUseCase;
   final GetWomenProductUseCase getWomenProductUseCase;
   final GetWatchesProductUseCase getWatchesProductUseCase;
+  final GetAllProductUseCase getAllProductUseCase;
   final GetFirstTokenUseCase getFirstTokenUseCase;
   final GetOrderIdUseCase getOrderIdUseCase;
   final GetFinalTokenCardVisaUseCase getFinalTokenCardVisaUseCase;
@@ -44,6 +46,7 @@ class MokaBloc extends Bloc<MokaEvent, MokaState> {
   MokaBloc(
     this.getWomenProductUseCase,
     this.getWatchesProductUseCase,
+    this.getAllProductUseCase,
     this.getMenProductUseCase,
     this.getSupermarketProductUseCase,
     this.getElectronicsProductUseCase,
@@ -60,6 +63,7 @@ class MokaBloc extends Bloc<MokaEvent, MokaState> {
     on<GetMenProductEvent>(_getMenProduct);
     on<GetWomenProductEvent>(_getWomenProduct);
     on<GetWatchesProductEvent>(_getWatchesProduct);
+    on<GetAllProductEvent>(_getAllProduct);
     on<CreateDataBaseEvent>(_createDataBase);
     on<InsertToCartDatabaseEvent>(_insertToDatabase);
     on<InsertToFavoritesDatabaseEvent>(_insertToFavoritesDatabase);
@@ -149,6 +153,16 @@ class MokaBloc extends Bloc<MokaEvent, MokaState> {
     emit(state.copyWith(
       womenProduct: result,
       womenProductState: RequestState.loaded,
+    ));
+  }
+
+  FutureOr<void> _getAllProduct(
+      GetAllProductEvent event, Emitter<MokaState> emit) async {
+    final result = await getAllProductUseCase();
+    allProductConstant = result;
+    emit(state.copyWith(
+      allProductState: RequestState.loaded,
+      allProduct: result,
     ));
   }
 

@@ -12,6 +12,8 @@ abstract class BaseMokaRepository {
 
   Future<List<ItemDetails>> getWomenProduct();
 
+  Future<List<ItemDetails>> getAllProduct();
+
   Future<Response<dynamic>> getFirstToken(String price);
 
   Future<Response<dynamic>> getOrderId(String price);
