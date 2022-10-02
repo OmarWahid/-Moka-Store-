@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:moka_store/core/utils/font_manager.dart';
 import 'package:moka_store/core/utils/values_manager.dart';
+
 import '../../core/utils/color_manager.dart';
 import '../../core/utils/routes_manager.dart';
 import '../../core/utils/strings_manager.dart';
@@ -58,7 +59,7 @@ Widget defaultButton({
       ),
     );
 
-void backToHome(BuildContext context,String text) {
+void backToHome(BuildContext context, String text) {
   showDialog(
       context: context,
       builder: (context) {
@@ -90,7 +91,7 @@ void backToHome(BuildContext context,String text) {
                   Navigator.pushNamedAndRemoveUntil(
                     context,
                     Routes.mainRoute,
-                        (route) => false,
+                    (route) => false,
                   );
                 },
                 child: Text(
@@ -121,33 +122,23 @@ void backToHome(BuildContext context,String text) {
       });
 }
 
-
-
-
 class SlideTransition1 extends PageRouteBuilder {
   final Widget page;
 
   SlideTransition1(this.page)
       : super(
-      pageBuilder: (context, animation, anotherAnimation) => page,
-      transitionDuration: Duration(milliseconds: 1000),
-      reverseTransitionDuration: Duration(milliseconds: 400),
-      transitionsBuilder: (context, animation, anotherAnimation, child) {
-        animation = CurvedAnimation(
-            curve: Curves.fastLinearToSlowEaseIn,
-            parent: animation,
-            reverseCurve: Curves.fastOutSlowIn);
-        return SlideTransition(
-          position: Tween(begin: Offset(1.0, 0.0), end: Offset(0.0, 0.0))
-              .animate(animation),
-          child: page,
-        );
-      });
+            pageBuilder: (context, animation, anotherAnimation) => page,
+            transitionDuration: Duration(milliseconds: 1000),
+            reverseTransitionDuration: Duration(milliseconds: 400),
+            transitionsBuilder: (context, animation, anotherAnimation, child) {
+              animation = CurvedAnimation(
+                  curve: Curves.fastLinearToSlowEaseIn,
+                  parent: animation,
+                  reverseCurve: Curves.fastOutSlowIn);
+              return SlideTransition(
+                position: Tween(begin: Offset(1.0, 0.0), end: Offset(0.0, 0.0))
+                    .animate(animation),
+                child: page,
+              );
+            });
 }
-
-
-
-
-
-
-

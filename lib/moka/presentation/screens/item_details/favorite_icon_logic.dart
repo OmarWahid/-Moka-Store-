@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:moka_store/core/utils/values_manager.dart';
 
 import '../../../../core/utils/color_manager.dart';

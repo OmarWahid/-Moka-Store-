@@ -88,12 +88,10 @@ class GetFromFavoriteDatabaseEvent extends MokaEvent {
   List<Object?> get props => [];
 }
 
-
 class GetFromCartDatabaseEvent extends MokaEvent {
   @override
   List<Object?> get props => [];
 }
-
 
 class DeleteFromCartDatabaseEvent extends MokaEvent {
   final int id;
@@ -123,7 +121,6 @@ class UpdateFromFavoriteDatabaseEvent extends MokaEvent {
   List<Object> get props => [id, isLiked];
 }
 
-
 class UpdateFromCartDatabaseEvent extends MokaEvent {
   final int id;
   final int count;
@@ -134,8 +131,6 @@ class UpdateFromCartDatabaseEvent extends MokaEvent {
   List<Object> get props => [id, count];
 }
 
-
-
 class IsInFavoriteDatabaseEvent extends MokaEvent {
   final ItemDetails itemDetails;
 
@@ -144,6 +139,7 @@ class IsInFavoriteDatabaseEvent extends MokaEvent {
   @override
   List<Object> get props => [itemDetails];
 }
+
 class ChangeNumberOfPieceEvent extends MokaEvent {
   final String typeOfChange;
 

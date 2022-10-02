@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../core/services/services_locator.dart';
 import '../core/utils/routes_manager.dart';
 import '../core/utils/theme_manager.dart';
@@ -32,7 +33,9 @@ class _MyAppState extends State<MyApp> {
       },
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: getApplicationTheme(),
+        theme: getApplicationLightTheme(),
+        darkTheme: getApplicationDarkTheme(),
+        themeMode: ThemeMode.light,
         initialRoute: Routes.splashRoute,
         onGenerateRoute: RouteGenerator.getRoute,
       ),

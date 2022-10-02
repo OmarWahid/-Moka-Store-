@@ -1,6 +1,7 @@
 import 'package:flutter_overboard/flutter_overboard.dart';
 import 'package:moka_store/core/utils/assets_manager.dart';
 import 'package:moka_store/core/utils/color_manager.dart';
+
 import '../../../../core/utils/strings_manager.dart';
 
 final pages = [

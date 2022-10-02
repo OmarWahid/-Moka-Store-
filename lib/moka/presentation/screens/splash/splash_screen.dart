@@ -1,9 +1,12 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:moka_store/core/utils/color_manager.dart';
+import 'package:moka_store/core/utils/font_manager.dart';
 import 'package:moka_store/core/utils/strings_manager.dart';
+
 import '../../../../config/helper/cache_helper.dart';
 import '../../../../core/utils/assets_manager.dart';
 import '../../../../core/utils/constants_manager.dart';
@@ -22,7 +25,8 @@ class _SplashScreenState extends State<SplashScreen>
   late final AnimationController _controller;
 
   _startDelay() {
-    _timer = Timer(const Duration(milliseconds: AppConstants.splashDelay), _goNext);
+    _timer =
+        Timer(const Duration(milliseconds: AppConstants.splashDelay), _goNext);
   }
 
   _goNext() {
@@ -75,9 +79,8 @@ class _SplashScreenState extends State<SplashScreen>
               child: Text(
                 AppStrings.appName,
                 style: GoogleFonts.bungee(
-                  textStyle: Theme.of(context).textTheme.headline4!.copyWith(
-                        color: AppColor.white,
-                      ),
+                  textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
+                      color: AppColor.white, fontSize: AppFontSize.s34),
                 ),
               ),
             ),

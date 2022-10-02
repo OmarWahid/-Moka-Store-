@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:moka_store/core/utils/assets_manager.dart';
 import 'package:moka_store/core/utils/values_manager.dart';
+
 import '../../../../core/utils/color_manager.dart';
 import '../../../../core/utils/font_manager.dart';
 import '../../../../core/utils/icons_manager.dart';
@@ -254,11 +255,11 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget buildSearchItem() {
     return Column(
       children: [
-       if(listSearch.length>0)
-        Text(
-          '${AppStrings.found} ${listSearch.length} ${AppStrings.result}',
-          style: Theme.of(context).textTheme.headlineLarge,
-        ),
+        if (listSearch.length > 0)
+          Text(
+            '${AppStrings.found} ${listSearch.length} ${AppStrings.result}',
+            style: Theme.of(context).textTheme.headlineLarge,
+          ),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -337,7 +338,8 @@ class _SearchScreenState extends State<SearchScreen> {
                                 width: AppSize.s140,
                                 fit: BoxFit.fill,
                                 imageUrl: '${liftList[index].image}',
-                                errorWidget: (context, url, error) => Image.asset(
+                                errorWidget: (context, url, error) =>
+                                    Image.asset(
                                   ImageAssets.onboardingLogo3,
                                   height: AppSize.s150,
                                   width: AppSize.s150,
@@ -441,7 +443,8 @@ class _SearchScreenState extends State<SearchScreen> {
                                 width: AppSize.s140,
                                 fit: BoxFit.fill,
                                 imageUrl: '${rightList[index].image}',
-                                errorWidget: (context, url, error) => Image.asset(
+                                errorWidget: (context, url, error) =>
+                                    Image.asset(
                                   ImageAssets.onboardingLogo3,
                                   height: AppSize.s150,
                                   width: AppSize.s150,

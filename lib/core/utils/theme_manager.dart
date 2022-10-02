@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 import 'color_manager.dart';
 import 'constants_manager.dart';
 import 'font_manager.dart';
 import 'styles_manager.dart';
 import 'values_manager.dart';
 
-ThemeData getApplicationTheme() {
+ThemeData getApplicationLightTheme() {
   return ThemeData(
     // main colors
     primaryColor: AppColor.primary,
@@ -19,7 +20,6 @@ ThemeData getApplicationTheme() {
       primary: AppColor.primary,
       secondary: AppColor.primary,
     ),
-    // primarySwatch: AppColor.primary,
     // card view theme
     cardTheme: const CardTheme(
       color: AppColor.white,
@@ -113,4 +113,8 @@ ThemeData getApplicationTheme() {
             borderRadius: BorderRadius.all(Radius.circular(AppSize.s8)))),
     // label style
   );
+}
+
+ThemeData getApplicationDarkTheme() {
+  return ThemeData();
 }

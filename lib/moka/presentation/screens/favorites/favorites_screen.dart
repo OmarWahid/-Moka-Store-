@@ -5,6 +5,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:moka_store/core/utils/font_manager.dart';
 import 'package:moka_store/core/utils/strings_manager.dart';
 import 'package:moka_store/core/utils/values_manager.dart';
+
 import '../../../../core/utils/assets_manager.dart';
 import '../../../../core/utils/color_manager.dart';
 import '../../../../core/utils/constants_manager.dart';

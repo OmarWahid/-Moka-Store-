@@ -9,6 +9,7 @@ import 'package:moka_store/core/utils/routes_manager.dart';
 import 'package:moka_store/core/utils/strings_manager.dart';
 import 'package:moka_store/core/utils/values_manager.dart';
 import 'package:readmore/readmore.dart';
+
 import '../../../../config/shared/component.dart';
 import '../../../../core/utils/assets_manager.dart';
 import '../../../../core/utils/color_manager.dart';

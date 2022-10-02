@@ -14,6 +14,6 @@ class ImageAssets {
   static const String onboardingLogo3 = "$imagePath/Online Groceries-pana.png";
   static const String discountIcon = "$imagePath/bell.svg";
   static const String card = "$imagePath/realistic-credit-card-design.png";
-  static const String machineCard = "$imagePath/point-sale-machine-design-resource.png";
-
+  static const String machineCard =
+      "$imagePath/point-sale-machine-design-resource.png";
 }

@@ -5,13 +5,13 @@ import 'package:moka_store/core/utils/constants_manager.dart';
 import 'package:moka_store/core/utils/font_manager.dart';
 import 'package:moka_store/core/utils/strings_manager.dart';
 import 'package:moka_store/core/utils/values_manager.dart';
+import 'package:rounded_loading_button/rounded_loading_button.dart';
 import '../../../../core/utils/assets_manager.dart';
 import '../../../../core/utils/color_manager.dart';
 import '../../../../core/utils/enums_manager.dart';
 import '../../../../core/utils/routes_manager.dart';
 import '../../components/basic_no_found_component.dart';
 import '../../controller/moka_bloc.dart';
-import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 final RoundedLoadingButtonController _btnController =
     RoundedLoadingButtonController();

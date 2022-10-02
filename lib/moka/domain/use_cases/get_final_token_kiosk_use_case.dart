@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+
 import '../repositories/base_moka_respositry.dart';
 
 class GetFinalTokenKioskUseCase {

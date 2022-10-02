@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:moka_store/core/utils/strings_manager.dart';
 import 'package:moka_store/core/utils/values_manager.dart';
+
 import '../../../../core/utils/color_manager.dart';
 import '../../../../core/utils/font_manager.dart';
 import '../../../../core/utils/icons_manager.dart';

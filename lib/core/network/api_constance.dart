@@ -8,14 +8,13 @@ class ApiConstance {
   static const String FINAL_TOKEN_ENDPOINT = 'acceptance/payment_keys';
   static const String REFCODE_ENDPOINT = 'acceptance/payments/pay';
 
+  static String PAYMENT_FIRST_TOKEN = '';
+  static String PAYMENT_ORDER_ID = '';
 
-  static  String PAYMENT_FIRST_TOKEN = '';
-  static  String PAYMENT_ORDER_ID = '';
+  static String PAYMENT_FINAL_TOKEN_VISA = '';
+  static String PAYMENT_FINAL_TOKEN_KIOSK = '';
 
-  static  String PAYMENT_FINAL_TOKEN_VISA = '';
-  static  String PAYMENT_FINAL_TOKEN_KIOSK = '';
-
-  static  String REFCODE = '';
+  static String REFCODE = '';
 
   static const String INTEGRATION_ID_VISACARD = '2844106';
   static const String INTEGRATION_ID_KIOSK = '2844127';

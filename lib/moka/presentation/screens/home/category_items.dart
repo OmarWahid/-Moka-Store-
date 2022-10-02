@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moka_store/core/utils/color_manager.dart';
 import 'package:moka_store/core/utils/routes_manager.dart';
+
 import '../../../../config/shared/constant.dart';
 import '../../../../core/utils/constants_manager.dart';
 import '../../../../core/utils/strings_manager.dart';
@@ -103,7 +104,7 @@ List<ComponentCategories> listCategory(context) => [
       ComponentCategories(
         image: AppStrings.categoryImage1,
         name: AppStrings.categoryName1,
-          list: menProductConstant!,
+        list: menProductConstant!,
       ),
       ComponentCategories(
         image: AppStrings.categoryImage2,

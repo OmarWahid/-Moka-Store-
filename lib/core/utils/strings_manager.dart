@@ -41,6 +41,7 @@ class AppStrings {
   static const String filter = "Filter";
   static const String filterBy = "Filter by";
   static const String price = "Price";
+
   // category
   static const String shirt = "shirt";
   static const String tShirt = "t-shirt";
@@ -61,10 +62,14 @@ class AppStrings {
   static const String paymentWithCard = "Payment With Card";
   static const String paymentWithCash = "Payment With Cash";
   static const String orderNum = "This is your order number\n🔽 copy it 🔽";
-  static const String goSupermarket = "You should go to the nearest supermarket to pay for your order";
-  static const String backToHomeCash = "Are you sure you copied the order number ?";
-  static const String backToHomeVisa = "Are you sure you completed the payment ?";
-  static const String backToHomeBase = "you want to go back to the home screen without completing the payment ?";
+  static const String goSupermarket =
+      "You should go to the nearest supermarket to pay for your order";
+  static const String backToHomeCash =
+      "Are you sure you copied the order number ?";
+  static const String backToHomeVisa =
+      "Are you sure you completed the payment ?";
+  static const String backToHomeBase =
+      "you want to go back to the home screen without completing the payment ?";
 
   // onBoarding
   static const String onBoardingTitle1 = "Welcome";

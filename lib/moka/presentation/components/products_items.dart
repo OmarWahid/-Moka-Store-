@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:moka_store/core/utils/assets_manager.dart';
+
 import '../../../core/utils/color_manager.dart';
 import '../../../core/utils/constants_manager.dart';
 import '../../../core/utils/routes_manager.dart';
@@ -105,7 +106,7 @@ class ProductItems extends StatelessWidget {
               ],
             ),
           ),
-          if(item.discount != "0")
+          if (item.discount != "0")
             Positioned(
                 bottom: AppSize.s100,
                 right: AppPadding.p6,

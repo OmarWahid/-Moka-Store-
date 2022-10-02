@@ -5,6 +5,7 @@ import 'package:moka_store/moka/presentation/screens/category_see_more/category_
 import 'package:moka_store/moka/presentation/screens/category_see_more/catogry_items_screen.dart';
 import 'package:moka_store/moka/presentation/screens/item_details/item_details_screen.dart';
 import 'package:moka_store/moka/presentation/screens/search/search_screen.dart';
+
 import '../../config/shared/component.dart';
 import '../../moka/presentation/screens/main/main_screen.dart';
 import '../../moka/presentation/screens/onboarding/onboarding_screen.dart';
