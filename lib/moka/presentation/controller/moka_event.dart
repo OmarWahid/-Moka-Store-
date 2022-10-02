@@ -194,3 +194,12 @@ class getReferenceCodeEvent extends MokaEvent {
   @override
   List<Object?> get props => [];
 }
+
+class changeModeEvent extends MokaEvent {
+  final bool isDark;
+
+  const changeModeEvent(this.isDark);
+
+  @override
+  List<Object> get props => [isDark];
+}

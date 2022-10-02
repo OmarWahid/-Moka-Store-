@@ -383,7 +383,7 @@ class ItemDetailsScreen extends StatelessWidget {
                                                           backgroundColor:
                                                               MaterialStatePropertyAll(
                                                             AppColor
-                                                                .scaffoldBackGround,
+                                                                .scaffoldLightBackGround,
                                                           ),
                                                           side:
                                                               MaterialStatePropertyAll(

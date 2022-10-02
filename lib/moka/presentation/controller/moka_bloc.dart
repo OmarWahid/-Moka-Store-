@@ -4,7 +4,9 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:moka_store/config/helper/cache_helper.dart';
 import 'package:moka_store/core/network/api_constance.dart';
+import 'package:moka_store/core/utils/constants_manager.dart';
 import 'package:moka_store/moka/domain/entities/item_details.dart';
 import 'package:moka_store/moka/domain/use_cases/get_all_use_case.dart';
 import 'package:moka_store/moka/domain/use_cases/get_electronics_use_case.dart';
@@ -27,7 +29,6 @@ import '../../domain/use_cases/get_women_use_case.dart';
 import '../screens/settings/settings_screen.dart';
 
 part 'moka_event.dart';
-
 part 'moka_state.dart';
 
 class MokaBloc extends Bloc<MokaEvent, MokaState> {
@@ -82,6 +83,7 @@ class MokaBloc extends Bloc<MokaEvent, MokaState> {
     on<getFinalTokenCardVisaEvent>(_getFinalTokenCardVisa);
     on<getFinalTokenKioskEvent>(_getFinalTokenKiosk);
     on<getReferenceCodeEvent>(_getReferenceCode);
+    on<changeModeEvent>(_changeMode);
   }
 
   FutureOr<void> _isSelected(
@@ -407,5 +409,28 @@ class MokaBloc extends Bloc<MokaEvent, MokaState> {
     emit(state.copyWith(
       cartState: RequestState.error,
     ));
+  }
+
+  FutureOr<void> _changeMode(
+      changeModeEvent event, Emitter<MokaState> emit) async {
+    if (event.isDark == true) {
+      print('isDark : true');
+      await CacheHelper.saveData(key: AppConstants.isDark, value: true)
+          .then((value) {
+        emit(state.copyWith(
+          isDark: true,
+        ));
+      });
+    }
+
+    if (event.isDark == false) {
+      print('isDark : false');
+      await CacheHelper.saveData(key: AppConstants.isDark, value: false)
+          .then((value) {
+        emit(state.copyWith(
+          isDark: false,
+        ));
+      });
+    }
   }
 }

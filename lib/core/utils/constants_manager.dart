@@ -13,6 +13,7 @@ class AppConstants {
 
   // constants keys
   static const String cacheOnBoardingKey = 'onBoarding';
+  static const String isDark = 'isDark';
 
   // constants double values
   static const double cD0 = 0;

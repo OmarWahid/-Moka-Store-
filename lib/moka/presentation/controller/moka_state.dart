@@ -31,6 +31,8 @@ class MokaState extends Equatable {
   final int itemCount;
   final RequestState cartState;
 
+  final bool isDark;
+
   const MokaState({
     this.cartItems = const [],
     this.favoritesItems = const [],
@@ -55,6 +57,7 @@ class MokaState extends Equatable {
     this.currentIndexItem = 0,
     this.currentIndexNavigation = 0,
     this.menuRefresh = 0,
+    this.isDark = false,
     this.screens = const [
       HomeScreen(),
       FavoritesScreen(),
@@ -95,6 +98,7 @@ class MokaState extends Equatable {
     int? currentIndexNavigation,
     itemSelected,
     int? currentIndexItem,
+    bool? isDark,
   }) {
     return MokaState(
       cartItems: cartItems ?? this.cartItems,
@@ -123,6 +127,7 @@ class MokaState extends Equatable {
       cartState: cartState ?? this.cartState,
       allProduct: allProduct ?? this.allProduct,
       allProductState: allProductState ?? this.allProductState,
+      isDark: isDark ?? this.isDark,
     );
   }
 
@@ -154,5 +159,6 @@ class MokaState extends Equatable {
         cartState,
         allProduct,
         allProductState,
+        isDark,
       ];
 }

@@ -9,6 +9,7 @@ import '../../../core/utils/constants_manager.dart';
 import '../../../core/utils/routes_manager.dart';
 import '../../../core/utils/strings_manager.dart';
 import '../../../core/utils/values_manager.dart';
+import '../controller/moka_bloc.dart';
 
 class ProductItems extends StatelessWidget {
   final item;
@@ -33,7 +34,9 @@ class ProductItems extends StatelessWidget {
             padding: const EdgeInsets.symmetric(
                 horizontal: AppPadding.p8, vertical: AppPadding.p12),
             decoration: BoxDecoration(
-              color: AppColor.white,
+              color: MokaBloc.get(context).state.isDark
+                  ? AppColor.scaffoldDarkBackGround
+                  : AppColor.scaffoldLightBackGround,
               borderRadius: BorderRadius.circular(AppSize.s12),
               border: Border.all(
                 color: AppColor.lightPrimary,

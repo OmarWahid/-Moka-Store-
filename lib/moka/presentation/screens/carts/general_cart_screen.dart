@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moka_store/core/utils/strings_manager.dart';
+
 import 'carts_screen.dart';
 
 class GeneralCartScreen extends StatelessWidget {

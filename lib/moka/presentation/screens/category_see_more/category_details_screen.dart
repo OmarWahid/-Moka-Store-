@@ -7,6 +7,7 @@ import '../../../../core/utils/font_manager.dart';
 import '../../../../core/utils/icons_manager.dart';
 import '../../../../core/utils/routes_manager.dart';
 import '../../components/products_items.dart';
+import '../../controller/moka_bloc.dart';
 
 class CategoryItemsScreen extends StatelessWidget {
   final item;
@@ -52,7 +53,9 @@ class CategoryItemsScreen extends StatelessWidget {
                         ),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(AppSize.s12),
-                            color: AppColor.scaffoldBackGround,
+                            color: MokaBloc.get(context).state.isDark
+                                ? AppColor.scaffoldDarkBackGround
+                                : AppColor.scaffoldLightBackGround,
                             border: Border.all(
                               color: AppColor.grey,
                             )),

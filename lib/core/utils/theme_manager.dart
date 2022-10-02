@@ -15,7 +15,7 @@ ThemeData getApplicationLightTheme() {
     primaryColorDark: AppColor.darkPrimary,
     disabledColor: AppColor.grey1,
     splashColor: AppColor.grey1,
-    scaffoldBackgroundColor: AppColor.scaffoldBackGround,
+    scaffoldBackgroundColor: AppColor.scaffoldLightBackGround,
     colorScheme: ColorScheme.fromSwatch().copyWith(
       primary: AppColor.primary,
       secondary: AppColor.primary,
@@ -30,7 +30,7 @@ ThemeData getApplicationLightTheme() {
     // app bar theme
     appBarTheme: AppBarTheme(
         centerTitle: true,
-        color: AppColor.scaffoldBackGround,
+        color: AppColor.scaffoldLightBackGround,
         elevation: AppConstants.cD0,
         shadowColor: AppColor.lightPrimary,
         systemOverlayStyle: const SystemUiOverlayStyle(
@@ -116,5 +116,49 @@ ThemeData getApplicationLightTheme() {
 }
 
 ThemeData getApplicationDarkTheme() {
-  return ThemeData();
+  return ThemeData(
+    // main colors
+    primaryColor: AppColor.primary,
+    primaryColorLight: AppColor.lightPrimary,
+    primaryColorDark: AppColor.darkPrimary,
+    disabledColor: AppColor.grey1,
+    splashColor: AppColor.grey1,
+    scaffoldBackgroundColor: AppColor.scaffoldDarkBackGround,
+    colorScheme: ColorScheme.fromSwatch().copyWith(
+      primary: AppColor.primary,
+      secondary: AppColor.primary,
+    ),
+    // app bar theme
+    appBarTheme: AppBarTheme(
+        centerTitle: true,
+        color: AppColor.scaffoldDarkBackGround,
+        elevation: AppConstants.cD0,
+        shadowColor: AppColor.lightPrimary,
+        systemOverlayStyle: const SystemUiOverlayStyle(
+          statusBarColor: AppColor.transparent,
+          statusBarIconBrightness: Brightness.light,
+        ),
+        iconTheme:
+            const IconThemeData(color: AppColor.white, size: AppFontSize.s28),
+        titleTextStyle: getBoldStyle(
+          fontSize: AppFontSize.s22,
+          color: AppColor.white,
+        )),
+
+    // text theme
+    textTheme: TextTheme(
+      displayLarge:
+          getBoldStyle(color: AppColor.white, fontSize: AppFontSize.s22),
+      headlineLarge:
+          getSemiBoldStyle(color: AppColor.white, fontSize: AppFontSize.s24),
+      titleMedium:
+          getMediumStyle(color: AppColor.white, fontSize: AppFontSize.s16),
+      bodyLarge:
+          getMediumStyle(color: AppColor.primary, fontSize: AppFontSize.s14),
+      bodySmall: getRegularStyle(
+        color: AppColor.white,
+        fontSize: AppFontSize.s16,
+      ),
+    ),
+  );
 }

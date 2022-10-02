@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moka_store/moka/presentation/controller/moka_bloc.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -24,16 +25,21 @@ class SettingsScreen extends StatelessWidget {
                 children: [
                   const SizedBox(height: 16),
                   Text("Account",
-                      style: theme.textTheme.headline6
-                          ?.copyWith(fontWeight: FontWeight.w400)),
+                      style: theme.textTheme.headline6?.copyWith(
+                        fontWeight: FontWeight.w400,
+                        color: MokaBloc.get(context).state.isDark
+                            ? Colors.white
+                            : Colors.black,
+                      )),
                   const SizedBox(height: 16),
                   Container(
                     height: 80,
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12),
-                      // color: Get.isDarkMode ? ColorConstants.gray700 : Colors.grey.shade200
-                      color: Colors.grey.shade200,
+                      color: MokaBloc.get(context).state.isDark
+                          ? Colors.grey.shade700
+                          : Colors.grey.shade200,
                     ),
                     child: Row(
                       children: [
@@ -41,14 +47,19 @@ class SettingsScreen extends StatelessWidget {
                           width: 52,
                           height: 52,
                           decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Colors.grey.shade300
-
-                              //color: Get.isDarkMode ? ColorConstants.gray500 : Colors.grey.shade300
-                              ),
+                            shape: BoxShape.circle,
+                            color: MokaBloc.get(context).state.isDark
+                                ? Colors.grey.shade500
+                                : Colors.grey.shade300,
+                          ),
                           child: Center(
-                            child: Icon(Icons.person,
-                                size: 32, color: Colors.grey.shade500),
+                            child: Icon(
+                              Icons.person,
+                              size: 32,
+                              color: MokaBloc.get(context).state.isDark
+                                  ? Colors.grey.shade300
+                                  : Colors.grey.shade500, //500 when light
+                            ),
                           ),
                         ),
                         const SizedBox(width: 16),
@@ -62,33 +73,38 @@ class SettingsScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 32),
                   Text("Settings",
-                      style: theme.textTheme.headline6
-                          ?.copyWith(fontWeight: FontWeight.w400)),
+                      style: theme.textTheme.headline6?.copyWith(
+                        fontWeight: FontWeight.w400,
+                        color: MokaBloc.get(context).state.isDark
+                            ? Colors.white
+                            : Colors.black,
+                      )),
                   const SizedBox(height: 16),
-                  // GetBuilder<ThemesController>(builder: (_) {
                   _buildListTile(
-                    'Appearance', Icons.dark_mode,
-                    //  _.theme.toCapitalized(),
-                    'Light',
+                    context,
+                    'Appearance',
+                    Icons.dark_mode,
+                    MokaBloc.get(context).state.isDark ? 'Dark' : 'Light',
                     Colors.purple,
                     theme,
-                    onTab: () => _showAppearanceModal(theme, 'light', context),
+                    onTab: () => _showAppearanceModal(theme, context),
                   ),
                   // }),
                   const SizedBox(height: 8),
-                  _buildListTile('Language', Icons.language, 'English',
+                  _buildListTile(context, 'Language', Icons.language, 'English',
                       Colors.orange, theme,
                       onTab: () {}),
                   const SizedBox(height: 8),
-                  _buildListTile('Notifications', Icons.notifications_outlined,
-                      '', Colors.blue, theme,
-                      onTab: () {}),
-                  const SizedBox(height: 8),
-                  _buildListTile('Help', Icons.help, '', Colors.green, theme,
+                  _buildListTile(context, 'Notifications',
+                      Icons.notifications_outlined, '', Colors.blue, theme,
                       onTab: () {}),
                   const SizedBox(height: 8),
                   _buildListTile(
-                      'Logout', Icons.exit_to_app, '', Colors.red, theme,
+                      context, 'Help', Icons.help, '', Colors.green, theme,
+                      onTab: () {}),
+                  const SizedBox(height: 8),
+                  _buildListTile(context, 'Logout', Icons.exit_to_app, '',
+                      Colors.red, theme,
                       onTab: () {}),
                 ],
               ),
@@ -103,7 +119,7 @@ class SettingsScreen extends StatelessWidget {
   }
 
   Widget _buildListTile(
-      String title, IconData icon, String trailing, Color color, theme,
+      context, String title, IconData icon, String trailing, Color color, theme,
       {onTab}) {
     return ListTile(
         contentPadding: const EdgeInsets.all(0),
@@ -121,19 +137,27 @@ class SettingsScreen extends StatelessWidget {
         ),
         title: Text(
           title,
-          style: theme.textTheme.subtitle1?.copyWith(color: Colors.black),
+          style: theme.textTheme.subtitle1?.copyWith(
+            color: MokaBloc.get(context).state.isDark
+                ? Colors.white
+                : Colors.black,
+          ),
         ),
         trailing: SizedBox(
-          width: 90,
+          width: 100,
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Text(trailing,
                   style: theme.textTheme.bodyText1
                       ?.copyWith(color: Colors.grey.shade600)),
-              const Icon(
+              const SizedBox(width: 12),
+              Icon(
                 Icons.arrow_forward_ios,
                 size: 16,
+                color: MokaBloc.get(context).state.isDark
+                    ? Colors.white
+                    : Colors.black,
               ),
             ],
           ),
@@ -141,7 +165,8 @@ class SettingsScreen extends StatelessWidget {
         onTap: onTab);
   }
 
-  _showAppearanceModal(ThemeData theme, String current, context) {
+  _showAppearanceModal(ThemeData theme, context) {
+    bool current = MokaBloc.get(context).state.isDark;
     showModalBottomSheet(
         context: context,
         shape: const RoundedRectangleBorder(
@@ -151,8 +176,9 @@ class SettingsScreen extends StatelessWidget {
             padding: const EdgeInsets.all(16),
             height: 320,
             decoration: BoxDecoration(
-                //  color: Get.isDarkMode ? Colors.grey.shade900 : Colors.grey.shade200,
-                color: Colors.grey.shade200,
+                color: MokaBloc.get(context).state.isDark
+                    ? Colors.grey.shade900
+                    : Colors.grey.shade200,
                 borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(20),
                   topRight: Radius.circular(20),
@@ -165,7 +191,9 @@ class SettingsScreen extends StatelessWidget {
                   "Select a Theme",
                   style: theme.textTheme.subtitle1!.copyWith(
                     fontWeight: FontWeight.w400,
-                    color: Colors.black,
+                    color: MokaBloc.get(context).state.isDark
+                        ? Colors.white
+                        : Colors.black,
                   ),
                 ),
                 const SizedBox(height: 32),
@@ -176,13 +204,13 @@ class SettingsScreen extends StatelessWidget {
                   ),
                   title: Text("Light", style: theme.textTheme.bodyText1),
                   onTap: () {
-                    // _themesController.setTheme('light');
+                    MokaBloc.get(context).add(changeModeEvent(false));
+
                     Navigator.pop(context);
                   },
                   trailing: Icon(
                     Icons.check,
-                    color:
-                        current == 'light' ? Colors.green : Colors.transparent,
+                    color: current == false ? Colors.green : Colors.transparent,
                   ),
                 ),
                 const SizedBox(height: 16),
@@ -193,13 +221,12 @@ class SettingsScreen extends StatelessWidget {
                   ),
                   title: Text("Dark", style: theme.textTheme.bodyText1),
                   onTap: () {
-                    // _themesController.setTheme('dark');
+                    MokaBloc.get(context).add(changeModeEvent(true));
                     Navigator.pop(context);
                   },
                   trailing: Icon(
                     Icons.check,
-                    color:
-                        current == 'dark' ? Colors.orange : Colors.transparent,
+                    color: current == true ? Colors.green : Colors.transparent,
                   ),
                 ),
                 const SizedBox(height: 16),
@@ -210,14 +237,12 @@ class SettingsScreen extends StatelessWidget {
                   ),
                   title: Text("System", style: theme.textTheme.bodyText1),
                   onTap: () {
-                    // _themesController.setTheme('system');
                     Navigator.pop(context);
                   },
                   trailing: Icon(
                     Icons.check,
-                    color: current == 'system'
-                        ? Colors.blueGrey
-                        : Colors.transparent,
+                    color:
+                        current == 'system' ? Colors.green : Colors.transparent,
                   ),
                 ),
               ],

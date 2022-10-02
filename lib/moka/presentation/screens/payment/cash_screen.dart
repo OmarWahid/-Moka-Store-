@@ -8,6 +8,7 @@ import 'package:moka_store/core/utils/values_manager.dart';
 
 import '../../../../config/shared/component.dart';
 import '../../../../core/utils/icons_manager.dart';
+import '../../controller/moka_bloc.dart';
 
 class CashScreen extends StatelessWidget {
   const CashScreen({Key? key}) : super(key: key);
@@ -55,7 +56,9 @@ class CashScreen extends StatelessWidget {
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.titleMedium!.copyWith(
                     fontSize: AppFontSize.s18,
-                    color: AppColor.black,
+                    color: MokaBloc.get(context).state.isDark
+                        ? AppColor.white
+                        : AppColor.black,
                     height: AppSize.s1_5,
                   ),
             ),
@@ -69,7 +72,9 @@ class CashScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(AppSize.s14),
               ),
               elevation: AppConstants.cD10,
-              color: AppColor.scaffoldBackGround,
+              color: MokaBloc.get(context).state.isDark
+                  ? AppColor.scaffoldDarkBackGround
+                  : AppColor.scaffoldLightBackGround,
               child: Padding(
                 padding: const EdgeInsets.all(AppSize.s8),
                 child: SelectableText(

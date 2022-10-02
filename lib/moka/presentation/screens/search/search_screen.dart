@@ -8,6 +8,7 @@ import '../../../../core/utils/font_manager.dart';
 import '../../../../core/utils/icons_manager.dart';
 import '../../../../core/utils/routes_manager.dart';
 import '../../../../core/utils/strings_manager.dart';
+import '../../controller/moka_bloc.dart';
 
 var searchController = TextEditingController();
 
@@ -103,8 +104,11 @@ class _SearchScreenState extends State<SearchScreen> {
                         },
                         padding: EdgeInsets.zero,
                         constraints: const BoxConstraints(),
-                        icon: const Icon(
+                        icon: Icon(
                           Icons.arrow_back,
+                          color: MokaBloc.get(context).state.isDark
+                              ? AppColor.white
+                              : AppColor.black,
                         )),
                     const SizedBox(
                       width: AppSize.s16,
@@ -121,7 +125,11 @@ class _SearchScreenState extends State<SearchScreen> {
                                 : TextDirection.ltr,
                         onChanged: (value) => searchFilter(value),
                         cursorColor: AppColor.primary,
-                        style: const TextStyle(color: AppColor.black),
+                        style: TextStyle(
+                          color: MokaBloc.get(context).state.isDark
+                              ? AppColor.white
+                              : AppColor.black,
+                        ),
                         decoration: InputDecoration(
                           hintText: AppStrings.search,
                           hintStyle: const TextStyle(
@@ -133,7 +141,9 @@ class _SearchScreenState extends State<SearchScreen> {
                             color: AppColor.grey,
                           ),
                           filled: true,
-                          fillColor: AppColor.scaffoldBackGround,
+                          fillColor: MokaBloc.get(context).state.isDark
+                              ? AppColor.scaffoldDarkBackGround
+                              : AppColor.scaffoldLightBackGround,
                           contentPadding: const EdgeInsets.symmetric(
                             horizontal: AppSize.s10,
                             vertical: AppSize.s16,
@@ -141,7 +151,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(AppSize.s30),
                             borderSide: const BorderSide(
-                              color: AppColor.grey,
+                              color: AppColor.white,
                             ),
                           ),
                           focusedBorder: OutlineInputBorder(
@@ -285,7 +295,9 @@ class _SearchScreenState extends State<SearchScreen> {
                                 decoration: BoxDecoration(
                                   borderRadius:
                                       BorderRadius.circular(AppSize.s10),
-                                  color: AppColor.white,
+                                  color: MokaBloc.get(context).state.isDark
+                                      ? AppColor.blueBlack
+                                      : AppColor.white,
                                 ),
                                 padding: const EdgeInsets.symmetric(
                                   horizontal: AppPadding.p12,
@@ -390,7 +402,9 @@ class _SearchScreenState extends State<SearchScreen> {
                                 decoration: BoxDecoration(
                                   borderRadius:
                                       BorderRadius.circular(AppSize.s10),
-                                  color: AppColor.white,
+                                  color: MokaBloc.get(context).state.isDark
+                                      ? AppColor.blueBlack
+                                      : AppColor.white,
                                 ),
                                 padding: const EdgeInsets.symmetric(
                                   horizontal: AppPadding.p12,

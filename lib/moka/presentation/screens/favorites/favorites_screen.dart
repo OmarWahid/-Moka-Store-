@@ -47,7 +47,9 @@ class FavoritesScreen extends StatelessWidget {
                       ),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(AppSize.s16),
-                        color: AppColor.white,
+                        color: MokaBloc.get(context).state.isDark
+                            ? AppColor.scaffoldDarkBackGround
+                            : AppColor.scaffoldLightBackGround,
                         border: Border.all(color: AppColor.lightGrey),
                       ),
                       child: Row(

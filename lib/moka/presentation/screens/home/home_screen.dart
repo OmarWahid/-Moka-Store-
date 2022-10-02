@@ -7,6 +7,7 @@ import '../../../../core/utils/icons_manager.dart';
 import '../../../../core/utils/routes_manager.dart';
 import '../../../../core/utils/strings_manager.dart';
 import '../../../../core/utils/values_manager.dart';
+import '../../controller/moka_bloc.dart';
 import 'category_items.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -42,7 +43,9 @@ class HomeScreen extends StatelessWidget {
                       ),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(AppSize.s12),
-                          color: AppColor.scaffoldBackGround,
+                          color: MokaBloc.get(context).state.isDark
+                              ? AppColor.scaffoldDarkBackGround
+                              : AppColor.scaffoldLightBackGround,
                           border: Border.all(
                             color: AppColor.grey,
                           )),

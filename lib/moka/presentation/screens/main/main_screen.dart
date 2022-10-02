@@ -48,7 +48,8 @@ class MainScreen extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return BlocBuilder<MokaBloc, MokaState>(
       buildWhen: (previous, current) =>
-          previous.currentIndexNavigation != current.currentIndexNavigation,
+          previous.currentIndexNavigation != current.currentIndexNavigation ||
+          previous.isDark != current.isDark,
       builder: (context, state) {
         var bloc = MokaBloc.get(context);
         log('main Bloccccccccc');
@@ -132,6 +133,9 @@ class MainScreen extends StatelessWidget {
                         left: AppPadding.p16, right: AppPadding.p14),
                     child: SvgPicture.asset(
                       ImageAssets.menu,
+                      color: MokaBloc.get(context).state.isDark
+                          ? AppColor.white
+                          : AppColor.black,
                     ),
                   ),
                 )),
@@ -209,7 +213,11 @@ class MenuScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   InkWell(
-                    onTap: () async {},
+                    onTap: () async {
+                      MokaBloc.get(context)
+                          .add(const ChangeIndexEvent(AppConstants.cI3));
+                      zoomDrawerController.close!();
+                    },
                     splashColor: AppColor.lightGrey,
                     borderRadius: BorderRadius.circular(AppSize.s16),
                     child: Padding(

@@ -76,6 +76,7 @@ void backToHome(BuildContext context, String text) {
           content: Text(text,
               style: Theme.of(context).textTheme.displayLarge!.copyWith(
                     fontSize: AppSize.s16,
+                    color: AppColor.black,
                   )),
           actionsAlignment: MainAxisAlignment.spaceEvenly,
           actions: [
