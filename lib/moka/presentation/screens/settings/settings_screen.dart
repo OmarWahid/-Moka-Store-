@@ -93,7 +93,9 @@ class SettingsScreen extends StatelessWidget {
                   const SizedBox(height: 8),
                   _buildListTile(context, 'Language', Icons.language, 'English',
                       Colors.orange, theme,
-                      onTab: () {}),
+                      onTab: () {
+                        _showAppearanceModalLang(theme, context);
+                      }),
                   const SizedBox(height: 8),
                   _buildListTile(context, 'Notifications',
                       Icons.notifications_outlined, '', Colors.blue, theme,
@@ -170,18 +172,18 @@ class SettingsScreen extends StatelessWidget {
     showModalBottomSheet(
         context: context,
         shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+            borderRadius: BorderRadius.vertical(top: Radius.circular(26))),
         builder: (context) {
           return Container(
             padding: const EdgeInsets.all(16),
-            height: 320,
+            height: 300,
             decoration: BoxDecoration(
                 color: MokaBloc.get(context).state.isDark
                     ? Colors.grey.shade900
                     : Colors.grey.shade200,
                 borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  topRight: Radius.circular(20),
+                  topLeft: Radius.circular(26),
+                  topRight: Radius.circular(26),
                 )),
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -243,6 +245,73 @@ class SettingsScreen extends StatelessWidget {
                     Icons.check,
                     color:
                         current == 'system' ? Colors.green : Colors.transparent,
+                  ),
+                ),
+              ],
+            ),
+          );
+        });
+  }
+
+  _showAppearanceModalLang(ThemeData theme, context) {
+    bool current = MokaBloc.get(context).state.isDark;
+    showModalBottomSheet(
+        context: context,
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(26))),
+        builder: (context) {
+          return Container(
+            padding: const EdgeInsets.all(16),
+            height: 240,
+            decoration: BoxDecoration(
+                color: MokaBloc.get(context).state.isDark
+                    ? Colors.grey.shade900
+                    : Colors.grey.shade200,
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(26),
+                  topRight: Radius.circular(26),
+                )),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Select a Language",
+                  style: theme.textTheme.subtitle1!.copyWith(
+                    fontWeight: FontWeight.w400,
+                    color: MokaBloc.get(context).state.isDark
+                        ? Colors.white
+                        : Colors.black,
+                  ),
+                ),
+                const SizedBox(height: 32),
+                ListTile(
+                  leading: const Icon(
+                    Icons.language,
+                    color: Colors.blue,
+                  ),
+                  title: Text("English", style: theme.textTheme.bodyText1),
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  trailing: Icon(
+                    Icons.check,
+                    color: current == false ? Colors.green : Colors.transparent,
+                  ),
+                ),
+                const SizedBox(height: 16),
+                ListTile(
+                  leading: const Icon(
+                    Icons.language,
+                    color: Colors.orange,
+                  ),
+                  title: Text("Arabic", style: theme.textTheme.bodyText1),
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  trailing: Icon(
+                    Icons.check,
+                    color: current == true ? Colors.green : Colors.transparent,
                   ),
                 ),
               ],

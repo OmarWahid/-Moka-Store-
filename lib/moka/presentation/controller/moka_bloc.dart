@@ -29,6 +29,7 @@ import '../../domain/use_cases/get_women_use_case.dart';
 import '../screens/settings/settings_screen.dart';
 
 part 'moka_event.dart';
+
 part 'moka_state.dart';
 
 class MokaBloc extends Bloc<MokaEvent, MokaState> {
@@ -399,13 +400,11 @@ class MokaBloc extends Bloc<MokaEvent, MokaState> {
 
   FutureOr<void> _getReferenceCode(
       getReferenceCodeEvent event, Emitter<MokaState> emit) async {
-    print('object : 5');
     final result = await getReferenceCodeUseCase();
     ApiConstance.REFCODE = result.data['id'].toString();
     emit(state.copyWith(
       cartState: RequestState.loaded,
     ));
-    print('object : DIV');
     emit(state.copyWith(
       cartState: RequestState.error,
     ));
@@ -413,8 +412,8 @@ class MokaBloc extends Bloc<MokaEvent, MokaState> {
 
   FutureOr<void> _changeMode(
       changeModeEvent event, Emitter<MokaState> emit) async {
-    if (event.isDark == true) {
-      print('isDark : true');
+    if (event.isDark == true && state.isDark == false) {
+      print('dark');
       await CacheHelper.saveData(key: AppConstants.isDark, value: true)
           .then((value) {
         emit(state.copyWith(
@@ -423,8 +422,8 @@ class MokaBloc extends Bloc<MokaEvent, MokaState> {
       });
     }
 
-    if (event.isDark == false) {
-      print('isDark : false');
+    if (event.isDark == false && state.isDark == true) {
+      print('light');
       await CacheHelper.saveData(key: AppConstants.isDark, value: false)
           .then((value) {
         emit(state.copyWith(
