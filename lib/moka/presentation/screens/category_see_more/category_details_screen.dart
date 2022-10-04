@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:moka_store/core/utils/strings_manager.dart';
 import 'package:moka_store/core/utils/values_manager.dart';
 
+import '../../../../config/locale/app_localizations.dart';
 import '../../../../core/utils/color_manager.dart';
 import '../../../../core/utils/font_manager.dart';
 import '../../../../core/utils/icons_manager.dart';
@@ -60,12 +61,14 @@ class CategoryItemsScreen extends StatelessWidget {
                               color: AppColor.grey,
                             )),
                         child: Row(
-                          children: const [
+                          children: [
                             Icon(IconBroken.Search, color: AppColor.grey),
                             SizedBox(
                               width: AppSize.s12,
                             ),
-                            Text(AppStrings.search,
+                            Text(
+                                AppLocalizations.of(context)!
+                                    .translate('search')!,
                                 style: TextStyle(color: AppColor.grey)),
                           ],
                         ),

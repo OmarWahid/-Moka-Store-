@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:moka_store/core/utils/font_manager.dart';
 
+import '../../../config/locale/app_localizations.dart';
 import '../../../core/utils/constants_manager.dart';
-import '../../../core/utils/strings_manager.dart';
 import '../../../core/utils/values_manager.dart';
 import '../controller/moka_bloc.dart';
 
 class BasicNoFoundScreen extends StatelessWidget {
   final String image;
-
   final String name;
 
   const BasicNoFoundScreen({required this.image, required this.name, Key? key})
@@ -31,9 +30,7 @@ class BasicNoFoundScreen extends StatelessWidget {
             height: AppSize.s10,
           ),
           Text(
-            (name == AppStrings.noSearch)
-                ? AppStrings.basicNoSearchWord
-                : AppStrings.basicNoFoundWord,
+            AppLocalizations.of(context)!.translate('no_found')!,
             style: Theme.of(context)
                 .textTheme
                 .bodySmall!
@@ -43,21 +40,20 @@ class BasicNoFoundScreen extends StatelessWidget {
           const SizedBox(
             height: AppSize.s20,
           ),
-          if (name != AppStrings.noSearch)
-            SizedBox(
-              width: AppSize.s250,
-              height: AppSize.s50,
-              child: ElevatedButton(
-                onPressed: () {
-                  MokaBloc.get(context)
-                      .add(const ChangeIndexEvent(AppConstants.cI0));
-                },
-                child: Text(
-                  AppStrings.startOrdering,
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
+          SizedBox(
+            width: AppSize.s250,
+            height: AppSize.s50,
+            child: ElevatedButton(
+              onPressed: () {
+                MokaBloc.get(context)
+                    .add(const ChangeIndexEvent(AppConstants.cI0));
+              },
+              child: Text(
+                AppLocalizations.of(context)!.translate('start_ordering')!,
+                style: Theme.of(context).textTheme.titleMedium,
               ),
-            )
+            ),
+          )
         ],
       ),
     );

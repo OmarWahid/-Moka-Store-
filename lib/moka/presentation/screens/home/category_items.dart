@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moka_store/core/utils/color_manager.dart';
 import 'package:moka_store/core/utils/routes_manager.dart';
 
+import '../../../../config/locale/app_localizations.dart';
 import '../../../../config/shared/constant.dart';
 import '../../../../core/utils/constants_manager.dart';
 import '../../../../core/utils/strings_manager.dart';
@@ -98,27 +99,27 @@ class ComponentCategories extends Equatable {
 List<ComponentCategories> listCategory(context) => [
       ComponentCategories(
         image: AppStrings.categoryImage3,
-        name: AppStrings.categoryName3,
+        name: AppLocalizations.of(context)!.translate('electronics')!,
         list: electronicsProductConstant!,
       ),
       ComponentCategories(
         image: AppStrings.categoryImage1,
-        name: AppStrings.categoryName1,
+        name: AppLocalizations.of(context)!.translate('men')!,
         list: menProductConstant!,
       ),
       ComponentCategories(
         image: AppStrings.categoryImage2,
-        name: AppStrings.categoryName2,
+        name: AppLocalizations.of(context)!.translate('women')!,
         list: womenProductConstant!,
       ),
       ComponentCategories(
         image: AppStrings.categoryImage4,
-        name: AppStrings.categoryName4,
+        name: AppLocalizations.of(context)!.translate('watches')!,
         list: watchesProductConstant!,
       ),
       ComponentCategories(
         image: AppStrings.categoryImage5,
-        name: AppStrings.categoryName5,
+        name: AppLocalizations.of(context)!.translate('supermarket')!,
         list: supermarketProductConstant!,
       ),
     ];

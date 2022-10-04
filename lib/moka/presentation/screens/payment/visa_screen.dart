@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:moka_store/core/network/api_constance.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
+import '../../../../config/locale/app_localizations.dart';
 import '../../../../config/shared/component.dart';
 import '../../../../core/utils/color_manager.dart';
 import '../../../../core/utils/icons_manager.dart';
@@ -26,7 +27,8 @@ class VisaScreen extends StatelessWidget {
       child: SafeArea(
         child: Scaffold(
           appBar: AppBar(
-            title: const Text(AppStrings.visa,
+            title: Text(
+                AppLocalizations.of(context)!.translate('payment_by_card')!,
                 style: TextStyle(color: Colors.black)),
             backgroundColor: AppColor.paymobBackGround,
             leading: IconButton(

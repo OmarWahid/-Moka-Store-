@@ -20,6 +20,7 @@ import 'package:moka_store/moka/presentation/screens/favorites/favorites_screen.
 import 'package:moka_store/moka/presentation/screens/home/home_screen.dart';
 import 'package:sqflite/sqflite.dart';
 
+import '../../../config/locale/app_localizations.dart';
 import '../../../config/shared/constant.dart';
 import '../../../core/utils/enums_manager.dart';
 import '../../domain/use_cases/get_first_token_use_case.dart';
@@ -213,7 +214,7 @@ class MokaBloc extends Bloc<MokaEvent, MokaState> {
           ]);
       add(GetFromCartDatabaseEvent());
       Fluttertoast.showToast(
-        msg: 'Added successfully ✔',
+        msg: AppLocalizations.of(event.context)!.translate('add_success')!,
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.TOP,
         timeInSecForIosWeb: 1,

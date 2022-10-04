@@ -27,7 +27,7 @@ class SettingsScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 16),
-                  Text("Account",
+                  Text(AppLocalizations.of(context)!.translate('account')!,
                       style: theme.textTheme.headline6?.copyWith(
                         fontWeight: FontWeight.w400,
                         color: MokaBloc.get(context).state.isDark
@@ -66,7 +66,8 @@ class SettingsScreen extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(width: 16),
-                        Text("Login / Register",
+                        Text(
+                            "${AppLocalizations.of(context)!.translate('login')!} / ${AppLocalizations.of(context)!.translate('register')!}",
                             style: theme.textTheme.subtitle1?.copyWith(
                               fontWeight: FontWeight.w400,
                               color: Colors.blue,
@@ -75,7 +76,7 @@ class SettingsScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 32),
-                  Text("Settings",
+                  Text(AppLocalizations.of(context)!.translate('settings')!,
                       style: theme.textTheme.headline6?.copyWith(
                         fontWeight: FontWeight.w400,
                         color: MokaBloc.get(context).state.isDark
@@ -85,9 +86,12 @@ class SettingsScreen extends StatelessWidget {
                   const SizedBox(height: 16),
                   _buildListTile(
                     context,
-                    'Appearance',
+                    AppLocalizations.of(context)!.translate('appearance')!,
                     Icons.dark_mode,
-                    MokaBloc.get(context).state.isDark ? 'Dark' : 'Light',
+                    MokaBloc.get(context).state.isDark
+                        ? AppLocalizations.of(context)!.translate('dark_mode')!
+                        : AppLocalizations.of(context)!
+                            .translate('light_mode')!,
                     Colors.purple,
                     theme,
                     onTab: () => _showAppearanceModal(theme, context),
@@ -96,30 +100,46 @@ class SettingsScreen extends StatelessWidget {
                   const SizedBox(height: 8),
                   _buildListTile(
                       context,
-                      'Language',
+                      AppLocalizations.of(context)!.translate('language')!,
                       Icons.language,
                       AppLocalizations.of(context)!.isEnLocale
-                          ? 'English'
-                          : 'Arabic',
+                          ? AppLocalizations.of(context)!.translate('english')!
+                          : AppLocalizations.of(context)!.translate('arabic')!,
                       Colors.orange,
                       theme, onTab: () {
                     _showAppearanceModalLang(theme, context);
                   }),
                   const SizedBox(height: 8),
-                  _buildListTile(context, 'Notifications',
-                      Icons.notifications_outlined, '', Colors.blue, theme,
+                  _buildListTile(
+                      context,
+                      AppLocalizations.of(context)!.translate('notifications')!,
+                      Icons.notifications_outlined,
+                      '',
+                      Colors.blue,
+                      theme,
                       onTab: () {}),
                   const SizedBox(height: 8),
                   _buildListTile(
-                      context, 'Help', Icons.help, '', Colors.green, theme,
+                      context,
+                      AppLocalizations.of(context)!.translate('help')!,
+                      Icons.help,
+                      '',
+                      Colors.green,
+                      theme,
                       onTab: () {}),
                   const SizedBox(height: 8),
-                  _buildListTile(context, 'Logout', Icons.exit_to_app, '',
-                      Colors.red, theme,
+                  _buildListTile(
+                      context,
+                      AppLocalizations.of(context)!.translate('logout')!,
+                      Icons.exit_to_app,
+                      '',
+                      Colors.red,
+                      theme,
                       onTab: () {}),
                 ],
               ),
-              Text("Version 1.0.0",
+              Text(
+                  "${AppLocalizations.of(context)!.translate('version')!} 1.0.0",
                   style: theme.textTheme.bodyText2
                       ?.copyWith(color: Colors.grey.shade500)),
             ],
@@ -155,7 +175,7 @@ class SettingsScreen extends StatelessWidget {
           ),
         ),
         trailing: SizedBox(
-          width: 100,
+          width: 130,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
@@ -199,7 +219,7 @@ class SettingsScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Select a Theme",
+                  AppLocalizations.of(context)!.translate('select_theme')!,
                   style: theme.textTheme.subtitle1!.copyWith(
                     fontWeight: FontWeight.w400,
                     color: MokaBloc.get(context).state.isDark
@@ -213,7 +233,9 @@ class SettingsScreen extends StatelessWidget {
                     Icons.brightness_5,
                     color: Colors.blue,
                   ),
-                  title: Text("Light", style: theme.textTheme.bodyText1),
+                  title: Text(
+                      AppLocalizations.of(context)!.translate('light_mode')!,
+                      style: theme.textTheme.bodyText1),
                   onTap: () {
                     MokaBloc.get(context).add(changeModeEvent(false));
 
@@ -230,7 +252,9 @@ class SettingsScreen extends StatelessWidget {
                     Icons.brightness_2,
                     color: Colors.orange,
                   ),
-                  title: Text("Dark", style: theme.textTheme.bodyText1),
+                  title: Text(
+                      AppLocalizations.of(context)!.translate('dark_mode')!,
+                      style: theme.textTheme.bodyText1),
                   onTap: () {
                     MokaBloc.get(context).add(changeModeEvent(true));
                     Navigator.pop(context);
@@ -246,15 +270,12 @@ class SettingsScreen extends StatelessWidget {
                     Icons.brightness_6,
                     color: Colors.blueGrey,
                   ),
-                  title: Text("System", style: theme.textTheme.bodyText1),
+                  title: Text(
+                      AppLocalizations.of(context)!.translate('system_mode')!,
+                      style: theme.textTheme.bodyText1),
                   onTap: () {
                     Navigator.pop(context);
                   },
-                  trailing: Icon(
-                    Icons.check,
-                    color:
-                        current == 'system' ? Colors.green : Colors.transparent,
-                  ),
                 ),
               ],
             ),
@@ -263,7 +284,6 @@ class SettingsScreen extends StatelessWidget {
   }
 
   _showAppearanceModalLang(ThemeData theme, context) {
-    bool current = MokaBloc.get(context).state.isDark;
     showModalBottomSheet(
         context: context,
         shape: const RoundedRectangleBorder(
@@ -285,7 +305,7 @@ class SettingsScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Select a Language",
+                  AppLocalizations.of(context)!.translate('select_language')!,
                   style: theme.textTheme.subtitle1!.copyWith(
                     fontWeight: FontWeight.w400,
                     color: MokaBloc.get(context).state.isDark
@@ -299,7 +319,9 @@ class SettingsScreen extends StatelessWidget {
                     Icons.translate,
                     color: Colors.blue,
                   ),
-                  title: Text("English", style: theme.textTheme.bodyText1),
+                  title: Text(
+                      AppLocalizations.of(context)!.translate('english')!,
+                      style: theme.textTheme.bodyText1),
                   onTap: () {
                     if (!AppLocalizations.of(context)!.isEnLocale) {
                       MokaBloc.get(context)
@@ -320,7 +342,9 @@ class SettingsScreen extends StatelessWidget {
                     Icons.g_translate,
                     color: Colors.orange,
                   ),
-                  title: Text("Arabic", style: theme.textTheme.bodyText1),
+                  title: Text(
+                      AppLocalizations.of(context)!.translate('arabic')!,
+                      style: theme.textTheme.bodyText1),
                   onTap: () {
                     if (AppLocalizations.of(context)!.isEnLocale) {
                       MokaBloc.get(context)

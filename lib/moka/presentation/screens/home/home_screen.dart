@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:moka_store/moka/presentation/screens/home/product_part.dart';
 
+import '../../../../config/locale/app_localizations.dart';
 import '../../../../config/shared/constant.dart';
 import '../../../../core/utils/color_manager.dart';
 import '../../../../core/utils/icons_manager.dart';
 import '../../../../core/utils/routes_manager.dart';
-import '../../../../core/utils/strings_manager.dart';
 import '../../../../core/utils/values_manager.dart';
 import '../../controller/moka_bloc.dart';
 import 'category_items.dart';
@@ -55,7 +55,9 @@ class HomeScreen extends StatelessWidget {
                           const SizedBox(
                             width: AppSize.s12,
                           ),
-                          Text(AppStrings.search,
+                          Text(
+                              AppLocalizations.of(context)!
+                                  .translate('search')!,
                               style: Theme.of(context)
                                   .textTheme
                                   .titleMedium!
@@ -91,7 +93,7 @@ class HomeScreen extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  AppStrings.categories,
+                  AppLocalizations.of(context)!.translate('categories')!,
                   style: Theme.of(context).textTheme.displayLarge,
                 ),
                 const Spacer(),
@@ -105,16 +107,16 @@ class HomeScreen extends StatelessWidget {
                     child: Row(
                       children: [
                         Text(
-                          AppStrings.seeMore,
+                          AppLocalizations.of(context)!.translate('see_more')!,
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
                         const SizedBox(
-                          width: AppSize.s2,
+                          width: AppSize.s3,
                         ),
                         const Icon(
-                          IconBroken.Arrow___Right_2,
+                          Icons.arrow_forward_ios,
                           color: AppColor.primary,
-                          size: AppSize.s18,
+                          size: AppSize.s16,
                         )
                       ],
                     ),
@@ -132,7 +134,7 @@ class HomeScreen extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  AppStrings.products,
+                  AppLocalizations.of(context)!.translate('products')!,
                   style: Theme.of(context).textTheme.displayLarge,
                 ),
                 const Spacer(),
@@ -141,7 +143,7 @@ class HomeScreen extends StatelessWidget {
                     Navigator.pushNamed(context, Routes.categoryItemsRoute,
                         arguments: [
                           allProductConstant,
-                          AppStrings.allProducts
+                          AppLocalizations.of(context)!.translate('products')!,
                         ]);
                   },
                   child: Padding(
@@ -150,16 +152,16 @@ class HomeScreen extends StatelessWidget {
                     child: Row(
                       children: [
                         Text(
-                          AppStrings.seeMore,
+                          AppLocalizations.of(context)!.translate('see_more')!,
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
                         const SizedBox(
-                          width: AppSize.s2,
+                          width: AppSize.s3,
                         ),
                         const Icon(
-                          IconBroken.Arrow___Right_2,
+                          Icons.arrow_forward_ios,
                           color: AppColor.primary,
-                          size: AppSize.s18,
+                          size: AppSize.s16,
                         )
                       ],
                     ),

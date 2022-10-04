@@ -71,16 +71,18 @@ class InsertToCartDatabaseEvent extends MokaEvent {
   final String price;
   final String image;
   final int count;
+  final context;
 
   const InsertToCartDatabaseEvent({
     required this.name,
     required this.price,
     required this.image,
     this.count = 1,
+    this.context,
   });
 
   @override
-  List<Object> get props => [name, price, image, count];
+  List<Object> get props => [name, price, image, count, context];
 }
 
 class GetFromFavoriteDatabaseEvent extends MokaEvent {

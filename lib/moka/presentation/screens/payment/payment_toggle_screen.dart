@@ -5,6 +5,7 @@ import 'package:moka_store/core/utils/routes_manager.dart';
 import 'package:moka_store/core/utils/strings_manager.dart';
 import 'package:moka_store/core/utils/values_manager.dart';
 
+import '../../../../config/locale/app_localizations.dart';
 import '../../../../config/shared/component.dart';
 
 class ToggleScreen extends StatelessWidget {
@@ -19,7 +20,7 @@ class ToggleScreen extends StatelessWidget {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text(AppStrings.appName),
+          title: Text(AppLocalizations.of(context)!.translate('app_name')!),
         ),
         body: Padding(
           padding: const EdgeInsets.only(
@@ -58,7 +59,8 @@ class ToggleScreen extends StatelessWidget {
                         ),
                         const SizedBox(height: AppSize.s10),
                         Text(
-                          AppStrings.paymentWithCard,
+                          AppLocalizations.of(context)!
+                              .translate('payment_by_card')!,
                           style: Theme.of(context)
                               .textTheme
                               .displayLarge!
@@ -98,7 +100,8 @@ class ToggleScreen extends StatelessWidget {
                         ),
                         const SizedBox(height: AppSize.s10),
                         Text(
-                          AppStrings.paymentWithCash,
+                          AppLocalizations.of(context)!
+                              .translate('payment_by_cash')!,
                           style: Theme.of(context)
                               .textTheme
                               .displayLarge!

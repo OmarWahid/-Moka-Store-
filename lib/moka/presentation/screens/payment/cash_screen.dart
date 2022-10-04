@@ -6,6 +6,7 @@ import 'package:moka_store/core/utils/font_manager.dart';
 import 'package:moka_store/core/utils/strings_manager.dart';
 import 'package:moka_store/core/utils/values_manager.dart';
 
+import '../../../../config/locale/app_localizations.dart';
 import '../../../../config/shared/component.dart';
 import '../../../../core/utils/icons_manager.dart';
 import '../../controller/moka_bloc.dart';
@@ -17,7 +18,8 @@ class CashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(AppStrings.cash),
+        title:
+            Text(AppLocalizations.of(context)!.translate('payment_by_cash')!),
         actions: [
           Padding(
             padding: const EdgeInsets.only(
@@ -46,13 +48,13 @@ class CashScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              AppStrings.goSupermarket,
+              AppLocalizations.of(context)!.translate('go_to_supermarket')!,
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.displayLarge,
             ),
             const SizedBox(height: AppSize.s20),
             Text(
-              AppStrings.orderNum,
+              AppLocalizations.of(context)!.translate('number_of_order')!,
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.titleMedium!.copyWith(
                     fontSize: AppFontSize.s18,

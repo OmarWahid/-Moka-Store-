@@ -2,8 +2,8 @@ import 'package:animate_do/animate_do.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:moka_store/core/utils/routes_manager.dart';
-import 'package:moka_store/core/utils/strings_manager.dart';
 
+import '../../../../config/locale/app_localizations.dart';
 import '../../../../core/utils/color_manager.dart';
 import '../../../../core/utils/constants_manager.dart';
 import '../../../../core/utils/values_manager.dart';
@@ -16,7 +16,9 @@ class CategorySeeMoreScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(AppStrings.categories),
+        title: Text(
+          AppLocalizations.of(context)!.translate('categories')!,
+        ),
       ),
       body: ListView.separated(
         physics: const BouncingScrollPhysics(),

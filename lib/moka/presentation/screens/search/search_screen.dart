@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:moka_store/core/utils/assets_manager.dart';
 import 'package:moka_store/core/utils/values_manager.dart';
 
+import '../../../../config/locale/app_localizations.dart';
 import '../../../../core/utils/color_manager.dart';
 import '../../../../core/utils/font_manager.dart';
 import '../../../../core/utils/icons_manager.dart';
@@ -131,7 +132,8 @@ class _SearchScreenState extends State<SearchScreen> {
                               : AppColor.black,
                         ),
                         decoration: InputDecoration(
-                          hintText: AppStrings.search,
+                          hintText: AppLocalizations.of(context)!
+                              .translate('search')!,
                           hintStyle: const TextStyle(
                             color: AppColor.grey,
                             fontSize: AppFontSize.s16,
@@ -176,7 +178,9 @@ class _SearchScreenState extends State<SearchScreen> {
                       const SizedBox(
                         height: AppSize.s30,
                       ),
-                      Text(AppStrings.searchFor,
+                      Text(
+                          AppLocalizations.of(context)!
+                              .translate('what_are_you_looking_for')!,
                           style: Theme.of(context)
                               .textTheme
                               .headlineLarge!
@@ -207,7 +211,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             child: Row(
                               children: [
                                 Text(
-                                  '${AppStrings.resultFor} “$search”',
+                                  '${AppLocalizations.of(context)!.translate('results_for')!} “$search”',
                                   style: Theme.of(context)
                                       .textTheme
                                       .headlineLarge!
@@ -216,7 +220,8 @@ class _SearchScreenState extends State<SearchScreen> {
                                       ),
                                 ),
                                 const Spacer(),
-                                Text(AppStrings.noFound,
+                                Text(
+                                    '${AppLocalizations.of(context)!.translate('found')!} 0',
                                     style:
                                         Theme.of(context).textTheme.bodyLarge!),
                               ],
@@ -232,7 +237,10 @@ class _SearchScreenState extends State<SearchScreen> {
                           const SizedBox(
                             height: AppSize.s14,
                           ),
-                          Text(AppStrings.noSearch,
+                          Text(
+                              AppLocalizations.of(context)!
+                                  .translate('item_not_found')!,
+                              textAlign: TextAlign.center,
                               style: Theme.of(context)
                                   .textTheme
                                   .displayLarge!
@@ -244,7 +252,8 @@ class _SearchScreenState extends State<SearchScreen> {
                           ),
                           Text(
                             textAlign: TextAlign.center,
-                            AppStrings.basicNoSearchWord,
+                            AppLocalizations.of(context)!
+                                .translate('basic_not_found')!,
                             style:
                                 Theme.of(context).textTheme.bodySmall!.copyWith(
                                       fontSize: AppFontSize.s14,
@@ -267,7 +276,7 @@ class _SearchScreenState extends State<SearchScreen> {
       children: [
         if (listSearch.length > 0)
           Text(
-            '${AppStrings.found} ${listSearch.length} ${AppStrings.result}',
+            '${AppLocalizations.of(context)!.translate('found')!} ${listSearch.length} ${AppLocalizations.of(context)!.translate('results')!}',
             style: Theme.of(context).textTheme.headlineLarge,
           ),
         Row(

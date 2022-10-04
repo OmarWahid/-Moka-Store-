@@ -35,6 +35,7 @@ class MainHomeZoom extends StatelessWidget {
       showShadow: true,
       angle: -AppSize.s12,
       mainScreenTapClose: true,
+      isRtl: AppLocalizations.of(context)!.isEnLocale ? false : true,
       drawerShadowsBackgroundColor: Colors.grey[300]!,
       slideWidth: MediaQuery.of(context).size.width * 0.65,
     );
@@ -231,7 +232,7 @@ class MenuScreen extends StatelessWidget {
                             width: AppSize.s12,
                           ),
                           Text(
-                            AppStrings.profile,
+                            AppLocalizations.of(context)!.translate('profile')!,
                             style: Theme.of(context).textTheme.titleMedium,
                           ),
                         ],
@@ -258,7 +259,8 @@ class MenuScreen extends StatelessWidget {
                             width: AppSize.s12,
                           ),
                           Text(
-                            AppStrings.favorites,
+                            AppLocalizations.of(context)!
+                                .translate('favorites')!,
                             style: Theme.of(context).textTheme.titleMedium,
                           ),
                         ],
@@ -285,7 +287,7 @@ class MenuScreen extends StatelessWidget {
                             width: AppSize.s12,
                           ),
                           Text(
-                            AppStrings.order,
+                            AppLocalizations.of(context)!.translate('orders')!,
                             style: Theme.of(context).textTheme.titleMedium,
                           ),
                         ],
@@ -308,7 +310,8 @@ class MenuScreen extends StatelessWidget {
                             width: AppSize.s12,
                           ),
                           Text(
-                            AppStrings.delivery,
+                            AppLocalizations.of(context)!
+                                .translate('delivery')!,
                             style: Theme.of(context).textTheme.titleMedium,
                           ),
                         ],
@@ -335,7 +338,8 @@ class MenuScreen extends StatelessWidget {
                             width: AppSize.s12,
                           ),
                           Text(
-                            AppStrings.settings,
+                            AppLocalizations.of(context)!
+                                .translate('settings')!,
                             style: Theme.of(context).textTheme.titleMedium,
                           ),
                         ],

@@ -10,6 +10,7 @@ import 'package:moka_store/core/utils/strings_manager.dart';
 import 'package:moka_store/core/utils/values_manager.dart';
 import 'package:readmore/readmore.dart';
 
+import '../../../../config/locale/app_localizations.dart';
 import '../../../../config/shared/component.dart';
 import '../../../../core/utils/assets_manager.dart';
 import '../../../../core/utils/color_manager.dart';
@@ -82,7 +83,7 @@ class ItemDetailsScreen extends StatelessWidget {
                         );
                       },
                       icon: Icon(
-                        Icons.arrow_back_ios_new,
+                        Icons.arrow_back_ios,
                         size: AppSize.s20,
                         color: Theme.of(context).scaffoldBackgroundColor,
                       ),
@@ -188,7 +189,8 @@ class ItemDetailsScreen extends StatelessWidget {
                                           const SizedBox(
                                             height: AppSize.s4,
                                           ),
-                                          Text('${item.rate} Ratings',
+                                          Text(
+                                              '${item.rate} ${AppLocalizations.of(context)!.translate('ratings')!}',
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .bodySmall!
@@ -265,7 +267,9 @@ class ItemDetailsScreen extends StatelessWidget {
                                           Padding(
                                             padding: const EdgeInsetsDirectional
                                                 .only(start: AppPadding.p24),
-                                            child: Text(AppStrings.perPiece,
+                                            child: Text(
+                                                AppLocalizations.of(context)!
+                                                    .translate('per_piece')!,
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .bodyLarge!
@@ -277,11 +281,15 @@ class ItemDetailsScreen extends StatelessWidget {
                                       ),
                                     ],
                                   ),
-                                  const SizedBox(
-                                    height: AppSize.s16,
+                                  SizedBox(
+                                    height:
+                                        AppLocalizations.of(context)!.isEnLocale
+                                            ? AppSize.s16
+                                            : AppSize.s0,
                                   ),
                                   Text(
-                                    AppStrings.description,
+                                    AppLocalizations.of(context)!
+                                        .translate('description')!,
                                     style: Theme.of(context)
                                         .textTheme
                                         .displayLarge!
@@ -297,8 +305,12 @@ class ItemDetailsScreen extends StatelessWidget {
                                     trimLines: 3,
                                     colorClickableText: AppColor.primary,
                                     trimMode: TrimMode.Line,
-                                    trimCollapsedText: AppStrings.showMore,
-                                    trimExpandedText: AppStrings.showLess,
+                                    trimCollapsedText:
+                                        AppLocalizations.of(context)!
+                                            .translate('show_more')!,
+                                    trimExpandedText:
+                                        AppLocalizations.of(context)!
+                                            .translate('show_less')!,
                                     moreStyle: Theme.of(context)
                                         .textTheme
                                         .displayLarge!
@@ -326,7 +338,8 @@ class ItemDetailsScreen extends StatelessWidget {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                          AppStrings.numberPortions,
+                                          AppLocalizations.of(context)!
+                                              .translate('number_of_pieces')!,
                                           style: Theme.of(context)
                                               .textTheme
                                               .displayLarge!
@@ -342,7 +355,6 @@ class ItemDetailsScreen extends StatelessWidget {
                                               previous.itemCount !=
                                               current.itemCount,
                                           builder: (context, state) {
-                                            print('object omar');
                                             return Expanded(
                                               child: SizedBox(
                                                 width: double.infinity,
@@ -517,7 +529,6 @@ class ItemDetailsScreen extends StatelessWidget {
 
   Widget buildMoreItem({
     required BuildContext context,
-    // required ItemDetailsScreenCubit cubit,
   }) {
     return Stack(
       alignment: AlignmentDirectional.centerEnd,
@@ -539,7 +550,7 @@ class ItemDetailsScreen extends StatelessWidget {
                       height: AppSize.s20,
                     ),
                     Text(
-                      AppStrings.totalPrice,
+                      AppLocalizations.of(context)!.translate('total_price')!,
                       style: Theme.of(context)
                           .textTheme
                           .bodySmall!
@@ -552,7 +563,6 @@ class ItemDetailsScreen extends StatelessWidget {
                       buildWhen: (previous, current) =>
                           previous.itemCount != current.itemCount,
                       builder: (context, state) {
-                        print('object ahmed');
                         return Text(
                             '${AppStrings.poundLE} ${double.parse((realPriceN0Coma * state.itemCount).toStringAsFixed(2))}',
                             style: Theme.of(context)
@@ -583,11 +593,12 @@ class ItemDetailsScreen extends StatelessWidget {
                               name: item.title,
                               price: realPrice,
                               count: MokaBloc.get(context).state.itemCount,
+                              context: context,
                             ));
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
+                            children: [
                               Icon(
                                 Icons.add_shopping_cart,
                                 size: AppSize.s20,
@@ -597,7 +608,8 @@ class ItemDetailsScreen extends StatelessWidget {
                                 width: AppSize.s20,
                               ),
                               Text(
-                                AppStrings.addCart,
+                                AppLocalizations.of(context)!
+                                    .translate('add_to_cart')!,
                                 style: TextStyle(
                                   color: AppColor.white,
                                   fontSize: AppFontSize.s16,
