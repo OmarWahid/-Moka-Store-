@@ -11,6 +11,7 @@ import 'package:moka_store/core/utils/icons_manager.dart';
 import 'package:moka_store/core/utils/strings_manager.dart';
 import 'package:moka_store/core/utils/values_manager.dart';
 
+import '../../../../config/locale/app_localizations.dart';
 import '../../../../core/utils/color_manager.dart';
 import '../../controller/moka_bloc.dart';
 import 'list_icons.dart';
@@ -121,7 +122,8 @@ class MainScreen extends StatelessWidget {
           },
           child: Scaffold(
             appBar: AppBar(
-                title: const Text(AppStrings.appName),
+                title:
+                    Text(AppLocalizations.of(context)!.translate('app_name')!),
                 leading: InkWell(
                   onTap: () {
                     zoomDrawerController.toggle!();

@@ -10,7 +10,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
+  flutter_localizations:
+    sdk: flutter
   cupertino_icons: ^1.0.2
   dio: ^4.0.6
   dartz: ^0.10.1
@@ -56,6 +57,8 @@ flutter:
   assets:
     - assets/images/
     - assets/market.json
+    - lang/ar.json
+    - lang/en.json
 
   fonts:
     - family: IconBroken

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:moka_store/core/utils/constants_manager.dart';
 import 'package:moka_store/moka/presentation/controller/moka_bloc.dart';
+
+import '../../../../config/locale/app_localizations.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -91,11 +94,17 @@ class SettingsScreen extends StatelessWidget {
                   ),
                   // }),
                   const SizedBox(height: 8),
-                  _buildListTile(context, 'Language', Icons.language, 'English',
-                      Colors.orange, theme,
-                      onTab: () {
-                        _showAppearanceModalLang(theme, context);
-                      }),
+                  _buildListTile(
+                      context,
+                      'Language',
+                      Icons.language,
+                      AppLocalizations.of(context)!.isEnLocale
+                          ? 'English'
+                          : 'Arabic',
+                      Colors.orange,
+                      theme, onTab: () {
+                    _showAppearanceModalLang(theme, context);
+                  }),
                   const SizedBox(height: 8),
                   _buildListTile(context, 'Notifications',
                       Icons.notifications_outlined, '', Colors.blue, theme,
@@ -287,31 +296,43 @@ class SettingsScreen extends StatelessWidget {
                 const SizedBox(height: 32),
                 ListTile(
                   leading: const Icon(
-                    Icons.language,
+                    Icons.translate,
                     color: Colors.blue,
                   ),
                   title: Text("English", style: theme.textTheme.bodyText1),
                   onTap: () {
+                    if (!AppLocalizations.of(context)!.isEnLocale) {
+                      MokaBloc.get(context)
+                          .add(changeLangEvent(AppConstants.englishCode));
+                    }
                     Navigator.pop(context);
                   },
                   trailing: Icon(
                     Icons.check,
-                    color: current == false ? Colors.green : Colors.transparent,
+                    color: AppLocalizations.of(context)!.isEnLocale
+                        ? Colors.green
+                        : Colors.transparent,
                   ),
                 ),
                 const SizedBox(height: 16),
                 ListTile(
                   leading: const Icon(
-                    Icons.language,
+                    Icons.g_translate,
                     color: Colors.orange,
                   ),
                   title: Text("Arabic", style: theme.textTheme.bodyText1),
                   onTap: () {
+                    if (AppLocalizations.of(context)!.isEnLocale) {
+                      MokaBloc.get(context)
+                          .add(changeLangEvent(AppConstants.arabicCode));
+                    }
                     Navigator.pop(context);
                   },
                   trailing: Icon(
                     Icons.check,
-                    color: current == true ? Colors.green : Colors.transparent,
+                    color: !AppLocalizations.of(context)!.isEnLocale
+                        ? Colors.green
+                        : Colors.transparent,
                   ),
                 ),
               ],

@@ -62,4 +62,14 @@ class MokaRepository extends BaseMokaRepository {
   Future<Response> getReferenceCode() {
     return baseMokaRemoteDataSource.getReferenceCode();
   }
+
+  @override
+  Future<bool> changeLang(String langCode) {
+    return baseMokaRemoteDataSource.changeLang(langCode);
+  }
+
+  @override
+  Future<String> getSavedLang() {
+    return baseMokaRemoteDataSource.getSavedLang();
+  }
 }

@@ -23,4 +23,8 @@ abstract class BaseMokaRepository {
   Future<Response<dynamic>> getFinalTokenKiosk(String price);
 
   Future<Response<dynamic>> getReferenceCode();
+
+  Future<bool> changeLang(String langCode);
+
+  Future<String> getSavedLang();
 }

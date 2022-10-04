@@ -203,3 +203,17 @@ class changeModeEvent extends MokaEvent {
   @override
   List<Object> get props => [isDark];
 }
+
+class changeLangEvent extends MokaEvent {
+  final String langCode;
+
+  const changeLangEvent(this.langCode);
+
+  @override
+  List<Object> get props => [langCode];
+}
+
+class getSavedLangEvent extends MokaEvent {
+  @override
+  List<Object?> get props => [];
+}

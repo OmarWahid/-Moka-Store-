@@ -14,6 +14,9 @@ class AppConstants {
   // constants keys
   static const String cacheOnBoardingKey = 'onBoarding';
   static const String isDark = 'isDark';
+  static const String englishCode = 'en';
+  static const String arabicCode = 'ar';
+  static const String locale = 'locale';
 
   // constants double values
   static const double cD0 = 0;

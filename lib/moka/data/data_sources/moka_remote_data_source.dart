@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
+import 'package:moka_store/core/utils/constants_manager.dart';
 import 'package:moka_store/moka/data/models/item_details_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../config/helper/dio_helper.dart';
 import '../../../core/network/api_constance.dart';
@@ -27,6 +29,10 @@ abstract class BaseMokaRemoteDataSource {
   Future<Response<dynamic>> getFinalTokenKiosk(String price);
 
   Future<Response<dynamic>> getReferenceCode();
+
+  Future<bool> changeLang(String langCode);
+
+  Future<String> getSavedLang();
 }
 
 /// no handle error because it's handled in the repository
@@ -35,6 +41,10 @@ abstract class BaseMokaRemoteDataSource {
 /// i know it's wrong but it's just a test
 
 class MokaRemoteDataSource extends BaseMokaRemoteDataSource {
+  final SharedPreferences sharedPreferences;
+
+  MokaRemoteDataSource(this.sharedPreferences);
+
   @override
   Future<List<ItemDetailsModel>> getElectronicsProduct() async {
     List<ItemDetailsModel> result = [];
@@ -196,5 +206,17 @@ class MokaRemoteDataSource extends BaseMokaRemoteDataSource {
           "payment_token": ApiConstance.PAYMENT_FINAL_TOKEN_KIOSK
         });
     return response;
+  }
+
+  @override
+  Future<bool> changeLang(String langCode) async {
+    return await sharedPreferences.setString(AppConstants.locale, langCode);
+  }
+
+  @override
+  Future<String> getSavedLang() async {
+    return sharedPreferences.containsKey(AppConstants.locale)
+        ? sharedPreferences.getString(AppConstants.locale)!
+        : AppConstants.englishCode;
   }
 }

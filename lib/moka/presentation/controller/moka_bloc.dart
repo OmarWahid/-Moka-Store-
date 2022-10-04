@@ -8,6 +8,7 @@ import 'package:moka_store/config/helper/cache_helper.dart';
 import 'package:moka_store/core/network/api_constance.dart';
 import 'package:moka_store/core/utils/constants_manager.dart';
 import 'package:moka_store/moka/domain/entities/item_details.dart';
+import 'package:moka_store/moka/domain/use_cases/change_lang_use_case.dart';
 import 'package:moka_store/moka/domain/use_cases/get_all_use_case.dart';
 import 'package:moka_store/moka/domain/use_cases/get_electronics_use_case.dart';
 import 'package:moka_store/moka/domain/use_cases/get_final_token_card_visa_use_case.dart';
@@ -23,13 +24,13 @@ import '../../../config/shared/constant.dart';
 import '../../../core/utils/enums_manager.dart';
 import '../../domain/use_cases/get_first_token_use_case.dart';
 import '../../domain/use_cases/get_men_use_case.dart';
+import '../../domain/use_cases/get_saved_lang_use_case.dart';
 import '../../domain/use_cases/get_supermarket_use_case.dart';
 import '../../domain/use_cases/get_watches_use_case.dart';
 import '../../domain/use_cases/get_women_use_case.dart';
 import '../screens/settings/settings_screen.dart';
 
 part 'moka_event.dart';
-
 part 'moka_state.dart';
 
 class MokaBloc extends Bloc<MokaEvent, MokaState> {
@@ -44,6 +45,8 @@ class MokaBloc extends Bloc<MokaEvent, MokaState> {
   final GetFinalTokenCardVisaUseCase getFinalTokenCardVisaUseCase;
   final GetFinalTokenKioskUseCase getFinalTokenKioskUseCase;
   final GetReferenceCodeUseCase getReferenceCodeUseCase;
+  final GetSavedLangUseCase getSavedLangUseCase;
+  final ChangeLangUseCase changeLangUseCase;
 
   static MokaBloc get(context) => BlocProvider.of(context);
 
@@ -59,6 +62,8 @@ class MokaBloc extends Bloc<MokaEvent, MokaState> {
     this.getFinalTokenCardVisaUseCase,
     this.getFinalTokenKioskUseCase,
     this.getReferenceCodeUseCase,
+    this.getSavedLangUseCase,
+    this.changeLangUseCase,
   ) : super(const MokaState()) {
     on<ChangeIndexEvent>(_changeIndexNavigationBar);
     on<IsSelectedItemProductsEvent>(_isSelected);
@@ -85,6 +90,8 @@ class MokaBloc extends Bloc<MokaEvent, MokaState> {
     on<getFinalTokenKioskEvent>(_getFinalTokenKiosk);
     on<getReferenceCodeEvent>(_getReferenceCode);
     on<changeModeEvent>(_changeMode);
+    on<changeLangEvent>(_changeLang);
+    on<getSavedLangEvent>(_getSavedLang);
   }
 
   FutureOr<void> _isSelected(
@@ -413,7 +420,6 @@ class MokaBloc extends Bloc<MokaEvent, MokaState> {
   FutureOr<void> _changeMode(
       changeModeEvent event, Emitter<MokaState> emit) async {
     if (event.isDark == true && state.isDark == false) {
-      print('dark');
       await CacheHelper.saveData(key: AppConstants.isDark, value: true)
           .then((value) {
         emit(state.copyWith(
@@ -423,7 +429,6 @@ class MokaBloc extends Bloc<MokaEvent, MokaState> {
     }
 
     if (event.isDark == false && state.isDark == true) {
-      print('light');
       await CacheHelper.saveData(key: AppConstants.isDark, value: false)
           .then((value) {
         emit(state.copyWith(
@@ -431,5 +436,21 @@ class MokaBloc extends Bloc<MokaEvent, MokaState> {
         ));
       });
     }
+  }
+
+  FutureOr<void> _changeLang(
+      changeLangEvent event, Emitter<MokaState> emit) async {
+    await changeLangUseCase.call(event.langCode);
+    emit(state.copyWith(
+      locale: Locale(event.langCode),
+    ));
+  }
+
+  FutureOr<void> _getSavedLang(
+      getSavedLangEvent event, Emitter<MokaState> emit) async {
+    final response = await getSavedLangUseCase.call();
+    emit(state.copyWith(
+      locale: Locale(response),
+    ));
   }
 }

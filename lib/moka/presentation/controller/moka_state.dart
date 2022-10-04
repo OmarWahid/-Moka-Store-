@@ -32,6 +32,7 @@ class MokaState extends Equatable {
   final RequestState cartState;
 
   final bool isDark;
+  final Locale locale;
 
   const MokaState({
     this.cartItems = const [],
@@ -58,6 +59,7 @@ class MokaState extends Equatable {
     this.currentIndexNavigation = 0,
     this.menuRefresh = 0,
     this.isDark = false,
+    this.locale = const Locale(AppConstants.englishCode),
     this.screens = const [
       HomeScreen(),
       FavoritesScreen(),
@@ -99,6 +101,7 @@ class MokaState extends Equatable {
     itemSelected,
     int? currentIndexItem,
     bool? isDark,
+    Locale? locale,
   }) {
     return MokaState(
       cartItems: cartItems ?? this.cartItems,
@@ -128,6 +131,7 @@ class MokaState extends Equatable {
       allProduct: allProduct ?? this.allProduct,
       allProductState: allProductState ?? this.allProductState,
       isDark: isDark ?? this.isDark,
+      locale: locale ?? this.locale,
     );
   }
 
@@ -160,5 +164,6 @@ class MokaState extends Equatable {
         allProduct,
         allProductState,
         isDark,
+        locale,
       ];
 }
