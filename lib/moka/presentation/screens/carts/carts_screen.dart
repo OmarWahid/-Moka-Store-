@@ -34,7 +34,6 @@ class CartsScreen extends StatelessWidget {
             context,
             Routes.toggleRoute,
           );
-          print(': buildWhen: listener: ${state.cartState}');
         }
       },
       builder: (context, state) {

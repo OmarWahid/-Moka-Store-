@@ -28,19 +28,16 @@ class _SearchScreenState extends State<SearchScreen> {
   bool isLoading = true;
   String? search;
   List<dynamic> liftList = [];
-
   List<dynamic> rightList = [];
 
   @override
   void initState() {
     listSearch = [];
-
     super.initState();
   }
 
   void searchFilter(String value) {
     dynamic result;
-
     if (value.isEmpty) {
       result = [];
     } else {

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -31,7 +29,7 @@ class ProductPart extends StatelessWidget {
           previous.currentProduct != current.currentProduct,
       builder: (context, state) {
         var bloc = MokaBloc.get(context);
-        log('Home Bloccccccccc');
+        print('Home Bloccccccccc');
 
         switch (state.currentProductState) {
           case RequestState.loading:
