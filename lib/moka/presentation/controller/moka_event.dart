@@ -219,3 +219,22 @@ class getSavedLangEvent extends MokaEvent {
   @override
   List<Object?> get props => [];
 }
+
+class setFilterProductEvent extends MokaEvent {
+  final List<ItemDetails> filterProduct;
+
+  const setFilterProductEvent(this.filterProduct);
+
+  @override
+  List<Object> get props => [filterProduct];
+}
+
+class openFilterEvent extends MokaEvent {
+  @override
+  List<Object?> get props => [];
+}
+
+class closeFilterEvent extends MokaEvent {
+  @override
+  List<Object?> get props => [];
+}

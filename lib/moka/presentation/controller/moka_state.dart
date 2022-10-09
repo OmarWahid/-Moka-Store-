@@ -33,6 +33,8 @@ class MokaState extends Equatable {
 
   final bool isDark;
   final Locale locale;
+  final List<ItemDetails> filterProduct;
+  final bool isOpenFilter;
 
   const MokaState({
     this.cartItems = const [],
@@ -47,6 +49,7 @@ class MokaState extends Equatable {
     this.womenProduct = const [],
     this.watchesProduct = const [],
     this.allProduct = const [],
+    this.isOpenFilter = false,
     this.electronicsProductState = RequestState.loading,
     this.currentProductState = RequestState.loading,
     this.supermarketProductState = RequestState.loading,
@@ -58,6 +61,7 @@ class MokaState extends Equatable {
     this.currentIndexItem = 0,
     this.currentIndexNavigation = 0,
     this.menuRefresh = 0,
+    this.filterProduct = const [],
     this.isDark = false,
     this.locale = const Locale(AppConstants.englishCode),
     this.screens = const [
@@ -82,6 +86,7 @@ class MokaState extends Equatable {
     List<Map>? favoritesItems,
     double? totalPrice,
     int? itemCount,
+    bool? isOpenFilter,
     List<ItemDetails>? electronicsProduct,
     List<ItemDetails>? currentProduct,
     List<ItemDetails>? supermarketProduct,
@@ -102,6 +107,7 @@ class MokaState extends Equatable {
     int? currentIndexItem,
     bool? isDark,
     Locale? locale,
+    List<ItemDetails>? filterProduct,
   }) {
     return MokaState(
       cartItems: cartItems ?? this.cartItems,
@@ -132,6 +138,8 @@ class MokaState extends Equatable {
       allProductState: allProductState ?? this.allProductState,
       isDark: isDark ?? this.isDark,
       locale: locale ?? this.locale,
+      filterProduct: filterProduct ?? this.filterProduct,
+      isOpenFilter: isOpenFilter ?? this.isOpenFilter,
     );
   }
 
@@ -165,5 +173,7 @@ class MokaState extends Equatable {
         allProductState,
         isDark,
         locale,
+        filterProduct,
+        isOpenFilter,
       ];
 }

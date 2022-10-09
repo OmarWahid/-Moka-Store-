@@ -93,6 +93,9 @@ class MokaBloc extends Bloc<MokaEvent, MokaState> {
     on<changeModeEvent>(_changeMode);
     on<changeLangEvent>(_changeLang);
     on<getSavedLangEvent>(_getSavedLang);
+    on<setFilterProductEvent>(_setFilterProduct);
+    on<openFilterEvent>(_openFilter);
+    on<closeFilterEvent>(_closeFilter);
   }
 
   FutureOr<void> _isSelected(
@@ -452,6 +455,27 @@ class MokaBloc extends Bloc<MokaEvent, MokaState> {
     final response = await getSavedLangUseCase.call();
     emit(state.copyWith(
       locale: Locale(response),
+    ));
+  }
+
+  FutureOr<void> _setFilterProduct(
+      setFilterProductEvent event, Emitter<MokaState> emit) {
+    emit(state.copyWith(
+      filterProduct: event.filterProduct,
+    ));
+  }
+
+  FutureOr<void> _openFilter(openFilterEvent event, Emitter<MokaState> emit) {
+    print(state.isOpenFilter);
+    emit(state.copyWith(
+      isOpenFilter: state.isOpenFilter == false ? true : false,
+    ));
+    print(state.isOpenFilter);
+  }
+
+  FutureOr<void> _closeFilter(closeFilterEvent event, Emitter<MokaState> emit) {
+    emit(state.copyWith(
+      isOpenFilter: false,
     ));
   }
 }
